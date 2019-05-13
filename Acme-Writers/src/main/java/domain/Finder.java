@@ -25,7 +25,7 @@ public class Finder extends DomainEntity {
 	//Atributes
 	private String				keyWord;
 	private Integer				minNumWords;
-	private Integer				maxMumWords;
+	private Integer				maxNumWords;
 	private String				language;
 	private Date				lastUpdate;
 
@@ -54,12 +54,12 @@ public class Finder extends DomainEntity {
 	}
 
 	@Min(1)
-	public Integer getMaxMumWords() {
-		return this.maxMumWords;
+	public Integer getMaxNumWords() {
+		return this.maxNumWords;
 	}
 
-	public void setMaxMumWords(final Integer maxMumWords) {
-		this.maxMumWords = maxMumWords;
+	public void setMaxNumWords(final Integer maxNumWords) {
+		this.maxNumWords = maxNumWords;
 	}
 
 	public String getLanguage() {
