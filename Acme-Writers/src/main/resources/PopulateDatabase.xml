@@ -1,62 +1,1161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
-	<!-- User accounts -->
 
-	<bean id="userAccount1" class="security.UserAccount">
+	<!-- User accounts (admin) -->
+	<bean id="userAccount0" class="security.UserAccount">
 		<property name="username" value="admin" />
-		<property name="password" value="FDB8CD304EB2317D10C95D797A4BD7492560F55F" />
+		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
+					<property name="authority" value="ADMINISTRATOR" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-
+	
+	<!-- User accounts (sponsor)-->
+	
+	<bean id="userAccount1" class="security.UserAccount">
+		<property name="username" value="sponsor0" />
+		<property name="password" value="3c004c81ad1758df81046fa03c2cb651" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
+		<property name="username" value="sponsor1" />
+		<property name="password" value="42c63ad66d4dc07ed17753772bef96d6" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="sponsor2" />
+		<property name="password" value="3dc67f80a03324e01b1640f45d107485" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="SPONSOR" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- User accounts (publisher)-->
+	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="publisher0" />
+		<property name="password" value="d577d7c70589d47b15c6a188da0bca3b" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PUBLISHER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="publisher1" />
+		<property name="password" value="c4a675af07781d21b0488cb1fc23cea1" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PUBLISHER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="publisher2" />
+		<property name="password" value="a86cb59a9b6fbc864161dba10e59e24c" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="PUBLISHER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- User accounts (writer)-->
+	
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="writer0" />
+		<property name="password" value="0300ac575be96b13492155662692c838" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="WRITER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="writer1" />
+		<property name="password" value="9a35e01fb81e1aea52ed18d348be5593" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="WRITER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="writer2" />
+		<property name="password" value="79a213d025b1bc8471f5aeb9898beb15" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="WRITER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<!-- User accounts (reader)-->
+	
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="reader0" />
+		<property name="password" value="c496469697d500576871f448f18f4f7a" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="READER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="reader1" />
+		<property name="password" value="6e6fba5122623ea1ec36af3336cdb70c" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="READER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="reader2" />
+		<property name="password" value="273a531832ab8a9e3c2d62cea8230e41" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="READER" />
 				</bean>
 			</list>
 		</property>
 	</bean>
 
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMIN" />
-				</bean>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
-				</bean>
-			</list>
+	<!-- Credit Cards (sponsor)-->
+	
+	<bean class="domain.CreditCard" id="creditcard0">
+		<property value="sponsor0" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<bean class="domain.CreditCard" id="creditcard1">
+		<property value="sponsor1" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<bean class="domain.CreditCard" id="creditcard2">
+		<property value="sponsor2" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<!-- Credit Cards (publisher)-->
+	
+	<bean class="domain.CreditCard" id="creditcard3">
+		<property value="publisher0" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<bean class="domain.CreditCard" id="creditcard4">
+		<property value="publisher1" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<bean class="domain.CreditCard" id="creditcard5">
+		<property value="publisher2" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<!-- Credit Cards (writer)-->
+	
+	<bean class="domain.CreditCard" id="creditcard6">
+		<property value="writer0" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<bean class="domain.CreditCard" id="creditcard7">
+		<property value="writer1" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<bean class="domain.CreditCard" id="creditcard8">
+		<property value="writer2" name="holder" />
+		<property value="VISA" name="make" />
+		<property value="12" name="expirationMonth" />
+		<property value="2020" name="expirationYear" />
+		<property value="999" name="cvv" />
+		<property value="4308543581357191" name="number" />
+	</bean>
+	
+	<!-- MessageBox (admin)-->	
+	
+	<bean id="messageBox0" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
 		</property>
 	</bean>
 	
-	<!-- Other domain beans come here -->	
+	<bean id="messageBox1" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
 	
+	<bean id="messageBox2" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox3" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox4" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (sponsor0)-->	
+	
+	<bean id="messageBox5" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox6" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox7" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox8" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox9" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+
+	<!-- MessageBox (sponsor1)-->	
+	
+	<bean id="messageBox10" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox11" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox12" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox13" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox14" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (sponsor2)-->	
+	
+	<bean id="messageBox15" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox16" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox17" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox18" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox19" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (publisher0)-->	
+	
+	<bean id="messageBox20" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox21" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox22" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox23" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox24" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (publisher1)-->	
+	
+	<bean id="messageBox25" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox26" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox27" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox28" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox29" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (publisher2)-->	
+	
+	<bean id="messageBox30" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox31" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox32" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox33" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox34" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (writer0)-->	
+	
+	<bean id="messageBox35" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox36" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox37" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox38" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox39" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (writer1)-->	
+	
+	<bean id="messageBox40" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox41" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox42" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox43" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox44" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (writer2)-->	
+	
+	<bean id="messageBox45" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox46" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox47" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox48" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox49" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (reader0)-->	
+	
+	<bean id="messageBox50" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox51" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox52" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox53" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox54" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (reader1)-->	
+	
+	<bean id="messageBox55" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox56" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox57" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox58" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox59" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- MessageBox (reader2)-->	
+	
+	<bean id="messageBox60" class="domain.MessageBox">
+		<property name="name" value="In Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox61" class="domain.MessageBox">
+		<property name="name" value="Out Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox62" class="domain.MessageBox">
+		<property name="name" value="Spam Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox63" class="domain.MessageBox">
+		<property name="name" value="Trash Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<bean id="messageBox64" class="domain.MessageBox">
+		<property name="name" value="Notification Box" />
+		<property name="deleteable" value="false" />
+		<property name="messages">
+			<list></list>
+		</property>
+	</bean>
+	
+	<!-- Finders (reader0)-->	
+	
+	<bean class="domain.Finder" id="finder0">
+		<property name="keyWord" value="System" />
+		<property name="minNumWords" value="1" />
+		<property name="maxNumWords" value="1000" />
+		<property name="language" value="es" />
+		<property name="lastUpdate" value="06/01/2018" />		
+	</bean>
+	
+	<!-- Finders (reader1)-->	
+	
+	<bean class="domain.Finder" id="finder1">
+		<property name="keyWord" value="System" />
+		<property name="minNumWords" value="1" />
+		<property name="maxNumWords" value="1000" />
+		<property name="language" value="es" />
+		<property name="lastUpdate" value="06/01/2018" />
+	</bean>
+	
+	<!-- Finders (reader2)-->	
+
+	<bean class="domain.Finder" id="finder2">
+		<property name="keyWord" value="System" />
+		<property name="minNumWords" value="1" />
+		<property name="maxNumWords" value="1000" />
+		<property name="language" value="es" />
+		<property name="lastUpdate" value="06/01/2018" />
+	</bean>	
+	
+	<!-- Admin -->	
+	
+	<bean class="domain.Administrator" id="admin">
+		<property value="name0" name="name" />
+		<property value="surname0" name="surname"/>
+		<property value="https://photo0.com" name="photoURL" />
+		<property value="Street 0" name="address" />
+		<property value="admin@" name="email" />
+		<property value="+00 000-0000000" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox0" />
+				<ref bean="messageBox1" />
+				<ref bean="messageBox2" />
+				<ref bean="messageBox3" />
+				<ref bean="messageBox4" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount0" />
+	</bean>
+
+	<!-- Sponsors (sponsor0) -->	
+	
+	<bean class="domain.Sponsor" id="sponsor0">
+		<property value="name1" name="name" />
+		<property value="surname1" name="surname"/>
+		<property value="https://photo1.com" name="photoURL" />
+		<property value="Street 1" name="address" />
+		<property value="sponsor0@gmail.com" name="email" />
+		<property value="+00 000-0000001" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox5" />
+				<ref bean="messageBox6" />
+				<ref bean="messageBox7" />
+				<ref bean="messageBox8" />
+				<ref bean="messageBox9" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount1" />
+		<property value="company0" name="companyName" />
+		<property name="creditCard" ref="creditcard0" />
+	</bean>
+
+	<!-- Sponsors (sponsor1) -->	
+	
+	<bean class="domain.Sponsor" id="sponsor1">
+		<property value="name2" name="name" />
+		<property value="surname2" name="surname"/>
+		<property value="https://photo2.com" name="photoURL" />
+		<property value="Street 2" name="address" />
+		<property value="sponsor1@gmail.com" name="email" />
+		<property value="+00 000-0000002" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox10" />
+				<ref bean="messageBox11" />
+				<ref bean="messageBox12" />
+				<ref bean="messageBox13" />
+				<ref bean="messageBox14" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount2" />
+		<property value="company1" name="companyName" />
+		<property name="creditCard" ref="creditcard1" />
+	</bean>
+	
+	<!-- Sponsors (sponsor2) -->	
+	
+	<bean class="domain.Sponsor" id="sponsor2">
+		<property value="name3" name="name" />
+		<property value="surname3" name="surname"/>
+		<property value="https://photo3.com" name="photoURL" />
+		<property value="Street 3" name="address" />
+		<property value="sponsor2@gmail.com" name="email" />
+		<property value="+00 000-0000003" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox15" />
+				<ref bean="messageBox16" />
+				<ref bean="messageBox17" />
+				<ref bean="messageBox18" />
+				<ref bean="messageBox19" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount3" />
+		<property value="company0" name="companyName" />
+		<property name="creditCard" ref="creditcard2" />
+	</bean>
+	
+	<!-- Publishers (publisher0) -->	
+	
+	<bean class="domain.Publisher" id="publisher0">
+		<property value="name4" name="name" />
+		<property value="surname4" name="surname"/>
+		<property value="https://photo4.com" name="photoURL" />
+		<property value="Street 4" name="address" />
+		<property value="publisher0@gmail.com" name="email" />
+		<property value="+00 000-0000004" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox20" />
+				<ref bean="messageBox21" />
+				<ref bean="messageBox22" />
+				<ref bean="messageBox23" />
+				<ref bean="messageBox24" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount4" />
+		<property value="VAT0" name="VAT" />
+		<property value="commercialName0" name="commercialName" />
+		<property name="creditCard" ref="creditcard3" />
+	</bean>
+
+	<!-- Publishers (publisher1) -->	
+	
+	<bean class="domain.Publisher" id="publisher1">
+		<property value="name5" name="name" />
+		<property value="surname5" name="surname"/>
+		<property value="https://photo5.com" name="photoURL" />
+		<property value="Street 5" name="address" />
+		<property value="publisher1@gmail.com" name="email" />
+		<property value="+00 000-0000005" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox25" />
+				<ref bean="messageBox26" />
+				<ref bean="messageBox27" />
+				<ref bean="messageBox28" />
+				<ref bean="messageBox29" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount5" />
+		<property value="VAT1" name="VAT" />
+		<property value="commercialName1" name="commercialName" />
+		<property name="creditCard" ref="creditcard4" />
+	</bean>
+	
+	<!-- Publishers (publisher2) -->	
+	
+	<bean class="domain.Publisher" id="publisher2">
+		<property value="name6" name="name" />
+		<property value="surname6" name="surname"/>
+		<property value="https://photo6.com" name="photoURL" />
+		<property value="Street 6" name="address" />
+		<property value="publisher2@gmail.com" name="email" />
+		<property value="+00 000-0000006" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox30" />
+				<ref bean="messageBox31" />
+				<ref bean="messageBox32" />
+				<ref bean="messageBox33" />
+				<ref bean="messageBox34" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount6" />
+		<property value="VAT2" name="VAT" />
+		<property value="commercialName2" name="commercialName" />
+		<property name="creditCard" ref="creditcard5" />
+	</bean>
+
+	<!-- Writers (writer0) -->	
+	
+	<bean class="domain.Writer" id="writer0">
+		<property value="name7" name="name" />
+		<property value="surname7" name="surname"/>
+		<property value="https://photo7.com" name="photoURL" />
+		<property value="Street 7" name="address" />
+		<property value="writer0@gmail.com" name="email" />
+		<property value="+00 000-0000007" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox35" />
+				<ref bean="messageBox36" />
+				<ref bean="messageBox37" />
+				<ref bean="messageBox38" />
+				<ref bean="messageBox39" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount7" />
+		<property name="creditCard" ref="creditcard6" />
+	</bean>
+
+	<!-- Writers (writer1) -->	
+	
+	<bean class="domain.Writer" id="writer1">
+		<property value="name8" name="name" />
+		<property value="surname8" name="surname"/>
+		<property value="https://photo8.com" name="photoURL" />
+		<property value="Street 8" name="address" />
+		<property value="writer1@gmail.com" name="email" />
+		<property value="+00 000-0000008" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox40" />
+				<ref bean="messageBox41" />
+				<ref bean="messageBox42" />
+				<ref bean="messageBox43" />
+				<ref bean="messageBox44" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount8" />
+		<property name="creditCard" ref="creditcard7" />
+	</bean>
+	
+	<!-- Writers (writer2) -->	
+	
+	<bean class="domain.Writer" id="writer2">
+		<property value="name9" name="name" />
+		<property value="surname9" name="surname"/>
+		<property value="https://photo9.com" name="photoURL" />
+		<property value="Street 9" name="address" />
+		<property value="writer2@gmail.com" name="email" />
+		<property value="+00 000-0000009" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox45" />
+				<ref bean="messageBox46" />
+				<ref bean="messageBox47" />
+				<ref bean="messageBox48" />
+				<ref bean="messageBox49" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount9" />
+		<property name="creditCard" ref="creditcard8" />
+	</bean>
+
+	<!-- Readers (reader0) -->	
+	
+	<bean class="domain.Reader" id="reader0">
+		<property value="name10" name="name" />
+		<property value="surname10" name="surname"/>
+		<property value="https://photo10.com" name="photoURL" />
+		<property value="Street 10" name="address" />
+		<property value="reader0@gmail.com" name="email" />
+		<property value="+00 000-0000010" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox50" />
+				<ref bean="messageBox51" />
+				<ref bean="messageBox52" />
+				<ref bean="messageBox53" />
+				<ref bean="messageBox54" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount10" />
+		<property name="finder" ref="finder0" />
+	</bean>
+
+	<!-- Readers (reader1) -->	
+	
+	<bean class="domain.Reader" id="reader1">
+		<property value="name11" name="name" />
+		<property value="surname11" name="surname"/>
+		<property value="https://photo11.com" name="photoURL" />
+		<property value="Street 11" name="address" />
+		<property value="reader1@gmail.com" name="email" />
+		<property value="+00 000-0000011" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox55" />
+				<ref bean="messageBox56" />
+				<ref bean="messageBox57" />
+				<ref bean="messageBox58" />
+				<ref bean="messageBox59" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount11" />
+		<property name="finder" ref="finder1" />
+	</bean>
+
+	<!-- Readers (reader2) -->	
+	
+	<bean class="domain.Reader" id="reader2">
+		<property value="name12" name="name" />
+		<property value="surname12" name="surname"/>
+		<property value="https://photo12.com" name="photoURL" />
+		<property value="Street 12" name="address" />
+		<property value="reader2@gmail.com" name="email" />
+		<property value="+00 000-0000012" name="phoneNumber" />
+		<property value="false" name="spammer" />
+		<property value="false" name="banned" />
+		<property name="messageBoxes">
+			<list>
+				<ref bean="messageBox60" />
+				<ref bean="messageBox61" />
+				<ref bean="messageBox62" />
+				<ref bean="messageBox63" />
+				<ref bean="messageBox64" />
+			</list>
+		</property>
+		<property name="userAccount" ref="userAccount12" />
+		<property name="finder" ref="finder2" />
+	</bean>
+
 </beans>

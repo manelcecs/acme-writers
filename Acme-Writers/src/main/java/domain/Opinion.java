@@ -21,7 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Opinion extends DomainEntity {
 
-	private Boolean	like;
+	private Boolean	positiveOpinion;
 	private String	review;
 	private Date	moment;
 
@@ -29,12 +29,12 @@ public class Opinion extends DomainEntity {
 	private Reader	reader;
 
 
-	public Boolean getLike() {
-		return this.like;
+	public Boolean getPositiveOpinion() {
+		return this.positiveOpinion;
 	}
 
-	public void setLike(final Boolean like) {
-		this.like = like;
+	public void setPositiveOpinion(final Boolean positiveOpinion) {
+		this.positiveOpinion = positiveOpinion;
 	}
 
 	@NotBlank
