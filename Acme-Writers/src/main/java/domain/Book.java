@@ -61,6 +61,7 @@ public class Book extends DomainEntity {
 
 	@SafeHtml
 	@NotBlank
+	@Pattern(regexp = "^EN|ES|IT|FR|DE|OTHER$")
 	public String getLanguage() {
 		return this.language;
 	}
