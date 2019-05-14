@@ -812,7 +812,7 @@
 	
 	<bean class="domain.Finder" id="finder0">
 		<property name="keyWord" value="System" />
-		<property name="minNumWords" value="0" />
+		<property name="minNumWords" value="1" />
 		<property name="maxNumWords" value="1000" />
 		<property name="language" value="es" />
 		<property name="lastUpdate" value="06/01/2018" />		
@@ -822,7 +822,7 @@
 	
 	<bean class="domain.Finder" id="finder1">
 		<property name="keyWord" value="System" />
-		<property name="minNumWords" value="0" />
+		<property name="minNumWords" value="1" />
 		<property name="maxNumWords" value="1000" />
 		<property name="language" value="es" />
 		<property name="lastUpdate" value="06/01/2018" />
@@ -832,7 +832,7 @@
 
 	<bean class="domain.Finder" id="finder2">
 		<property name="keyWord" value="System" />
-		<property name="minNumWords" value="0" />
+		<property name="minNumWords" value="1" />
 		<property name="maxNumWords" value="1000" />
 		<property name="language" value="es" />
 		<property name="lastUpdate" value="06/01/2018" />
