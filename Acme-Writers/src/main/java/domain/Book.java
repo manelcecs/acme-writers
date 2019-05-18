@@ -26,7 +26,7 @@ public class Book extends DomainEntity {
 	private String						description;
 	private String						language;
 	private String						cover;
-	private boolean						cancellled;
+	private boolean						cancelled;
 	private String						status;
 	private boolean						draft;
 	private Double						score;
@@ -91,11 +91,11 @@ public class Book extends DomainEntity {
 	}
 
 	public boolean getCancelled() {
-		return this.cancellled;
+		return this.cancelled;
 	}
 
-	public void setCancelled(final boolean cancellled) {
-		this.cancellled = cancellled;
+	public void setCancelled(final boolean cancelled) {
+		this.cancelled = cancelled;
 	}
 
 	@NotBlank
