@@ -21,6 +21,8 @@
 		
 		<bean class="converters.BookToStringConverter"/>
 		<bean class="converters.StringToBookConverter"/>
+		<bean class="converters.GenreToStringConverter"/>
+		<bean class="converters.StringToGenreConverter"/>
 		
 	</util:list>
 	
