@@ -23,6 +23,8 @@
 		<value>/views/security/messages</value>		
 		<value>/views/welcome/messages</value>
 		<value>/views/search/messages</value>
+		<value>/views/finder/messages</value>
+		
 		
 
 	</util:list>

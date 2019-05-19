@@ -75,6 +75,12 @@
 			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('READER')">
+			<li>
+				<a class="fNiv" href="finder/reader/edit.do"><spring:message code="master.page.finder.edit" /></a>
+			</li>
+		</security:authorize>
+		
 	</ul>
 </div>
 
