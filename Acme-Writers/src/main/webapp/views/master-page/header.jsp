@@ -41,6 +41,9 @@
 		</security:authorize>
 		
 		<security:authorize access="isAnonymous()">
+			<li>
+				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
+			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
@@ -59,6 +62,19 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
+		<security:authorize access="isAuthenticated()and not(hasRole('BAN'))">
+			<li>
+				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('BAN')">
+			<li>
+				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
+			</li>
+		</security:authorize>
+		
 	</ul>
 </div>
 
