@@ -22,6 +22,7 @@
 		<value>/views/misc/tiles.xml</value>		
 		<value>/views/security/tiles.xml</value>
 		<value>/views/welcome/tiles.xml</value>
+		<value>/views/search/tiles.xml</value>
 		
 
 	</util:list>
