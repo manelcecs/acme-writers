@@ -20,9 +20,8 @@ import security.UserAccountRepository;
 import utiles.AddPhoneCC;
 import utiles.AuthorityMethods;
 import utiles.EmailValidator;
-import utiles.ValidateCreditCard;
 import domain.Reader;
-import forms.WriterForm;
+import forms.ReaderForm;
 
 @Service
 @Transactional
@@ -66,37 +65,33 @@ public class ReaderService {
 		return this.readerRepository.saveAndFlush(reader);
 	}
 
-	public Reader reconstruct(final WriterForm writerForm, final BindingResult binding) throws ParseException {
+	public Reader reconstruct(final ReaderForm readerForm, final BindingResult binding) throws ParseException {
 
-		if (!EmailValidator.validateEmail(writerForm.getEmail(), Authority.READER))
+		if (!EmailValidator.validateEmail(readerForm.getEmail(), Authority.READER))
 			binding.rejectValue("email", "reader.edit.email.error");
-		if (!writerForm.getUserAccount().getPassword().equals(writerForm.getConfirmPassword()))
+		if (!readerForm.getUserAccount().getPassword().equals(readerForm.getConfirmPassword()))
 			binding.rejectValue("confirmPassword", "reader.edit.confirmPassword.error");
-		if (this.accountRepository.findByUsername(writerForm.getUserAccount().getUsername()) != null)
+		if (this.accountRepository.findByUsername(readerForm.getUserAccount().getUsername()) != null)
 			binding.rejectValue("userAccount.username", "reader.edit.userAccount.username.error");
-		if (!writerForm.getTermsAndConditions())
+		if (!readerForm.getTermsAndConditions())
 			binding.rejectValue("termsAndConditions", "reader.edit.termsAndConditions.error");
-
-		writerForm.setCreditCard(ValidateCreditCard.checkNumeroAnno(writerForm.getCreditCard()));
-		ValidateCreditCard.checkGregorianDate(writerForm.getCreditCard(), binding);
-		;
 
 		final Reader result;
 		result = this.create();
 
-		final UserAccount account = writerForm.getUserAccount();
+		final UserAccount account = readerForm.getUserAccount();
 
 		final Authority a = new Authority();
 		a.setAuthority(Authority.READER);
 		account.addAuthority(a);
 
 		result.setUserAccount(account);
-		result.setAddress(writerForm.getAddress());
-		result.setEmail(writerForm.getEmail());
-		result.setName(writerForm.getName());
-		result.setPhoneNumber(AddPhoneCC.addPhoneCC(this.adminConfigService.getAdminConfig().getCountryCode(), writerForm.getPhoneNumber()));
-		result.setPhotoURL(writerForm.getPhotoURL());
-		result.setSurname(writerForm.getSurname());
+		result.setAddress(readerForm.getAddress());
+		result.setEmail(readerForm.getEmail());
+		result.setName(readerForm.getName());
+		result.setPhoneNumber(AddPhoneCC.addPhoneCC(this.adminConfigService.getAdminConfig().getCountryCode(), readerForm.getPhoneNumber()));
+		result.setPhotoURL(readerForm.getPhotoURL());
+		result.setSurname(readerForm.getSurname());
 
 		this.validator.validate(result, binding);
 
@@ -131,6 +126,10 @@ public class ReaderService {
 
 	public Reader findByPrincipal(final UserAccount principal) {
 		return this.readerRepository.findByPrincipal(principal.getId());
+	}
+
+	public Reader findOne(final int readerId) {
+		return this.readerRepository.findOne(readerId);
 	}
 
 }

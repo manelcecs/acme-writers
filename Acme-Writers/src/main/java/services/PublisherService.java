@@ -44,9 +44,6 @@ public class PublisherService {
 	private MessageBoxService		messageBoxService;
 
 	@Autowired
-	private FinderService			finderService;
-
-	@Autowired
 	private Validator				validator;
 
 

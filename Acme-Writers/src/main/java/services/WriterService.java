@@ -39,9 +39,6 @@ public class WriterService {
 	private AdminConfigService		adminConfigService;
 
 	@Autowired
-	private AdministratorService	administratorService;
-
-	@Autowired
 	private MessageBoxService		messageBoxService;
 
 	@Autowired
@@ -53,9 +50,6 @@ public class WriterService {
 		res.setSpammer(false);
 		res.setBanned(false);
 		res.setMessageBoxes(this.messageBoxService.initializeNewUserBoxes());
-
-		res.setScore(null);
-
 		return res;
 	}
 

@@ -18,11 +18,11 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.AdministratorService;
+import services.PublisherService;
+import services.ReaderService;
+import services.SocialProfileService;
 import services.SponsorService;
 import services.WriterService;
-import services.ProviderService;
-import services.PublisherService;
-import services.SocialProfileService;
 import utiles.AuthorityMethods;
 import domain.Actor;
 import domain.Administrator;
@@ -43,19 +43,19 @@ public class SocialProfileController extends AbstractController {
 	private ActorService			actorService;
 
 	@Autowired
-	private PublisherService			rookieService;
+	private PublisherService		publisherService;
 
 	@Autowired
-	private WriterService			companyService;
+	private WriterService			writerService;
 
 	@Autowired
 	private AdministratorService	administratorService;
 
 	@Autowired
-	private ProviderService			providerService;
+	private ReaderService			readerService;
 
 	@Autowired
-	private SponsorService			auditorService;
+	private SponsorService			sponsorService;
 
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
@@ -147,22 +147,22 @@ public class SocialProfileController extends AbstractController {
 			break;
 
 		case "WRITER":
-			final Writer writer = this.rookieService.findOne(actor.getId());
+			final Writer writer = this.writerService.findOne(actor.getId());
 			result.addObject("writer", writer);
 			break;
 
 		case "READER":
-			final Reader reader = this.companyService.findOne(actor.getId());
+			final Reader reader = this.readerService.findOne(actor.getId());
 			result.addObject("reader", reader);
 			break;
 
 		case "SPONSOR":
-			final Sponsor sponsor = this.auditorService.findOne(actor.getId());
+			final Sponsor sponsor = this.sponsorService.findOne(actor.getId());
 			result.addObject("sponsor", sponsor);
 			break;
 
 		case "PUBLISHER":
-			final Publisher publisher = this.providerService.findOne(actor.getId());
+			final Publisher publisher = this.publisherService.findOne(actor.getId());
 			result.addObject("publisher", publisher);
 			break;
 		}

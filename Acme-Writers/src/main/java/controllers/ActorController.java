@@ -1,16 +1,12 @@
 
 package controllers;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.parsing.Problem;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.Authority;
@@ -18,77 +14,45 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.AdministratorService;
+import services.PublisherService;
+import services.ReaderService;
+import services.SocialProfileService;
 import services.SponsorService;
 import services.WriterService;
-import services.ProviderService;
-import services.PublisherService;
-import services.SocialProfileService;
 import utiles.AuthorityMethods;
 import domain.Actor;
 import domain.Administrator;
 import domain.Message;
+import domain.Publisher;
+import domain.Reader;
 import domain.SocialProfile;
+import domain.Sponsor;
+import domain.Writer;
 
 @Controller
 @RequestMapping("/actor")
 public class ActorController extends AbstractController {
 
 	@Autowired
-	private ActorService				actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private PublisherService				rookieService;
+	private PublisherService		publisherService;
 
 	@Autowired
-	private WriterService				companyService;
+	private WriterService			writerService;
 
 	@Autowired
-	private AdministratorService		administratorService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private SocialProfileService		socialProfileService;
+	private SocialProfileService	socialProfileService;
 
 	@Autowired
-	private MessageService				messageService;
+	private SponsorService			sponsorService;
 
 	@Autowired
-	private CurriculaService			curriculaService;
-
-	@Autowired
-	private MiscellaneousDataService	miscellaneousDataService;
-
-	@Autowired
-	private PersonalDataService			personalDataService;
-
-	@Autowired
-	private PositionDataService			positionDataService;
-
-	@Autowired
-	private EducationDataService		educationDataService;
-
-	@Autowired
-	private PositionService				positionService;
-
-	@Autowired
-	private AnswerService				answerService;
-
-	@Autowired
-	private ProblemService				problemService;
-
-	@Autowired
-	private ApplicationService			applicationService;
-
-	@Autowired
-	private ProviderService				providerService;
-
-	@Autowired
-	private SponsorService				auditorService;
-
-	@Autowired
-	private AuditService				auditService;
-
-	@Autowired
-	private ItemService					itemService;
+	private ReaderService			readerService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -97,44 +61,6 @@ public class ActorController extends AbstractController {
 
 		result = this.createModelAndViewDisplay();
 
-		return result;
-	}
-
-	@RequestMapping(value = "/displayCompany", method = RequestMethod.GET)
-	public ModelAndView displayCompany(@RequestParam(required = true) final int idCompany) {
-		final ModelAndView result = new ModelAndView("actor/display");
-
-		final Company company = this.companyService.findOne(idCompany);
-
-		result.addObject("authority", "COMPANY");
-
-		final List<SocialProfile> socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(company.getId());
-
-		result.addObject("company", company);
-		result.addObject("userLogged", null);
-		result.addObject("actor", company);
-
-		result.addObject("socialProfiles", socialProfiles);
-		this.configValues(result);
-		return result;
-	}
-
-	@RequestMapping(value = "/displayProvider", method = RequestMethod.GET)
-	public ModelAndView displayProvider(@RequestParam(required = true) final int providerId) {
-		final ModelAndView result = new ModelAndView("actor/display");
-
-		final Provider provider = this.providerService.findOne(providerId);
-
-		result.addObject("authority", "PROVIDER");
-
-		final List<SocialProfile> socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(provider.getId());
-
-		result.addObject("provider", provider);
-		result.addObject("userLogged", null);
-		result.addObject("actor", provider);
-
-		result.addObject("socialProfiles", socialProfiles);
-		this.configValues(result);
 		return result;
 	}
 
@@ -170,25 +96,25 @@ public class ActorController extends AbstractController {
 			result.addObject("administrator", administrator);
 			break;
 
-		case "ROOKIE":
-			final Rookie rookie = this.rookieService.findOne(actor.getId());
-			result.addObject("rookie", rookie);
+		case "WRITER":
+			final Writer writer = this.writerService.findOne(actor.getId());
+			result.addObject("writer", writer);
 			break;
 
-		case "COMPANY":
-			final Company company = this.companyService.findOne(actor.getId());
-			result.addObject("company", company);
+		case "READER":
+			final Reader reader = this.readerService.findOne(actor.getId());
+			result.addObject("reader", reader);
 			break;
 
-		case "AUDITOR":
-			final Auditor auditor = this.auditorService.findOne(actor.getId());
-			result.addObject("auditor", auditor);
+		case "PUBLISHER":
+			final Publisher publisher = this.publisherService.findOne(actor.getId());
+			result.addObject("publisher", publisher);
 
 			break;
 
-		case "PROVIDER":
-			final Provider provider = this.providerService.findOne(actor.getId());
-			result.addObject("provider", provider);
+		case "SPONSOR":
+			final Sponsor sponsor = this.sponsorService.findOne(actor.getId());
+			result.addObject("sponsor", sponsor);
 			break;
 		}
 
@@ -212,31 +138,31 @@ public class ActorController extends AbstractController {
 			result.addObject("edit", true);
 			break;
 
-		case "ROOKIE":
-			final Rookie rookie = this.rookieService.findByPrincipal(LoginService.getPrincipal());
-			result = new ModelAndView("rookie/edit");
-			result.addObject("rookie", rookie);
+		case "WRITER":
+			final Writer writer = this.writerService.findByPrincipal(LoginService.getPrincipal());
+			result = new ModelAndView("writer/edit");
+			result.addObject("writer", writer);
 			result.addObject("edit", true);
 			break;
 
-		case "COMPANY":
-			final Company company = this.companyService.findByPrincipal(LoginService.getPrincipal());
-			result = new ModelAndView("company/edit");
-			result.addObject("company", company);
+		case "READER":
+			final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
+			result = new ModelAndView("reader/edit");
+			result.addObject("reader", reader);
 			result.addObject("edit", true);
 			break;
 
-		case "AUDITOR":
-			final Auditor auditor = this.auditorService.findByPrincipal(LoginService.getPrincipal());
-			result = new ModelAndView("auditor/edit");
-			result.addObject("auditor", auditor);
+		case "PUBLISHER":
+			final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
+			result = new ModelAndView("publisher/edit");
+			result.addObject("publisher", publisher);
 			result.addObject("edit", true);
 			break;
 
-		case "PROVIDER":
-			final Provider provider = this.providerService.findByPrincipal(LoginService.getPrincipal());
-			result = new ModelAndView("provider/edit");
-			result.addObject("provider", provider);
+		case "SPONSOR":
+			final Sponsor sponsor = this.sponsorService.findByPrincipal(LoginService.getPrincipal());
+			result = new ModelAndView("sponsor/edit");
+			result.addObject("sponsor", sponsor);
 			result.addObject("edit", true);
 			break;
 		default:
@@ -271,70 +197,43 @@ public class ActorController extends AbstractController {
 			result.addObject("messages", messages);
 			break;
 
-		case "ROOKIE":
-			final Rookie rookie = this.rookieService.findByPrincipal(principal);
-			final Collection<Curricula> curricula = this.curriculaService.findAllNoCopy(rookie);
-			final Collection<PersonalData> personalDatas = new ArrayList<>();
-			final Collection<MiscellaneousData> miscellaneousDatas = new ArrayList<>();
-			final Collection<PositionData> positionDatas = new ArrayList<>();
-			final Collection<EducationData> educationDatas = new ArrayList<>();
-			for (final Curricula cv : curricula) {
-				personalDatas.add(this.personalDataService.findByCurricula(cv));
-				miscellaneousDatas.addAll(this.miscellaneousDataService.findAllCurricula(cv));
-				positionDatas.addAll(this.positionDataService.findAllCurricula(cv));
-				educationDatas.addAll(this.educationDataService.findAllCurricula(cv));
-			}
+		case "WRITER":
+			final Writer writer = this.writerService.findByPrincipal(LoginService.getPrincipal());
 
-			messages = (List<Message>) this.messageService.findAllByActor(rookie.getId());
-			result.addObject("rookie", rookie);
+			result.addObject("writer", writer);
+
+			messages = (List<Message>) this.messageService.findAllByActor(writer.getId());
+
 			result.addObject("messages", messages);
-			result.addObject("personalDatas", personalDatas);
-			result.addObject("miscellaneousDatas", miscellaneousDatas);
-			result.addObject("positionDatas", positionDatas);
-			result.addObject("educationDatas", educationDatas);
-
-			final Collection<Application> applications = this.applicationService.getApplicationOfRookie(rookie.getId());
-			result.addObject("applications", applications);
-
-			final Collection<Answer> answers = new ArrayList<>();
-
-			for (final Application application : applications)
-				answers.add(this.answerService.getAnswerOfApplication(application.getId()));
-
-			result.addObject("answersOfApplications", answers);
 
 			break;
 
-		case "COMPANY":
-			final Company company = this.companyService.findByPrincipal(principal);
-			messages = (List<Message>) this.messageService.findAllByActor(company.getId());
-			result.addObject("company", company);
+		case "READER":
+			final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
+			messages = (List<Message>) this.messageService.findAllByActor(reader.getId());
+
+			result.addObject("reader", reader);
+
 			result.addObject("messages", messages);
-
-			final Collection<Position> positions = this.positionService.getPositionsOfCompany(company.getId());
-			result.addObject("positions", positions);
-
-			final Collection<Problem> problems = this.problemService.getProblemsOfCompany(company.getId());
-			result.addObject("problems", problems);
 
 			break;
 
-		case "AUDITOR":
-			final Auditor auditor = this.auditorService.findByPrincipal(LoginService.getPrincipal());
-			result.addObject("auditor", auditor);
-			messages = (List<Message>) this.messageService.findAllByActor(auditor.getId());
+		case "SPONSOR":
+			final Sponsor sponsor = this.sponsorService.findByPrincipal(LoginService.getPrincipal());
+
+			result.addObject("sponsor", sponsor);
+
+			messages = (List<Message>) this.messageService.findAllByActor(sponsor.getId());
 			result.addObject("messages", messages);
-			final Collection<Audit> auditions = this.auditService.getAuditsOfAnAuditor(auditor.getId());
-			result.addObject("auditions", auditions);
 			break;
 
-		case "PROVIDER":
-			final Provider provider = this.providerService.findByPrincipal(LoginService.getPrincipal());
-			result.addObject("provider", provider);
-			messages = (List<Message>) this.messageService.findAllByActor(provider.getId());
+		case "PUBLISHER":
+			final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
+
+			result.addObject("publisher", publisher);
+
+			messages = (List<Message>) this.messageService.findAllByActor(publisher.getId());
 			result.addObject("messages", messages);
-			final Collection<Item> items = this.itemService.getItemsOfProvider(provider.getId());
-			result.addObject("items", items);
 			break;
 		}
 		result.addObject("socialProfiles", socialProfiles);
