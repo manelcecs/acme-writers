@@ -1,5 +1,5 @@
 <%--
- * textarea.tag
+ * submit.tag
  *
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -22,20 +22,12 @@
 
 <%-- Attributes --%> 
 
-<%@ attribute name="path" required="true" %>
+<%@ attribute name="name" required="true" %> 
 <%@ attribute name="code" required="true" %>
-<%@ attribute name="readonly" required="false" %>
-
-<jstl:if test="${readonly == null}">
-	<jstl:set var="readonly" value="false" />
-</jstl:if>
+<%@ attribute name="onClick" required="false" %>
 
 <%-- Definition --%>
 
-<div class="form-group">
-	<form:label class="textAreaLabel" path="${path}">
-		<spring:message code="${code}" />
-	</form:label>
-	<form:textarea class="textArea" path="${path}" readonly="${readonly}" />
-	<form:errors path="${path}" cssClass="error" />
-</div>
+<button onclick="return confirm('<spring:message code="${onClick}" />')" type="submit" name="${name}" class="btn btn-primary">
+	<spring:message code="${code}" />
+</button>
