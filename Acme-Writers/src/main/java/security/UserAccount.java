@@ -22,7 +22,6 @@ import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
@@ -74,7 +73,6 @@ public class UserAccount extends DomainEntity implements UserDetails {
 		this.password = password;
 	}
 
-	@NotEmpty
 	@Valid
 	@ElementCollection
 	@Override

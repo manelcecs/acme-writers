@@ -1,5 +1,5 @@
 <%--
- * textarea.tag
+ * cancel.tag
  *
  * Copyright (C) 2019 Universidad de Sevilla
  * 
@@ -7,10 +7,10 @@
  * TDG Licence, a copy of which you may download from 
  * http://www.tdg-seville.info/License.html
  --%>
-
+ 
 <%@ tag language="java" body-content="empty" %>
-
-<%-- Taglibs --%>
+ 
+ <%-- Taglibs --%>
 
 <%@ taglib prefix="jstl" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,21 +21,15 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <%-- Attributes --%> 
-
-<%@ attribute name="path" required="true" %>
+ 
 <%@ attribute name="code" required="true" %>
-<%@ attribute name="readonly" required="false" %>
+<%@ attribute name="url" required="true" %>
+<%@ attribute name="type" required="true" %>
 
-<jstl:if test="${readonly == null}">
-	<jstl:set var="readonly" value="false" />
-</jstl:if>
 
 <%-- Definition --%>
 
-<div class="form-group">
-	<form:label class="textAreaLabel" path="${path}">
-		<spring:message code="${code}" />
-	</form:label>
-	<form:textarea class="textArea" path="${path}" readonly="${readonly}" />
-	<form:errors path="${path}" cssClass="error" />
-</div>
+<button type="${type}" onclick="javascript: relativeRedir('${url}')" >
+	<spring:message code="${code}" />
+</button>
+

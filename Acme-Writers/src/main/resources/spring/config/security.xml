@@ -35,6 +35,9 @@
 		<security:intercept-url pattern="/styles/**" access="permitAll" /> 
 		<security:intercept-url pattern="/search/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/finder/reader/edit.do" access="hasRole('READER')" /> 
+		
+		<security:intercept-url pattern="/messageBox/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
 
 		<security:intercept-url pattern="/views/misc/index.jsp" access="permitAll" /> 
 
