@@ -9,19 +9,27 @@
  */
  
 table {
-	border: 1px solid #666;
-	width: 80%;
+	border: 1px solid black;
+	background-color: black;
 	margin: 20px 0 20px 0 !important;
 }
 
-th,td {
-	padding: 2px 4px 2px 4px !important;
-	text-align: left;
-	vertical-align: top;
+th{
+	background-color: #EBEFEF;
+	padding: 8px 30px !important;
+	text-align: center;
+	vertical-align: center;
+}
+
+td {
+	background-color: white;
+	padding: 8px 30px !important;
+	text-align: center;
+	vertical-align: center;
 }
 
 thead tr {
-	background-color: #fc0;
+	background-color: #F2F2F2;
 }
 
 th.sorted {
@@ -75,7 +83,6 @@ div.exportlinks {
 	border: 1px dotted #999;
 	padding: 2px 4px 2px 4px;
 	margin: 2px 0 10px 0;
-	width: 79%;
 }
 
 span.export {
@@ -106,23 +113,23 @@ span.rtf {
 }
 
 span.pagebanner {
-	background-color: #eee;
-	border: 1px dotted #999;
+	background-color: white;
+	border: 1px solid black;
 	padding: 2px 4px 2px 4px;
-	width: 79%;
 	margin-top: 10px;
 	display: block;
 	border-bottom: none;
+	width: 11%;
 }
 
 span.pagelinks {
-	background-color: #eee;
-	border: 1px dotted #999;
+	background-color: white;
+	border: 1px solid black;
 	padding: 2px 4px 2px 4px;
-	width: 79%;
 	display: block;
 	border-top: none;
 	margin-bottom: -5px;
+	width: 11%;
 }
 
 .group-1 {
@@ -161,4 +168,16 @@ span.pagelinks {
 
 .grandtotal-row {
 	border-top: 2px solid black;
+}
+
+.pending{
+	background-color: #E5E0D8;
+}
+
+.approved{
+	background-color: #A2F5B8;
+}
+
+.rejected{
+	background-color: #F7CD83;
 }
