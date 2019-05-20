@@ -37,4 +37,12 @@ public class BookService {
 	public Collection<Book> getBooksByFinder(final int idFinder) {
 		return this.bookRepository.getBooksByFinder(idFinder);
 	}
+
+	public Collection<Book> getBooksOfWriter(final int idWriter) {
+		return this.bookRepository.getBooksOfWriter(idWriter);
+	}
+
+	public Book getBookOfParticipation(final int idParticipation) {
+		return this.bookRepository.getBookOfParticipation(idParticipation);
+	}
 }
