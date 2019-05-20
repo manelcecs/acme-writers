@@ -44,6 +44,9 @@
 			<li>
 				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
 			</li>
+			<li>
+				<a class="fNiv" href="contest/list.do"><spring:message code="master.page.contest.list" /></a>
+			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 		</security:authorize>
 		
@@ -67,17 +70,29 @@
 			<li>
 				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
 			</li>
+			<li>
+				<a class="fNiv" href="contest/list.do"><spring:message code="master.page.contest.list" /></a>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('BAN')">
 			<li>
 				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
 			</li>
+			<li>
+				<a class="fNiv" href="contest/list.do"><spring:message code="master.page.contest.list" /></a>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('READER')">
 			<li>
 				<a class="fNiv" href="finder/reader/edit.do"><spring:message code="master.page.finder.edit" /></a>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('PUBLISHER')">
+			<li>
+				<a class="fNiv" href="contest/publisher/list.do"><spring:message code="master.page.myContests" /></a>
 			</li>
 		</security:authorize>
 		

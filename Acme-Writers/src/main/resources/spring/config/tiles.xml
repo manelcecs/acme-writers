@@ -24,6 +24,7 @@
 		<value>/views/welcome/tiles.xml</value>
 		<value>/views/search/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
+		<value>/views/contest/tiles.xml</value>
 		
 
 	</util:list>
