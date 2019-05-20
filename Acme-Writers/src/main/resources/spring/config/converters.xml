@@ -23,7 +23,8 @@
 		<bean class="converters.StringToBookConverter"/>
 		<bean class="converters.GenreToStringConverter"/>
 		<bean class="converters.StringToGenreConverter"/>
-		
+		<bean class="converters.ContestToStringConverter"/>
+		<bean class="converters.StringToContestConverter"/>		
 	</util:list>
 	
 </beans>
