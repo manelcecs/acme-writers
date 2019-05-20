@@ -33,4 +33,9 @@ public class AbstractController {
 		return result;
 	}
 
+	public void configValues(final ModelAndView model) {
+		model.addObject("banner", this.adminConfigService.getAdminConfig().getBannerURL());
+		model.addObject("systemName", this.adminConfigService.getAdminConfig().getSystemName());
+	}
+
 }
