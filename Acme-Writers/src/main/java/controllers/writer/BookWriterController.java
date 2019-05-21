@@ -1,0 +1,160 @@
+
+package controllers.writer;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import security.LoginService;
+import services.BookService;
+import services.ChapterService;
+import services.WriterService;
+import controllers.AbstractController;
+import domain.Book;
+import domain.Writer;
+import forms.BookForm;
+
+@Controller
+@RequestMapping("/book/writer")
+public class BookWriterController extends AbstractController {
+
+	@Autowired
+	BookService		bookService;
+
+	@Autowired
+	WriterService	writerService;
+
+	@Autowired
+	ChapterService	chapterService;
+
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView list() {
+
+		return this.listModelAndView();
+	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam final Integer idBook) {
+		ModelAndView result;
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		final Book book = this.bookService.findOne(idBook);
+
+		if (book.getWriter().equals(writerLogged)) {
+			result = new ModelAndView("book/display");
+			result.addObject("book", book);
+			result.addObject("logged", true);
+			result.addObject("chapters", this.chapterService.getChaptersOfABook(book.getId()));
+			//FIXME: ADD THE OPINIONS
+		} else
+			result = new ModelAndView("redirect:list.do");
+
+		return result;
+	}
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create() {
+		final BookForm bookForm = new BookForm();
+		return this.createAndEditModelAndView(bookForm);
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final Integer idBook) {
+
+		ModelAndView result;
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		final Book book = this.bookService.findOne(idBook);
+
+		if (!book.getWriter().equals(writerLogged))
+			result = this.listModelAndView("cannot.edit.book");
+		else
+			result = this.createAndEditModelAndView(book.castToForm());
+
+		return result;
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public ModelAndView save(@Valid final BookForm bookForm, final BindingResult bindingResult) {
+
+		ModelAndView result;
+
+		if (bindingResult.hasErrors())
+			result = this.createAndEditModelAndView(bookForm);
+		else
+			try {
+				this.bookService.save(bookForm, bindingResult);
+				result = new ModelAndView("redirect:list.do");
+			} catch (final Throwable oops) {
+				result = this.createAndEditModelAndView(bookForm, "cannot.save.book");
+			}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam final Integer idBook) {
+		ModelAndView result;
+
+		try {
+			this.bookService.delete(idBook);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.listModelAndView("cannot.delete.book");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/changeDraft", method = RequestMethod.GET)
+	public ModelAndView changeDraft(@RequestParam final Integer idBook) {
+		ModelAndView result;
+
+		try {
+			this.bookService.changeDraft(idBook);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.listModelAndView("cannot.changeDraft.book");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
+	public ModelAndView cancel(@RequestParam final Integer idBook) {
+		ModelAndView result;
+
+		try {
+			this.bookService.cancelBook(idBook);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			result = this.listModelAndView("cannot.changeDraft.book");
+		}
+
+		return result;
+	}
+
+	protected ModelAndView createAndEditModelAndView(final BookForm bookForm) {
+		return this.createAndEditModelAndView(bookForm, null);
+	}
+
+	protected ModelAndView createAndEditModelAndView(final BookForm bookForm, final String message) {
+		return null;
+
+	}
+
+	protected ModelAndView listModelAndView() {
+		return this.listModelAndView(null);
+	}
+
+	protected ModelAndView listModelAndView(final String message) {
+		return null;
+	}
+
+}

@@ -29,6 +29,8 @@
 
 <%@ attribute name="id" required="false" %>
 <%@ attribute name="onchange" required="false" %>
+<%@ attribute name="optional" required="false" %>
+
 
 <jstl:if test="${id == null}">
 	<jstl:set var="id" value="${UUID.randomUUID().toString()}" />
@@ -38,6 +40,10 @@
 	<jstl:set var="onchange" value="javascript: return true;" />
 </jstl:if>
 
+<jstl:if test="${optional == null}">
+	<jstl:set var="optional" value="true" />
+</jstl:if>
+
 <%-- Definition --%>
 
 <div>
@@ -45,7 +51,9 @@
 		<spring:message code="${code}" />
 	</form:label>	
 	<form:select id="${id}" path="${path}" onchange="${onchange}">
-		<form:option value="0" label="----" />		
+		<jstl:if test="${optional == true}">
+			<form:option value="0" label="----" />				
+		</jstl:if>
 		<form:options items="${items}" itemValue="id" itemLabel="${itemLabel}" />
 	</form:select>
 	<form:errors path="${path}" cssClass="error" />

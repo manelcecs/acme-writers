@@ -10,6 +10,43 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 
+	<!-- adminConfih -->
+
+	<bean id="adminConfig" class="domain.AdminConfig">
+		<property name="systemName" value="Acme Writer" />
+		<property name="bannerURL" value="https://i.imgur.com/7b8lu4b.png" />
+		<property name="countryCode" value="+34" />
+		<property name="finderResults" value="10" />
+		<property name="finderCacheTime" value="1" />
+		<property name="welcomeMessageEN" value="Welcome to Acme hacker Rank! We're IT hacker's favourite job marketplace!" />
+		<property name="welcomeMessageES" value="¡Bienvenidos a Acme Hacker Rank! ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you've been selected</value>
+				<value>nigeria</value>
+				<value>sexo</value>
+				<value>un millón</value>
+				<value>ha sido seleccionado</value>
+			</list>
+			</property>
+			<property name="creditCardMakes">
+				<list>
+					<value>MCARD</value>
+					<value>VISA</value>
+					<value>AMEX</value>
+					<value>DINNERS</value>
+					<value>FLY</value>
+				</list>
+			</property>
+			<property name="flatRate" value="10" />
+			<property name="VAT" value="10.0" />
+			<property name="ratioDislikes" value="0.5" />
+	</bean>
+	
 	<!-- User accounts (admin) -->
 	<bean id="userAccount0" class="security.UserAccount">
 		<property name="username" value="admin" />
@@ -1157,5 +1194,95 @@
 		<property name="userAccount" ref="userAccount12" />
 		<property name="finder" ref="finder2" />
 	</bean>
+	
+	<!-- Genres -->	
+	
+	<bean class="domain.Genre" id="genre0">
+		<property value="terror" name="nameES" />
+		<property value="terror" name="nameEN" />		
+	</bean>
+	
+	<bean class="domain.Genre" id="genre1">
+		<property value="aventuras" name="nameES" />
+		<property value="adventures" name="nameEN" />		
+	</bean>
+	
+	<bean class="domain.Genre" id="genre2">
+		<property value="comedia" name="nameES" />
+		<property value="comedy" name="nameEN" />		
+	</bean>
+	
+	<bean class="domain.Genre" id="genre3">
+		<property value="comedia infantil" name="nameES" />
+		<property value="children's comedy" name="nameEN" />	
+		<property name="parent" ref="genre2" />		
+	</bean>
+	
+	<!-- Tickers -->	
+	
+	<bean class="domain.Ticker" id="ticker0">
+		<property value="121212-AAAAAAAAAA" name="identifier" />
+	</bean>
+	
+	<bean class="domain.Ticker" id="ticker1">
+		<property value="121212-BBBBBBBBBB" name="identifier" />
+	</bean>
+	
+	<bean class="domain.Ticker" id="ticker2">
+		<property value="121212-CCCCCCCCCC" name="identifier" />
+	</bean>
+	
+	<!-- Books (writer0) -->	
+	
+	<bean class="domain.Book" id="book0">
+		<property value="Primer libro" name="title" />
+		<property value="Este es un libro en español" name="description"/>
+		<property value="ES" name="language" />
+		<property value="https://book0.com" name="cover" />
+		<property value="false" name="cancelled" />
+		<property value="INDEPENDENT" name="status" />
+		<property value="false" name="draft" />
+		<property value="0.0" name="score" />
+		<property value="100" name="numWords" />
+		<property name="genre" ref="genre0" />
+		<property name="writer" ref="writer0" />
+		<property name="ticker" ref="ticker0" />
+	</bean>
+	
+	<bean class="domain.Book" id="book1">
+		<property value="Segundo libro" name="title" />
+		<property value="Este es otro libro en español" name="description"/>
+		<property value="ES" name="language" />
+		<property value="https://book1.com" name="cover" />
+		<property value="false" name="cancelled" />
+		<property value="ACCEPTED" name="status" />
+		<property value="false" name="draft" />
+		<property value="0.0" name="score" />
+		<property value="200" name="numWords" />
+		<property name="genre" ref="genre1" />
+		<property name="writer" ref="writer0" />
+		<property name="ticker" ref="ticker1" />
+		<property name="publisher" ref="publisher0" />	
+	</bean>
+	
+	<!-- Books (writer0) -->	
+
+	<bean class="domain.Book" id="book2">
+		<property value="First book" name="title" />
+		<property value="This is a book in English" name="description"/>
+		<property value="EN" name="language" />
+		<property value="https://book2.com" name="cover" />
+		<property value="false" name="cancelled" />
+		<property value="ACCEPTED" name="status" />
+		<property value="false" name="draft" />
+		<property value="0.0" name="score" />
+		<property value="150" name="numWords" />
+		<property name="genre" ref="genre2" />
+		<property name="writer" ref="writer1" />
+		<property name="ticker" ref="ticker2" />
+		<property name="publisher" ref="publisher1" />	
+	</bean>
+	
+	
 
 </beans>
