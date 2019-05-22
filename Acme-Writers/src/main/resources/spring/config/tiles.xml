@@ -33,6 +33,8 @@
 		<value>/views/administrator/tiles.xml</value>
 		<value>/views/publisher/tiles.xml</value>
 		<value>/views/reader/tiles.xml</value>
+		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/writer/tiles.xml</value>
 		
 		
 

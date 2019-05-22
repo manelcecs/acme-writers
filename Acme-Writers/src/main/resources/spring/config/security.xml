@@ -51,7 +51,6 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
-		<security:intercept-url pattern="/finder/reader/edit.do" access="hasRole('READER')" /> 
 		<security:intercept-url pattern="/contest/publisher/**" access="hasRole('PUBLISHER')" />
 
 		<security:intercept-url pattern="/administrator/administrator/**" access="hasRole('ADMINISTRATOR')" />
