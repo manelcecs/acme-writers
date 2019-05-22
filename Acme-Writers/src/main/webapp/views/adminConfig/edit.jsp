@@ -17,9 +17,13 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<hr>
+
 
 <section id="configuration">
 
+	<h3><spring:message code="adminConfig.edit.titleManageConfig"/></h3>
+	
 	<form:form modelAttribute="adminConfigForm" action="adminConfig/administrator/save.do" method="Post">
 	
 		<acme:inputNumber code="adminConfig.edit.cacheFinder" path="finderCacheTime"/>
@@ -40,10 +44,13 @@
 
 
 </section>
+<br>
 
 <hr>
 
 <section id="spamWords">
+
+	<h3><spring:message code="adminConfig.edit.titleManageSpamWord"/></h3>
 
 	<form:form modelAttribute="spamWordForm" action="adminConfig/administrator/addSpamWord.do" method="Post">
 	
@@ -58,11 +65,15 @@
 	</display:table>
 
 </section>
+<br>
 
 <hr>
 
+
 <section id="makes">
 
+	<h3><spring:message code="adminConfig.edit.titleManageMake"/></h3>
+	
 	<form:form modelAttribute="creditCardMakeForm" action="adminConfig/administrator/addCreditCardMake.do" method="Post">
 	
 		<acme:textbox code="adminConfig.edit.creditCardMake" path="creditCardMake"/>
@@ -86,6 +97,7 @@
 	</display:table>
 
 </section>
+<br>
 
 <style>
 

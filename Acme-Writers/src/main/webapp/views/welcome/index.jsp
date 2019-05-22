@@ -17,22 +17,30 @@
 <%@taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
+<%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<jstl:if test="${breach}">
-	<b><p class="error">
-			<spring:message code="welcome.securityLeak" />
-		</p></b>
-</jstl:if>
+<security:authorize access="hasRole('BAN')">
+		<h3><spring:message code="welcome.banned" /></h3>
+</security:authorize>
 
+<security:authorize access="not(hasRole('BAN'))">
+	<p>
+		
+		<jstl:choose>
+			<jstl:when test="${cookie.language.value == 'es'}">
+				<jstl:out value="${welcomeMsgEs}"/> 
+			</jstl:when>
+			
+			<jstl:otherwise>
+				<jstl:out value="${welcomeMsgEn}"/> 
+			</jstl:otherwise>
+		</jstl:choose>
+	
+	</p>
+	
+	
+	<p><spring:message code="welcome.greeting.prefix" /><jstl:out value="${name}"/></p>
 
+	<acme:text value="${moment}" label="welcome.greeting.current.time"/>
 
-<p>
-	<spring:message code="welcome.greeting.prefix" />
-	${name}
-	<spring:message code="welcome.greeting.suffix" />
-</p>
-
-<p>
-	<spring:message code="welcome.greeting.current.time" />
-	${moment}
-</p>
+</security:authorize>
