@@ -72,6 +72,10 @@
 		<security:intercept-url pattern="/writer/writer/**" access="hasRole('WRITER')" />
 		
 		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />
+		
+		<security:intercept-url pattern="/actor/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/writer/display.do" access="permitAll" />
+		<security:intercept-url pattern="/writer/list.do" access="permitAll" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

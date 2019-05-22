@@ -125,6 +125,7 @@ public class ActorController extends AbstractController {
 			break;
 		}
 
+		result.addObject("back", false);
 		result.addObject("socialProfiles", socialProfiles);
 		result.addObject("requestURI", "actor/display.do");
 
@@ -132,6 +133,7 @@ public class ActorController extends AbstractController {
 		return result;
 
 	}
+
 	protected ModelAndView createModelAndViewEditActor() {
 		ModelAndView result;
 

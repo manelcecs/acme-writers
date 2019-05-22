@@ -2,6 +2,7 @@
 package controllers.writer;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.validation.ValidationException;
@@ -13,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import services.SocialProfileService;
 import services.WriterService;
 import controllers.AbstractController;
+import domain.SocialProfile;
 import domain.Writer;
 import forms.WriterForm;
 
@@ -23,7 +26,10 @@ import forms.WriterForm;
 public class WriterWriterController extends AbstractController {
 
 	@Autowired
-	private WriterService	writerService;
+	private WriterService			writerService;
+
+	@Autowired
+	private SocialProfileService	socialProfileService;
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -55,6 +61,56 @@ public class WriterWriterController extends AbstractController {
 
 		return res;
 
+	}
+
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public ModelAndView listWriters() {
+		return this.createModelAndViewList();
+	}
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView displayWriter(final int writerId) {
+		return this.createModelAndViewDisplay(writerId);
+	}
+
+	protected ModelAndView createModelAndViewList() {
+		final ModelAndView res = new ModelAndView("writer/list");
+
+		final Collection<Writer> writers = this.writerService.findAll();
+		System.out.println(writers);
+		res.addObject("writers", writers);
+		res.addObject("requestURI", "writer/list.do");
+
+		this.configValues(res);
+
+		return res;
+	}
+	protected ModelAndView createModelAndViewDisplay(final Integer writerId) {
+
+		final Writer actor = this.writerService.findOne(writerId);
+
+		if (actor == null)
+			return new ModelAndView("redirect:/");
+		else {
+
+			final ModelAndView result = new ModelAndView("actor/display");
+
+			result.addObject("actor", actor);
+			result.addObject("userLogged", null);
+
+			result.addObject("back", true);
+
+			result.addObject("authority", "WRITER");
+
+			final List<SocialProfile> socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(writerId);
+			result.addObject("writer", actor);
+
+			result.addObject("socialProfiles", socialProfiles);
+			result.addObject("requestURI", "actor/display.do");
+
+			this.configValues(result);
+			return result;
+		}
 	}
 
 	protected ModelAndView createEditModelAndView(final WriterForm writerForm, final String... messages) {
