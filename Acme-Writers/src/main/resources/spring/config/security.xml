@@ -70,6 +70,8 @@
 		<security:intercept-url pattern="/writer/register.do" access="permitAll" />
 		<security:intercept-url pattern="/writer/save.do" access="permitAll" />
 		<security:intercept-url pattern="/writer/writer/**" access="hasRole('WRITER')" />
+		
+		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
