@@ -72,22 +72,23 @@ public class MessageBoxService {
 		Assert.isTrue(this.actorService.getByMessageBox(messageBox.getId()).equals(actor));
 
 		final Collection<MessageBox> childrens = this.allChildren(messageBox);
-		final Collection<Message> messagesToTrashBox = new ArrayList<>();
 		final MessageBox trashBox = this.findOriginalBox(actor.getId(), "Trash Box");
+		final Collection<Message> messagesToTrashBox = new ArrayList<>();
 
-		for (final MessageBox childrensAndFather : childrens)
-			if (childrensAndFather.getMessages().size() > 0) {
-				messagesToTrashBox.addAll(childrensAndFather.getMessages());
-				for (final Message messageInBox : childrensAndFather.getMessages()) {
-					final Collection<MessageBox> boxes = messageInBox.getMessageBoxes();
-					boxes.remove(childrensAndFather);
-					if (boxes.size() == 0)
+		for (final MessageBox boxChild : childrens)
+			if (boxChild.getMessages().size() > 0) {
+				for (final Message messageInBoxChild : boxChild.getMessages()) {
+					final Collection<MessageBox> boxes = this.messageBoxRepository.findAllMessageBoxByActorContainsAMessage(actor.getId(), messageInBoxChild.getId());
+					boxes.remove(boxChild);
+					if (boxes.size() == 0) {
 						boxes.add(trashBox);
-					messageInBox.setMessageBoxes(boxes);
-					this.messageRepository.save(messageInBox);
+						messagesToTrashBox.add(messageInBoxChild);
+					}
+					messageInBoxChild.setMessageBoxes(boxes);
+					this.messageRepository.save(messageInBoxChild);
 				}
-				childrensAndFather.setMessages(null);
-				this.messageBoxRepository.save(childrensAndFather);
+				boxChild.setMessages(null);
+				this.messageBoxRepository.save(boxChild);
 			}
 
 		final Collection<Message> trashBoxMessages = trashBox.getMessages();
@@ -102,21 +103,14 @@ public class MessageBoxService {
 
 		this.messageBoxRepository.delete(childrens);
 	}
-
 	public Collection<MessageBox> findBoxToMove(final Message message) {
 		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final Collection<MessageBox> messageBoxesToMove = this.findAllMessageBoxByActor(actor.getId());
 
 		final MessageBox trashBox = this.messageBoxRepository.findOriginalBox(actor.getId(), "Trash Box");
-		final MessageBox inBox = this.messageBoxRepository.findOriginalBox(actor.getId(), "In Box");
-		final MessageBox outBox = this.messageBoxRepository.findOriginalBox(actor.getId(), "Out Box");
-		final MessageBox notificationBox = this.messageBoxRepository.findOriginalBox(actor.getId(), "Notification Box");
 
 		messageBoxesToMove.removeAll(message.getMessageBoxes());
 		messageBoxesToMove.remove(trashBox);
-		messageBoxesToMove.remove(inBox);
-		messageBoxesToMove.remove(outBox);
-		messageBoxesToMove.remove(notificationBox);
 
 		return messageBoxesToMove;
 	}

@@ -1,12 +1,6 @@
 
-package domain;
+package forms;
 
-import java.util.Collection;
-
-import javax.persistence.Access;
-import javax.persistence.AccessType;
-import javax.persistence.ElementCollection;
-import javax.persistence.Entity;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -16,24 +10,18 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
-import forms.AdminConfigForm;
+public class AdminConfigForm {
 
-@Entity
-@Access(AccessType.PROPERTY)
-public class AdminConfig extends DomainEntity {
-
-	private String				systemName;
-	private String				bannerURL;
-	private String				welcomeMessageEN;
-	private String				welcomeMessageES;
-	private String				countryCode;
-	private Collection<String>	spamWords;
-	private Integer				finderResults;
-	private Integer				finderCacheTime;
-	private Double				spammerPercentage;
-	private Double				VAT;
-	private Collection<String>	creditCardMakes;
-	private Double				flatRate;
+	private String	systemName;
+	private String	bannerURL;
+	private String	welcomeMessageEN;
+	private String	welcomeMessageES;
+	private String	countryCode;
+	private Integer	finderResults;
+	private Integer	finderCacheTime;
+	private Double	spammerPercentage;
+	private Double	VAT;
+	private Double	flatRate;
 
 
 	@NotBlank
@@ -88,15 +76,6 @@ public class AdminConfig extends DomainEntity {
 		this.countryCode = countryCode;
 	}
 
-	@ElementCollection
-	public Collection<String> getSpamWords() {
-		return this.spamWords;
-	}
-
-	public void setSpamWords(final Collection<String> spamWords) {
-		this.spamWords = spamWords;
-	}
-
 	@Range(min = 1, max = 100)
 	@NotNull
 	public Integer getFinderResults() {
@@ -137,15 +116,6 @@ public class AdminConfig extends DomainEntity {
 		this.VAT = VAT;
 	}
 
-	@ElementCollection
-	public Collection<String> getCreditCardMakes() {
-		return this.creditCardMakes;
-	}
-
-	public void setCreditCardMakes(final Collection<String> creditCardMakes) {
-		this.creditCardMakes = creditCardMakes;
-	}
-
 	@Min(0)
 	@NotNull
 	public Double getFlatRate() {
@@ -156,20 +126,4 @@ public class AdminConfig extends DomainEntity {
 		this.flatRate = flatRate;
 	}
 
-	public AdminConfigForm castToForm() {
-		final AdminConfigForm adminConfigForm = new AdminConfigForm();
-		adminConfigForm.setBannerURL(this.getBannerURL());
-		adminConfigForm.setCountryCode(this.getCountryCode());
-		adminConfigForm.setFinderCacheTime(this.getFinderCacheTime());
-		adminConfigForm.setFinderResults(this.getFinderResults());
-		adminConfigForm.setSystemName(this.getSystemName());
-		adminConfigForm.setWelcomeMessageEN(this.getWelcomeMessageEN());
-		adminConfigForm.setWelcomeMessageES(this.getWelcomeMessageES());
-		adminConfigForm.setFlatRate(this.getFlatRate());
-		adminConfigForm.setVAT(this.getVAT());
-		adminConfigForm.setSpammerPercentage(this.getSpammerPercentage());
-
-		return adminConfigForm;
-
-	}
 }

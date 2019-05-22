@@ -38,6 +38,9 @@
 		<security:intercept-url pattern="/contest/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/finder/reader/edit.do" access="hasRole('READER')" /> 
 		
+		<security:intercept-url pattern="/adminConfig/**" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/genre/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
+		
 		<security:intercept-url pattern="/messageBox/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
 

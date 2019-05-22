@@ -37,4 +37,13 @@ public class BookService {
 	public Collection<Book> getBooksByFinder(final int idFinder) {
 		return this.bookRepository.getBooksByFinder(idFinder);
 	}
+
+	public Collection<Book> getBooksByGenre(final int idGenre) {
+		return this.bookRepository.getBooksByGenre(idGenre);
+	}
+
+	public Book updateGenre(final Book book) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.bookRepository.save(book);
+	}
 }

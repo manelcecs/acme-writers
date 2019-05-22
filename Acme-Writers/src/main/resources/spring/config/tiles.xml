@@ -27,6 +27,8 @@
 		<value>/views/message/tiles.xml</value>
 		<value>/views/messageBox/tiles.xml</value>
 		<value>/views/contest/tiles.xml</value>
+		<value>/views/adminConfig/tiles.xml</value>
+		<value>/views/genre/tiles.xml</value>
 		
 
 	</util:list>
