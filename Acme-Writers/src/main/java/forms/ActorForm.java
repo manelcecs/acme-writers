@@ -1,7 +1,6 @@
 
 package forms;
 
-import javax.persistence.ElementCollection;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -37,7 +36,8 @@ public class ActorForm {
 		this.name = name;
 	}
 
-	@ElementCollection
+	@NotBlank
+	@SafeHtml
 	public String getSurname() {
 		return this.surname;
 	}

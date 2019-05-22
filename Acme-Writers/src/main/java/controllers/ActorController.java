@@ -14,12 +14,16 @@ import security.LoginService;
 import security.UserAccount;
 import services.ActorService;
 import services.AdministratorService;
+import services.MessageService;
 import services.PublisherService;
 import services.ReaderService;
 import services.SocialProfileService;
 import services.SponsorService;
 import services.WriterService;
 import utiles.AuthorityMethods;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import domain.Actor;
 import domain.Administrator;
 import domain.Message;
@@ -53,6 +57,9 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private ReaderService			readerService;
+
+	@Autowired
+	private MessageService			messageService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)

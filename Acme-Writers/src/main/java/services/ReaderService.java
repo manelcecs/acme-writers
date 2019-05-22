@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.validation.BindingResult;
@@ -58,9 +59,18 @@ public class ReaderService {
 
 	public Reader save(final Reader reader) {
 		Assert.isTrue(reader != null);
-		if (reader.getId() == 0)
+		if (reader.getId() == 0) {
 			Assert.isTrue(!AuthorityMethods.checkIsSomeoneLogged());
-		else
+			final UserAccount userAccount = reader.getUserAccount();
+
+			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
+			final String pass = encoder.encodePassword(userAccount.getPassword(), null);
+			userAccount.setPassword(pass);
+
+			final UserAccount finalAccount = this.accountRepository.save(userAccount);
+
+			reader.setUserAccount(finalAccount);
+		} else
 			Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.READER) || AuthorityMethods.chechAuthorityLogged(Authority.ADMINISTRATOR));
 		return this.readerRepository.saveAndFlush(reader);
 	}

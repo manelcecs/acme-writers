@@ -95,38 +95,39 @@ public class SponsorService {
 		return this.sponsorRepository.findAll();
 	}
 
-	public Sponsor reconstruct(final SponsorForm auditorForm, final BindingResult binding) {
+	public Sponsor reconstruct(final SponsorForm sponsorForm, final BindingResult binding) {
 
-		if (!EmailValidator.validateEmail(auditorForm.getEmail(), Authority.SPONSOR))
-			binding.rejectValue("email", "auditor.edit.email.error");
-		if (!auditorForm.getUserAccount().getPassword().equals(auditorForm.getConfirmPassword()))
-			binding.rejectValue("confirmPassword", "auditor.edit.confirmPassword.error");
-		if (this.accountRepository.findByUsername(auditorForm.getUserAccount().getUsername()) != null)
-			binding.rejectValue("userAccount.username", "auditor.edit.userAccount.username.error");
-		if (!auditorForm.getTermsAndConditions())
-			binding.rejectValue("termsAndConditions", "auditor.edit.termsAndConditions.error");
+		if (!EmailValidator.validateEmail(sponsorForm.getEmail(), Authority.SPONSOR))
+			binding.rejectValue("email", "sponsor.edit.email.error");
+		if (!sponsorForm.getUserAccount().getPassword().equals(sponsorForm.getConfirmPassword()))
+			binding.rejectValue("confirmPassword", "sponsor.edit.confirmPassword.error");
+		if (this.accountRepository.findByUsername(sponsorForm.getUserAccount().getUsername()) != null)
+			binding.rejectValue("userAccount.username", "sponsor.edit.userAccount.username.error");
+		if (!sponsorForm.getTermsAndConditions())
+			binding.rejectValue("termsAndConditions", "sponsor.edit.termsAndConditions.error");
 
-		auditorForm.setCreditCard(ValidateCreditCard.checkNumeroAnno(auditorForm.getCreditCard()));
-		ValidateCreditCard.checkGregorianDate(auditorForm.getCreditCard(), binding);
+		sponsorForm.setCreditCard(ValidateCreditCard.checkNumeroAnno(sponsorForm.getCreditCard()));
+		ValidateCreditCard.checkGregorianDate(sponsorForm.getCreditCard(), binding);
 
 		final Sponsor result;
 		result = this.create();
 
-		final UserAccount account = auditorForm.getUserAccount();
+		final UserAccount account = sponsorForm.getUserAccount();
 
 		final Authority a = new Authority();
 		a.setAuthority(Authority.SPONSOR);
 		account.addAuthority(a);
 
 		result.setUserAccount(account);
-		result.setAddress(auditorForm.getAddress());
-		result.setEmail(auditorForm.getEmail());
-		result.setName(auditorForm.getName());
-		result.setPhoneNumber(AddPhoneCC.addPhoneCC(this.adminConfigService.getAdminConfig().getCountryCode(), auditorForm.getPhoneNumber()));
-		result.setPhotoURL(auditorForm.getPhotoURL());
-		result.setSurname(auditorForm.getSurname());
+		result.setAddress(sponsorForm.getAddress());
+		result.setEmail(sponsorForm.getEmail());
+		result.setName(sponsorForm.getName());
+		result.setPhoneNumber(AddPhoneCC.addPhoneCC(this.adminConfigService.getAdminConfig().getCountryCode(), sponsorForm.getPhoneNumber()));
+		result.setPhotoURL(sponsorForm.getPhotoURL());
+		result.setSurname(sponsorForm.getSurname());
+		result.setCompanyName(sponsorForm.getCompanyName());
 
-		result.setCreditCard(auditorForm.getCreditCard());
+		result.setCreditCard(sponsorForm.getCreditCard());
 
 		this.validator.validate(result, binding);
 
@@ -136,25 +137,26 @@ public class SponsorService {
 		return result;
 	}
 
-	public Sponsor reconstruct(final Sponsor auditor, final BindingResult binding) {
+	public Sponsor reconstruct(final Sponsor sponsor, final BindingResult binding) {
 
-		if (!EmailValidator.validateEmail(auditor.getEmail(), Authority.SPONSOR))
-			binding.rejectValue("email", "auditor.edit.email.error");
+		if (!EmailValidator.validateEmail(sponsor.getEmail(), Authority.SPONSOR))
+			binding.rejectValue("email", "sponsor.edit.email.error");
 
-		auditor.setCreditCard(ValidateCreditCard.checkNumeroAnno(auditor.getCreditCard()));
-		ValidateCreditCard.checkGregorianDate(auditor.getCreditCard(), binding);
+		sponsor.setCreditCard(ValidateCreditCard.checkNumeroAnno(sponsor.getCreditCard()));
+		ValidateCreditCard.checkGregorianDate(sponsor.getCreditCard(), binding);
 
 		final Sponsor result;
 		result = this.findByPrincipal(LoginService.getPrincipal());
 
-		result.setAddress(auditor.getAddress());
-		result.setEmail(auditor.getEmail());
-		result.setName(auditor.getName());
-		result.setPhoneNumber(AddPhoneCC.addPhoneCC(this.adminConfigService.getAdminConfig().getCountryCode(), auditor.getPhoneNumber()));
-		result.setPhotoURL(auditor.getPhotoURL());
-		result.setSurname(auditor.getSurname());
+		result.setAddress(sponsor.getAddress());
+		result.setEmail(sponsor.getEmail());
+		result.setName(sponsor.getName());
+		result.setPhoneNumber(AddPhoneCC.addPhoneCC(this.adminConfigService.getAdminConfig().getCountryCode(), sponsor.getPhoneNumber()));
+		result.setPhotoURL(sponsor.getPhotoURL());
+		result.setSurname(sponsor.getSurname());
+		result.setCompanyName(sponsor.getCompanyName());
 
-		result.setCreditCard(auditor.getCreditCard());
+		result.setCreditCard(sponsor.getCreditCard());
 
 		this.validator.validate(result, binding);
 
