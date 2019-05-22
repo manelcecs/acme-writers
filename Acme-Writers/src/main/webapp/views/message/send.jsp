@@ -44,7 +44,7 @@
      		<security:authorize access="hasRole('ADMINISTRATOR')">
      			<form:option value="${actors}" ><spring:message code="message.send.broadCastMessage" /></form:option>
      		</security:authorize>
-    		<form:options items="${actors}" itemValue="id" itemLabel="email"/>
+    		<form:options items="${actors}" itemValue="id" itemLabel="userAccount.username"/>
    		</form:select>
     	<form:errors path="recipients" cssClass="error" />
 		

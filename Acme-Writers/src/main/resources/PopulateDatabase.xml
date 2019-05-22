@@ -42,9 +42,9 @@
 					<value>FLY</value>
 				</list>
 			</property>
-			<property name="flatRate" value="10" />
+			<property name="flatRate" value="3000" />
 			<property name="VAT" value="10.0" />
-			<property name="ratioDislikes" value="0.5" />
+			<property name="spammerPercentage" value="10.0" />
 	</bean>
 	
 	<!-- User accounts (admin) -->
@@ -1198,25 +1198,35 @@
 	<!-- Genres -->	
 	
 	<bean class="domain.Genre" id="genre0">
-		<property value="terror" name="nameES" />
-		<property value="terror" name="nameEN" />		
+		<property value="GENRE" name="nameEN" />
+		<property value="GÉNERO" name="nameES" />		
 	</bean>
 	
 	<bean class="domain.Genre" id="genre1">
 		<property value="aventuras" name="nameES" />
-		<property value="adventures" name="nameEN" />		
+		<property value="adventures" name="nameEN" />	
+		<property name="parent" ref="genre0" />		
 	</bean>
 	
 	<bean class="domain.Genre" id="genre2">
-		<property value="comedia" name="nameES" />
-		<property value="comedy" name="nameEN" />		
+		<property value="terror" name="nameES" />
+		<property value="terror" name="nameEN" />	
+		<property name="parent" ref="genre0" />		
 	</bean>
 	
 	<bean class="domain.Genre" id="genre3">
+		<property value="comedia" name="nameES" />
+		<property value="comedy" name="nameEN" />
+		<property name="parent" ref="genre0" />			
+	</bean>
+	
+	<bean class="domain.Genre" id="genre4">
 		<property value="comedia infantil" name="nameES" />
 		<property value="children's comedy" name="nameEN" />	
-		<property name="parent" ref="genre2" />		
+		<property name="parent" ref="genre3" />		
 	</bean>
+	
+
 	
 	<!-- Tickers -->	
 	

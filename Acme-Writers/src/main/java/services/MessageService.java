@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Date;
 
 import javax.transaction.Transactional;
+import javax.validation.ValidationException;
 
 import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,12 +110,20 @@ public class MessageService {
 
 	public Message reconstruct(final Message message, final BindingResult binding) throws ParseException {
 		Message result;
+		final Actor principal = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		if (message.getId() == 0) {
-			message.setSender(this.actorService.findByUserAccount(LoginService.getPrincipal()));
+			message.setSender(principal);
 			message.setMoment(this.getDateNow());
 			result = message;
 		} else {
 			result = this.messageRepository.findOne(message.getId());
+
+			if (message.getMessageBoxes() != null)
+				for (final MessageBox box : message.getMessageBoxes()) {
+					final Actor owner = this.actorService.getByMessageBox(box.getId());
+					if (!owner.equals(principal))
+						binding.rejectValue("messageBoxes", "messageBox.error.notMyBox");
+				}
 
 			final Collection<MessageBox> boxesBD = result.getMessageBoxes();
 			if (message.getMessageBoxes() != null)
@@ -124,12 +133,15 @@ public class MessageService {
 
 		this.validator.validate(result, binding);
 
+		if (binding.hasErrors())
+			throw new ValidationException();
+
 		return result;
 	}
-
 	public Message removeFrom(Message message, final MessageBox messageBox) {
 		Assert.isTrue(this.checkMessagePermissions(message));
 		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		Assert.isTrue(this.actorService.getByMessageBox(messageBox.getId()).equals(actor));
 
 		final MessageBox trashBox = this.messageBoxService.findOriginalBox(actor.getId(), "Trash Box");
 

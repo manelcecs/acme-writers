@@ -24,4 +24,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 
 	@Query("select f.books from Finder f where f.id = ?1")
 	Collection<Book> getBooksByFinder(int idFinder);
+
+	@Query("select b from Book b where b.genre.id = ?1")
+	Collection<Book> getBooksByGenre(int idGenre);
 }

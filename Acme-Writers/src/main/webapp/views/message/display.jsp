@@ -16,8 +16,8 @@
 			<p>
 				<strong><spring:message code="message.display.sender"/></strong>
 				<jstl:out value="${Message.sender.name}"/>
-				<jstl:forEach items="${Message.sender.surnames}" var="surname"><jstl:out value="${surname}"/></jstl:forEach> 
-				(<jstl:out value="${Message.sender.email}"></jstl:out>)
+				<jstl:out value="${Message.sender.surname}"/>
+				(<jstl:out value="${Message.sender.userAccount.username}"></jstl:out>)
 			</p>
 			
 			<p class="right">
@@ -58,7 +58,7 @@
 			<p><strong><spring:message code="message.display.recipients"/></strong></p>
 			<jstl:forEach items="${recipients}" var="recipient">
 				<p>
-					<jstl:out value="${recipient.email}"></jstl:out>
+					<jstl:out value="${recipient.userAccount.username}"></jstl:out>
 				</p>
 			</jstl:forEach>
 
@@ -69,7 +69,7 @@
 		<form:form action="message/addTo.do" modelAttribute="Message">
 
 			<acme:hidden path="id" />
-			<acme:select items="${boxesToMove}" itemLabel="name" code="message.display.addTo" path="messageBoxes" />
+			<acme:select optional="false" items="${boxesToMove}" itemLabel="name" code="message.display.addTo" path="messageBoxes" />
 	
 			<div class="botones">		
 				<acme:submit name="save" code="message.display.confirm" />

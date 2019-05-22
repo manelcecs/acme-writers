@@ -19,6 +19,20 @@
 
 <div>
 	<ul id="jMenu">
+	
+		<security:authorize access="hasRole('ADMINISTRATOR')">
+			<li><a class="fNiv"><spring:message	code="master.page.administrator" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li>
+						<a href="adminConfig/administrator/display.do"><spring:message code="master.page.administrator.configuration" /></a>
+					</li>
+					<li>
+						<a href="genre/administrator/list.do"><spring:message code="master.page.administrator.genres" /></a>
+					</li>
+				</ul>
+			</li>
+		</security:authorize>
 		
 		<security:authorize access="hasRole('READER')">
 			<li>

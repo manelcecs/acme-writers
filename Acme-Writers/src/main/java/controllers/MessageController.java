@@ -4,6 +4,8 @@ package controllers;
 import java.text.ParseException;
 import java.util.Collection;
 
+import javax.validation.ValidationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -67,17 +69,15 @@ public class MessageController extends AbstractController {
 		final Collection<String> tags = ValidatorCollection.deleteStringsBlanksInCollection(message.getTags());
 		message.setTags(tags);
 
-		message = this.messageService.reconstruct(message, binding);
-
-		if (binding.hasErrors())
+		try {
+			message = this.messageService.reconstruct(message, binding);
+			this.messageService.save(message);
+			result = new ModelAndView("redirect:../messageBox/list.do");
+		} catch (final ValidationException opss) {
 			result = this.createEditModelAndView(message);
-		else
-			try {
-				this.messageService.save(message);
-				result = new ModelAndView("redirect:../messageBox/list.do");
-			} catch (final Throwable oops) {
-				result = this.createEditModelAndView(message, "message.commit.error");
-			}
+		} catch (final Throwable oops) {
+			result = this.createEditModelAndView(message, "message.commit.error");
+		}
 
 		return result;
 	}
@@ -85,32 +85,33 @@ public class MessageController extends AbstractController {
 	@RequestMapping(value = "/addTo", method = RequestMethod.POST)
 	public ModelAndView addTo(@ModelAttribute("Message") Message message, final BindingResult binding) throws ParseException {
 		ModelAndView result;
-		message = this.messageService.reconstruct(message, binding);
 
-		if (binding.hasErrors())
-			result = this.displayModelAndView(message);
-		else
-			try {
-				this.messageService.save(message);
-				result = new ModelAndView("redirect:../messageBox/list.do");
-			} catch (final Throwable oops) {
-				result = this.displayModelAndView(message, "message.commit.error");
-			}
+		try {
+			message = this.messageService.reconstruct(message, binding);
+			this.messageService.save(message);
+			result = new ModelAndView("redirect:../messageBox/list.do");
+		} catch (final ValidationException oops) {
+			result = this.displayModelAndView(this.messageService.findOne(message.getId()), "messageBox.error.notMyBox");
+		} catch (final Throwable oops) {
+			result = this.displayModelAndView(message, "message.commit.error");
+		}
 
 		return result;
 	}
-
 	@RequestMapping(value = "/removeFrom", method = RequestMethod.GET)
 	public ModelAndView removeFrom(@RequestParam final int idMessageBox, final int idMessage) {
 		ModelAndView result;
 		final Message message = this.messageService.findOne(idMessage);
 		final MessageBox messageBox = this.messageBoxService.findOne(idMessageBox);
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 
 		try {
 			this.messageService.removeFrom(message, messageBox);
-			result = this.listModelAndView(this.messageBoxService.findOne(idMessageBox));
+			result = this.listModelAndView(messageBox);
 		} catch (final Throwable oops) {
-			result = this.listModelAndView(this.messageBoxService.findOne(idMessageBox), "message.commit.error");
+			final MessageBox inBox = this.messageBoxService.findOriginalBox(actor.getId(), "In Box");
+			result = this.listModelAndView(inBox, "message.commit.error");
+			oops.printStackTrace();
 		}
 
 		this.configValues(result);
