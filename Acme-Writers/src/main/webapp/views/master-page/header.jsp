@@ -48,6 +48,8 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li>
+			<a class="fNiv" href="writer/list.do"><spring:message code="master.page.writer.display" /></a></li>
+			<li>
 				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a></li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
 			<li><a class="fNIv"><spring:message code="master.page.register" /></a>
@@ -66,6 +68,9 @@
 		
 		
 		<security:authorize access="isAuthenticated()and not(hasRole('BAN'))">
+			<li>
+			<a class="fNiv" href="writer/list.do"><spring:message code="master.page.writer.display" /></a></li>
+			<li>
 			<li>
 				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
 			</li>

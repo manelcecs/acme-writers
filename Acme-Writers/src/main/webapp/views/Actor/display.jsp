@@ -16,52 +16,42 @@
 	<br />
 
 </jstl:if>
-
+<jstl:if test="${back}">
+	<acme:button url="writer/list.do" type="button" code="actor.back" />
+	<br />
+</jstl:if>
 
 
 <jstl:choose>
-	<jstl:when test="${authority == 'COMPANY'}">
+	<jstl:when test="${authority == 'WRITER'}">
 
 		<b><spring:message code="actor.name" /></b>:
-		<jstl:out value="${company.name }" />
+		<jstl:out value="${writer.name }" />
 		<br />
 		<b><spring:message code="actor.surname" /></b>:
-		<jstl:forEach items="${company.surnames }" var="surname">
-			<jstl:out value="${surname }" />
-		</jstl:forEach>
+		<jstl:out value="${writer.surname }" />
 		<br />
-		<b><spring:message code="actor.photo" /></b>:
-		<jstl:out value="${company.photo }" />
+		<b><spring:message code="actor.photoURL" /></b>:
+		<jstl:out value="${writer.photoURL }" />
 		<br />
 		<b><spring:message code="actor.email" /></b>:
-		<jstl:out value="${company.email }" />
+		<jstl:out value="${writer.email }" />
 		<br />
 		<b><spring:message code="actor.address" /></b>:
-		<jstl:out value="${company.address }" />
+		<jstl:out value="${writer.address }" />
 		<br />
 		<b><spring:message code="actor.phoneNumber" /></b>:
-		<jstl:out value="${company.phoneNumber }" />
+		<jstl:out value="${writer.phoneNumber }" />
 		<br />
-		<b><spring:message code="company.companyName" /></b>:
-		<jstl:out value="${company.companyName }" />
-<br />
-		<b><spring:message code="company.score" /></b>
-		<jstl:if test="${ company.score eq null}">
-			<jstl:out value="N/A" />
-		</jstl:if>
-		<jstl:if test="${ company.score != null }">
-			<jstl:out value="${company.score }" />
-		</jstl:if>
-
 
 		<br />
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<b><spring:message code="actor.spammer" /></b>
-			<jstl:if test="${ company.spammer eq null}">
+			<jstl:if test="${ writer.spammer eq null}">
 				<jstl:out value="N/A" />
 			</jstl:if>
-			<jstl:if test="${ company.spammer != null }">
-				<jstl:out value="${company.spammer }" />
+			<jstl:if test="${ writer.spammer != null }">
+				<jstl:out value="${writer.spammer }" />
 			</jstl:if>
 
 		<br />
@@ -69,9 +59,7 @@
 
 
 	</jstl:when>
-
-
-
+	
 	<jstl:when test="${authority == 'ADMINISTRATOR'}">
 		<b><spring:message code="actor.name" /></b>:
 		<jstl:out value="${administrator.name }" />
@@ -81,8 +69,8 @@
 			<jstl:out value="${surname }" />
 		</jstl:forEach>
 		<br />
-		<b><spring:message code="actor.photo" /></b>:
-		<jstl:out value="${administrator.photo }" />
+		<b><spring:message code="actor.photoURL" /></b>:
+		<jstl:out value="${administrator.photoURL }" />
 		<br />
 		<b><spring:message code="actor.email" /></b>:
 		<jstl:out value="${administrator.email }" />
@@ -109,35 +97,33 @@
 
 	</jstl:when>
 
-	<jstl:when test="${authority == 'ROOKIE'}">
+	<jstl:when test="${authority == 'READER'}">
 		<b><spring:message code="actor.name" /></b>:
-		<jstl:out value="${rookie.name }" />
+		<jstl:out value="${reader.name }" />
 		<br />
 		<b><spring:message code="actor.surname" /></b>:
-		<jstl:forEach items="${rookie.surnames }" var="surname">
-			<jstl:out value="${surname }" />
-		</jstl:forEach>
+			<jstl:out value="${reader.surname }" />
 		<br />
-		<b><spring:message code="actor.photo" /></b>:
-		<jstl:out value="${rookie.photo }" />
+		<b><spring:message code="actor.photoURL" /></b>:
+		<jstl:out value="${reader.photoURL }" />
 		<br />
 		<b><spring:message code="actor.email" /></b>:
-		<jstl:out value="${rookie.email }" />
+		<jstl:out value="${reader.email }" />
 		<br />
 		<b><spring:message code="actor.address" /></b>:
-		<jstl:out value="${rookie.address }" />
+		<jstl:out value="${reader.address }" />
 		<br />
 		<b><spring:message code="actor.phoneNumber" /></b>:
-		<jstl:out value="${rookie.phoneNumber }" />
+		<jstl:out value="${reader.phoneNumber }" />
 
 		<br />
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<b><spring:message code="actor.spammer" /></b>
-			<jstl:if test="${ rookie.spammer eq null}">
+			<jstl:if test="${ reader.spammer eq null}">
 				<jstl:out value="N/A" />
 			</jstl:if>
-			<jstl:if test="${ rookie.spammer != null }">
-				<jstl:out value="${rookie.spammer }" />
+			<jstl:if test="${ reader.spammer != null }">
+				<jstl:out value="${reader.spammer }" />
 			</jstl:if>
 		</security:authorize>
 
@@ -145,41 +131,35 @@
 
 	</jstl:when>
 	
-	<jstl:when test="${authority == 'PROVIDER'}">
+	<jstl:when test="${authority == 'PUBLISHER'}">
 		<b><spring:message code="actor.name" /></b>:
-		<jstl:out value="${provider.name }" />
+		<jstl:out value="${publisher.name }" />
 		<br />
 		<b><spring:message code="actor.surname" /></b>:
-		<jstl:forEach items="${provider.surnames }" var="surname">
-			<jstl:out value="${surname }" />
-		</jstl:forEach>
+			<jstl:out value="${publisher.surname }" />
 		<br />
-		<b><spring:message code="actor.provider.providerMake" /></b>:
-		<jstl:out value="${provider.providerMake }" />
+		<b><spring:message code="actor.publisher.commercialName" /></b>:
+		<jstl:out value="${publisher.commercialName }" />
 		<br />
-		<b><spring:message code="actor.photo" /></b>:
-		<jstl:out value="${provider.photo }" />
+		<b><spring:message code="actor.photoURL" /></b>:
+		<jstl:out value="${publisher.photoURL }" />
 		<br />
 		<b><spring:message code="actor.email" /></b>:
-		<jstl:out value="${provider.email }" />
+		<jstl:out value="${publisher.email }" />
 		<br />
 		<b><spring:message code="actor.address" /></b>:
-		<jstl:out value="${provider.address }" />
+		<jstl:out value="${publisher.address }" />
 		<br />
 		<b><spring:message code="actor.phoneNumber" /></b>:
-		<jstl:out value="${provider.phoneNumber }" />
-
+		<jstl:out value="${publisher.phoneNumber }" />
 		<br/>
-		<b><spring:message code="actor.provider.items" /></b>:
-		<a href='item/list.do?idProvider=${provider.id}'><spring:message code="actor.provider.items" /></a>
-		<br />
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<b><spring:message code="actor.spammer" /></b>
-			<jstl:if test="${ provider.spammer eq null}">
+			<jstl:if test="${ publisher.spammer eq null}">
 				<jstl:out value="N/A" />
 			</jstl:if>
-			<jstl:if test="${ provider.spammer != null }">
-				<jstl:out value="${provider.spammer }" />
+			<jstl:if test="${ publisher.spammer != null }">
+				<jstl:out value="${publisher.spammer }" />
 			</jstl:if>
 		</security:authorize>
 
@@ -187,35 +167,36 @@
 
 	</jstl:when>
 	
-	<jstl:when test="${authority == 'AUDITOR'}">
+	<jstl:when test="${authority == 'SPONSOR'}">
 		<b><spring:message code="actor.name" /></b>:
-		<jstl:out value="${auditor.name }" />
+		<jstl:out value="${sponsor.name }" />
 		<br />
 		<b><spring:message code="actor.surname" /></b>:
-		<jstl:forEach items="${auditor.surnames }" var="surname">
-			<jstl:out value="${surname }" />
-		</jstl:forEach>
+			<jstl:out value="${sponsor.surname }" />
 		<br />
-		<b><spring:message code="actor.photo" /></b>:
-		<jstl:out value="${auditor.photo }" />
+		<b><spring:message code="actor.photoURL" /></b>:
+		<jstl:out value="${sponsor.photoURL }" />
 		<br />
 		<b><spring:message code="actor.email" /></b>:
-		<jstl:out value="${auditor.email }" />
+		<jstl:out value="${sponsor.email }" />
+		<br />
+		<b><spring:message code="actor.sponsor.companyName" /></b>:
+		<jstl:out value="${sponsor.companyName }" />
 		<br />
 		<b><spring:message code="actor.address" /></b>:
-		<jstl:out value="${auditor.address }" />
+		<jstl:out value="${sponsor.address }" />
 		<br />
 		<b><spring:message code="actor.phoneNumber" /></b>:
-		<jstl:out value="${auditor.phoneNumber }" />
+		<jstl:out value="${sponsor.phoneNumber }" />
 
 		<br />
 		<security:authorize access="hasRole('ADMINISTRATOR')">
 			<b><spring:message code="actor.spammer" /></b>
-			<jstl:if test="${ auditor.spammer eq null}">
+			<jstl:if test="${ sponsor.spammer eq null}">
 				<jstl:out value="N/A" />
 			</jstl:if>
-			<jstl:if test="${ auditor.spammer != null }">
-				<jstl:out value="${auditor.spammer }" />
+			<jstl:if test="${ sponsor.spammer != null }">
+				<jstl:out value="${sponsor.spammer }" />
 			</jstl:if>
 		</security:authorize>
 
