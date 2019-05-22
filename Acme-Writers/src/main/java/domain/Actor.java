@@ -50,6 +50,7 @@ public abstract class Actor extends DomainEntity {
 	}
 
 	@SafeHtml
+	@NotBlank
 	public String getSurname() {
 		return this.surname;
 	}

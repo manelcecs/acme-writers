@@ -48,7 +48,15 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li>
-				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
+				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a></li>
+			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li><a class="fNIv"><spring:message code="master.page.register" /></a>
+				<ul><li class="arrow"></li>
+					<li><a href="writer/register.do"><spring:message code="master.page.register.wiriter" /></a></li>
+					<li><a href="reader/register.do"><spring:message code="master.page.register.reader" /></a></li>
+					<li><a href="publisher/register.do"><spring:message code="master.page.register.publisher" /></a></li>
+					<li><a href="sponsor/register.do"><spring:message code="master.page.register.sponsor" /></a></li>
+					</ul>
 			</li>
 			<li>
 				<a class="fNiv" href="contest/list.do"><spring:message code="master.page.contest.list" /></a>

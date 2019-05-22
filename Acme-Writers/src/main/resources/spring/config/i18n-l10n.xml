@@ -30,6 +30,12 @@
 		<value>/views/genre/messages</value>
 		<value>/views/contest/messages</value>
 		
+		<value>/views/actor/messages</value>
+		<value>/views/administrator/messages</value>
+		<value>/views/publisher/messages</value>
+		<value>/views/reader/messages</value>
+		<value>/views/sponsor/messages</value>
+		<value>/views/writer/messages</value>
 		
 
 	</util:list>

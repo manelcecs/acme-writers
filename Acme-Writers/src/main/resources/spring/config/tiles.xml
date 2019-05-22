@@ -29,6 +29,11 @@
 		<value>/views/contest/tiles.xml</value>
 		<value>/views/adminConfig/tiles.xml</value>
 		<value>/views/genre/tiles.xml</value>
+		<value>/views/actor/tiles.xml</value>
+		<value>/views/administrator/tiles.xml</value>
+		<value>/views/publisher/tiles.xml</value>
+		<value>/views/reader/tiles.xml</value>
+		
 		
 
 	</util:list>

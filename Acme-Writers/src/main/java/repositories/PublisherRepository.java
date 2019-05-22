@@ -10,7 +10,7 @@ import domain.Publisher;
 @Repository
 public interface PublisherRepository extends JpaRepository<Publisher, Integer> {
 
-	@Query("select p from Publisher p where p.userAccount.id = ?1")
-	Publisher findByPrincipal(int idPrincipal);
+	@Query("select a from Publisher a where a.userAccount.id = ?1")
+	Publisher findByPrincipal(int principalId);
 
 }
