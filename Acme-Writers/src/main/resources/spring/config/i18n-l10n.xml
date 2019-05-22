@@ -37,6 +37,7 @@
 		<value>/views/sponsor/messages</value>
 		<value>/views/writer/messages</value>
 		
+		<value>/views/socialProfile/messages</value>
 
 	</util:list>
 
