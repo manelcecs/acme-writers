@@ -160,4 +160,9 @@ public class WriterService {
 		return this.writerRepository.findAll();
 	}
 
+
+	public Writer findByPrincipal(final int idPrincipal) {
+		return this.writerRepository.findByPrincipal(idPrincipal);
+	}
+
 }

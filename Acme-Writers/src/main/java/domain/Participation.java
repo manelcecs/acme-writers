@@ -28,8 +28,20 @@ public class Participation extends DomainEntity {
 	private String	status;
 	private Integer	position;
 
+	private Book	book;
 	private Contest	contest;
 
+
+	@Valid
+	//FIXME: @NotNull ??
+	@ManyToOne(optional = false)
+	public Book getBook() {
+		return this.book;
+	}
+
+	public void setBook(final Book book) {
+		this.book = book;
+	}
 
 	@NotBlank
 	@SafeHtml

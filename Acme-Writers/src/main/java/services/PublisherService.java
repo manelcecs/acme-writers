@@ -176,4 +176,9 @@ public class PublisherService {
 		return this.publisherRepository.findAll();
 	}
 
+
+	public Publisher findOne(final int idPublisher) {
+		return this.publisherRepository.findOne(idPublisher);
+	}
+
 }

@@ -37,6 +37,11 @@
 		<bean class="converters.ActorToStringConverter"/>
 		<bean class="converters.StringToActorConverter"/>
 		
+		<bean class="converters.PublisherToStringConverter"/>
+		<bean class="converters.StringToPublisherConverter"/>
+		
+		<bean class="converters.BookToStringConverter"/>
+		<bean class="converters.StringToBookConverter"/>
 	</util:list>
 	
 </beans>

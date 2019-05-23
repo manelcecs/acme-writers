@@ -1,12 +1,9 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -18,25 +15,26 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
+import forms.BookForm;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class Book extends DomainEntity {
 
-	private String						title;
-	private String						description;
-	private String						language;
-	private String						cover;
-	private boolean						cancelled;
-	private String						status;
-	private boolean						draft;
-	private Double						score;
-	private Integer						numWords;
+	private String		title;
+	private String		description;
+	private String		language;
+	private String		cover;
+	private boolean		cancelled;
+	private String		status;
+	private boolean		draft;
+	private Double		score;
+	private Integer		numWords;
 
-	private Ticker						ticker;
-	private Genre						genre;
-	private Collection<Participation>	participations;
-	private Publisher					publisher;
-	private Writer						writer;
+	private Ticker		ticker;
+	private Genre		genre;
+	private Publisher	publisher;
+	private Writer		writer;
 
 
 	@SafeHtml
@@ -126,7 +124,7 @@ public class Book extends DomainEntity {
 		this.score = score;
 	}
 
-	@Min(1)
+	@Min(0)
 	@NotNull
 	public Integer getNumWords() {
 		return this.numWords;
@@ -144,16 +142,6 @@ public class Book extends DomainEntity {
 
 	public void setGenre(final Genre genre) {
 		this.genre = genre;
-	}
-
-	@ManyToMany
-	@Valid
-	public Collection<Participation> getParticipations() {
-		return this.participations;
-	}
-
-	public void setParticipations(final Collection<Participation> participations) {
-		this.participations = participations;
 	}
 
 	@ManyToOne(optional = true)
@@ -174,5 +162,20 @@ public class Book extends DomainEntity {
 
 	public void setWriter(final Writer writer) {
 		this.writer = writer;
+	}
+
+	public BookForm castToForm() {
+		final BookForm bookForm = new BookForm();
+
+		bookForm.setCover(this.getCover());
+		bookForm.setDescription(this.getDescription());
+		bookForm.setGenre(this.getGenre());
+		bookForm.setId(this.getId());
+		bookForm.setLanguage(this.getLanguage());
+		bookForm.setPublisher(this.getPublisher());
+		bookForm.setTitle(this.getTitle());
+		bookForm.setVersion(this.getVersion());
+
+		return bookForm;
 	}
 }

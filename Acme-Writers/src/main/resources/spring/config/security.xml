@@ -78,6 +78,11 @@
 		<security:intercept-url pattern="/actor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/writer/display.do" access="permitAll" />
 		<security:intercept-url pattern="/writer/list.do" access="permitAll" />
+		<security:intercept-url pattern="/book/writer/**" access="hasRole('WRITER')" /> 
+		<security:intercept-url pattern="/chapter/writer/**" access="hasRole('WRITER')" /> 
+		
+		<security:intercept-url pattern="/book/publisher/**" access="hasRole('PUBLISHER')" /> 
+		<security:intercept-url pattern="/chapter/publisher/**" access="hasRole('PUBLISHER')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
