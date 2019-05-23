@@ -37,6 +37,9 @@
 		<bean class="converters.ActorToStringConverter"/>
 		<bean class="converters.StringToActorConverter"/>
 		
+		<bean class="converters.WriterToStringConverter"/>
+		<bean class="converters.StringToWriterConverter"/>
+		
 	</util:list>
 	
 </beans>

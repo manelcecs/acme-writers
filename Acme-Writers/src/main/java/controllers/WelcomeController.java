@@ -53,7 +53,7 @@ public class WelcomeController extends AbstractController {
 		try {
 			name = " " + this.actorService.findByUserAccount(LoginService.getPrincipal()).getName();
 		} catch (final Throwable oops) {
-			name = " John Doe";
+			name = "John Doe";
 		}
 
 		final AdminConfig adminConfig = this.adminConfigService.getAdminConfig();

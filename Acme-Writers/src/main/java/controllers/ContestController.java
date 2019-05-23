@@ -11,19 +11,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ContestService;
-import services.SponsorshipService;
 import domain.Contest;
-import domain.Sponsorship;
 
 @Controller
 @RequestMapping("/contest")
 public class ContestController extends AbstractController {
 
 	@Autowired
-	private ContestService		contestService;
-
-	@Autowired
-	private SponsorshipService	sponsorshipService;
+	private ContestService	contestService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -35,7 +30,7 @@ public class ContestController extends AbstractController {
 		result.addObject("viewAll", true);
 		result.addObject("requestURI", "contest/list.do");
 
-		this.configValues(result);
+		//		this.configValues(result);
 		return result;
 	}
 
@@ -47,11 +42,9 @@ public class ContestController extends AbstractController {
 
 		result = new ModelAndView("contest/display");
 		result.addObject("contest", contest);
-		final Sponsorship sponsorshipRandom = this.sponsorshipService.getRandomOfAContest(idContest);
-		result.addObject("sponsorshipRandom", sponsorshipRandom);
 		result.addObject("requestURI", "contest/display.do?idContest=" + idContest);
 
-		this.configValues(result);
+		//		this.configValues(result);
 		return result;
 	}
 }

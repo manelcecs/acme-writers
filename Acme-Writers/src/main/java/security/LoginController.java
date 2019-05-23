@@ -51,8 +51,6 @@ public class LoginController extends AbstractController {
 		result.addObject("credentials", credentials);
 		result.addObject("showError", showError);
 
-		this.configValues(result);
-
 		return result;
 	}
 
@@ -64,7 +62,6 @@ public class LoginController extends AbstractController {
 
 		result = new ModelAndView("redirect:login.do?showError=true");
 
-		this.configValues(result);
 		return result;
 	}
 

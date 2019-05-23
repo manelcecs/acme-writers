@@ -39,25 +39,6 @@ public class ValidateCreditCard {
 
 	}
 
-	public static Boolean isCaducate(final CreditCard card) {
-		Boolean res = false;
-		int cardYear = 0;
-		if (card.getExpirationYear() < 100)
-			cardYear = card.getExpirationYear() + 2000;
-		else
-			cardYear = card.getExpirationYear();
-
-		final GregorianCalendar cardDate = new GregorianCalendar(cardYear, card.getExpirationMonth(), 1);
-		final LocalDate date = LocalDate.now();
-		final GregorianCalendar actualDate = new GregorianCalendar(date.getYear(), date.getMonthOfYear(), date.getDayOfMonth());
-
-		final int compare = actualDate.compareTo(cardDate);
-		if (compare >= 0)
-			res = true;
-
-		return res;
-	}
-
 	public static CreditCard checkNumeroAnno(final CreditCard card) {
 		int res = card.getExpirationYear();
 		if (res < 100)

@@ -2,6 +2,7 @@
 package services;
 
 import java.text.ParseException;
+import java.util.Collection;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
@@ -22,6 +23,7 @@ import utiles.AddPhoneCC;
 import utiles.AuthorityMethods;
 import utiles.EmailValidator;
 import domain.Reader;
+import domain.Writer;
 import forms.ReaderForm;
 
 @Service
@@ -136,6 +138,28 @@ public class ReaderService {
 
 	public Reader findByPrincipal(final UserAccount principal) {
 		return this.readerRepository.findByPrincipal(principal.getId());
+	}
+
+	public void follow(final Reader reader, final Writer writer) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.READER));
+		Assert.isTrue(this.findByPrincipal(LoginService.getPrincipal()).getId() == reader.getId());
+
+		final Collection<Writer> writersFollowed = reader.getWriters();
+		writersFollowed.add(writer);
+		reader.setWriters(writersFollowed);
+
+		this.readerRepository.saveAndFlush(reader);
+	}
+
+	public void unfollow(final Reader reader, final Writer writer) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.READER));
+		Assert.isTrue(this.findByPrincipal(LoginService.getPrincipal()).getId() == reader.getId());
+
+		final Collection<Writer> writersFollowed = reader.getWriters();
+		writersFollowed.remove(writer);
+		reader.setWriters(writersFollowed);
+
+		this.readerRepository.saveAndFlush(reader);
 	}
 
 	public Reader findOne(final int readerId) {
