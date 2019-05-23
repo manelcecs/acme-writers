@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 import repositories.GenreRepository;
 import utiles.AuthorityMethods;
 import domain.Book;
+import domain.Finder;
 import domain.Genre;
 
 @Service
@@ -23,6 +24,9 @@ public class GenreService {
 
 	@Autowired
 	private BookService		bookService;
+
+	@Autowired
+	private FinderService	finderService;
 
 
 	public Genre create() {
@@ -60,21 +64,27 @@ public class GenreService {
 		return this.genreRepository.getAllNameEN();
 	}
 
-	//TODO Falta lo del tema del finde
 	public void delete(final Genre genre) {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
 		final Genre generalGenre = this.genreRepository.getGeneralGenre();
 		Assert.isTrue(genre.getId() != generalGenre.getId());
+		final Genre genreParent = genre.getParent();
 
 		final Collection<Book> bookWithThisGenre = this.bookService.getBooksByGenre(genre.getId());
 
 		for (final Book book : bookWithThisGenre) {
-			book.setGenre(genre.getParent());
+			book.setGenre(genreParent);
 			this.bookService.updateGenre(book);
 		}
 
+		final Collection<Finder> finderWithThisGenre = this.finderService.getFindersByGenre(genre.getId());
+
+		for (final Finder finder : finderWithThisGenre) {
+			finder.setGenre(genreParent);
+			this.finderService.updateGenre(finder);
+		}
+
 		final Collection<Genre> subgenres = this.genreRepository.getSubgenres(genre.getId());
-		final Genre genreParent = genre.getParent();
 
 		for (final Genre subgenre : subgenres) {
 			subgenre.setParent(genreParent);
