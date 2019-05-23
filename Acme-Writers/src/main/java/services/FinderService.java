@@ -188,4 +188,13 @@ public class FinderService {
 		this.finderRepository.flush();
 	}
 
+	public Collection<Finder> getFindersByGenre(final int idGenre) {
+		return this.finderRepository.getFindersByGenre(idGenre);
+	}
+
+	public Finder updateGenre(final Finder finder) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.finderRepository.save(finder);
+	}
+
 }
