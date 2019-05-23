@@ -22,4 +22,10 @@
 	</jstl:forEach>
 </ul>
 
+<hr>
+
+<div id="sponsor" style="width: 50px;">
+	<a target="_blank" href="${sponsorshipRandom.targetPageURL}" ><img style="width: 200px;" src="${sponsorshipRandom.bannerURL}" alt="${sponsorshipRandom.targetPageURL}"/></a>
+</div>
+
 
