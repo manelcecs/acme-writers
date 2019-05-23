@@ -38,7 +38,7 @@ public class ChapterPublisherController {
 		ModelAndView result = new ModelAndView("chapter/display");
 
 		final Chapter chapter = this.chapterService.findOne(idChapter);
-		final Publisher publiserLogged = this.publisherService.findByPrincipal(LoginService.getPrincipal().getId());
+		final Publisher publiserLogged = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 
 		if (!chapter.getBook().getPublisher().equals(publiserLogged) || chapter.getBook().getCancelled() || chapter.getBook().getDraft())
 			//FIXME: PROBAR ESTE REDIRECT

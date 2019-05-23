@@ -45,7 +45,7 @@ public class BookPublisherController extends AbstractController {
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
 	public ModelAndView display(@RequestParam final Integer idBook) {
 		ModelAndView result;
-		final Publisher publiserLogged = this.publisherService.findByPrincipal(LoginService.getPrincipal().getId());
+		final Publisher publiserLogged = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 
 		final Book book = this.bookService.findOne(idBook);
 

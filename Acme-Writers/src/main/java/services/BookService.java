@@ -1,3 +1,4 @@
+
 package services;
 
 import java.util.Collection;
@@ -42,6 +43,7 @@ public class BookService {
 
 	@Autowired
 	private IntermediaryBetweenTransactions	intermediaryBetweenTransactions;
+
 
 	public Book findOne(final int idBook) {
 		return this.bookRepository.findOne(idBook);
@@ -184,7 +186,7 @@ public class BookService {
 	}
 
 	public Collection<Book> getBooksOfLoggedPublisher() {
-		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal().getId());
+		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 		return this.bookRepository.getBooksOfPublisher(publisher.getId());
 	}
 
@@ -193,7 +195,7 @@ public class BookService {
 
 		final Book book = this.findOne(idBook);
 
-		final Publisher publisherLogged = this.publisherService.findByPrincipal(LoginService.getPrincipal().getId());
+		final Publisher publisherLogged = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 
 		Assert.isTrue(book.getPublisher().equals(publisherLogged));
 
