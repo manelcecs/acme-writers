@@ -35,6 +35,7 @@
 		<value>/views/reader/tiles.xml</value>
 		<value>/views/sponsor/tiles.xml</value>
 		<value>/views/writer/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
 		
 		<value>/views/socialProfile/tiles.xml</value>
 		
