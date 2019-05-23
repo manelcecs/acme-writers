@@ -21,15 +21,15 @@
    		 <acme:textarea code="book.edit.description" path="description"/>
    	 </p>
    	 <p>
-   		 <acme:select items="${languages}" itemLabel="language" code="book.edit.language" path="language"/>
+   		 <acme:textbox code="book.edit.language" path="language"/>
    	 </p>
    	 <p>
-   		 <acme:textarea code="book.edit.cover" path="cover"/>
+   		 <acme:textbox code="book.edit.cover" path="cover"/>
    	 </p>
 
-   	 <acme:select items="${publishers}" itemLabel="publisher" code="book.edit.publisher" path="publisher"/>
+   	 <acme:select items="${publishers}" itemLabel="commercialName" code="book.edit.publisher" path="publisher"/>
    	 
-   	 <acme:select items="${genres}" itemLabel="genre" code="book.edit.genre" path="genre"/>
+   	<%--  <acme:select items="${genres}" itemLabel="genre" code="book.edit.genre" path="genre"/> --%>
    	 
    	
    	  	 

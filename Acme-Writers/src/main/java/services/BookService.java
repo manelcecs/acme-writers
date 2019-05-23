@@ -41,7 +41,7 @@ public class BookService {
 	@Autowired
 	Validator								validator;
 
-	@Autowired(required = false)
+	@Autowired
 	private IntermediaryBetweenTransactions	intermediaryBetweenTransactions;
 
 
@@ -73,6 +73,10 @@ public class BookService {
 		book.setCover(bookForm.getCover());
 		book.setGenre(bookForm.getGenre());
 		book.setPublisher(bookForm.getPublisher());
+		if (bookForm.getPublisher() == null)
+			book.setStatus("INDEPENDENT");
+		else
+			book.setStatus("PENDING");
 
 		this.validator.validate(book, bindingResult);
 
@@ -142,12 +146,26 @@ public class BookService {
 
 	}
 
+	public Collection<Book> getBooksCanChangeDraft() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
+
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		return this.bookRepository.getBooksCanChangeDraft(writerLogged.getId());
+
+	}
+
 	public Collection<Book> getAllVisibleBooks() {
 		return this.bookRepository.getAllVisibleBooks();
 	}
 
 	public Collection<Book> getAllVisibleBooksOfWriter(final int idWriter) {
 		return this.bookRepository.getAllVisibleBooksOfWriter(idWriter);
+	}
+
+	public Collection<Book> getBooksOfLoggedPublisher() {
+		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal().getId());
+		return this.bookRepository.getBooksOfPublisher(publisher.getId());
 	}
 
 	public Book changeStatus(final int idBook, final String status) {

@@ -1,6 +1,8 @@
 
 package controllers.writer;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,11 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.BookService;
 import services.ChapterService;
+import services.PublisherService;
 import services.WriterService;
 import controllers.AbstractController;
 import domain.Book;
+import domain.Publisher;
 import domain.Writer;
 import forms.BookForm;
 
@@ -25,13 +29,16 @@ import forms.BookForm;
 public class BookWriterController extends AbstractController {
 
 	@Autowired
-	BookService		bookService;
+	BookService			bookService;
 
 	@Autowired
-	WriterService	writerService;
+	WriterService		writerService;
 
 	@Autowired
-	ChapterService	chapterService;
+	ChapterService		chapterService;
+
+	@Autowired
+	PublisherService	publisherService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -52,7 +59,10 @@ public class BookWriterController extends AbstractController {
 			result.addObject("book", book);
 			result.addObject("logged", true);
 			result.addObject("chapters", this.chapterService.getChaptersOfABook(book.getId()));
+
 			//FIXME: ADD THE OPINIONS
+			result.addObject("requestURIChapters", "book/writer/display.do?idBook=" + idBook);
+			result.addObject("requestURIOpinions", "book/writer/display.do?idBook=" + idBook);
 		} else
 			result = new ModelAndView("redirect:list.do");
 
@@ -72,7 +82,7 @@ public class BookWriterController extends AbstractController {
 
 		final Book book = this.bookService.findOne(idBook);
 
-		if (!book.getWriter().equals(writerLogged))
+		if (!book.getWriter().equals(writerLogged) || !book.getDraft())
 			result = this.listModelAndView("cannot.edit.book");
 		else
 			result = this.createAndEditModelAndView(book.castToForm());
@@ -92,6 +102,7 @@ public class BookWriterController extends AbstractController {
 				this.bookService.save(bookForm, bindingResult);
 				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
+				oops.printStackTrace();
 				result = this.createAndEditModelAndView(bookForm, "cannot.save.book");
 			}
 
@@ -106,6 +117,7 @@ public class BookWriterController extends AbstractController {
 			this.bookService.delete(idBook);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
+			oops.printStackTrace();
 			result = this.listModelAndView("cannot.delete.book");
 		}
 
@@ -120,6 +132,7 @@ public class BookWriterController extends AbstractController {
 			this.bookService.changeDraft(idBook);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
+			oops.printStackTrace();
 			result = this.listModelAndView("cannot.changeDraft.book");
 		}
 
@@ -134,7 +147,8 @@ public class BookWriterController extends AbstractController {
 			this.bookService.cancelBook(idBook);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = this.listModelAndView("cannot.changeDraft.book");
+			oops.printStackTrace();
+			result = this.listModelAndView("cannot.cancel.book");
 		}
 
 		return result;
@@ -145,16 +159,31 @@ public class BookWriterController extends AbstractController {
 	}
 
 	protected ModelAndView createAndEditModelAndView(final BookForm bookForm, final String message) {
-		return null;
+		final ModelAndView result = new ModelAndView("book/edit");
+
+		final Collection<Publisher> publishers = this.publisherService.findAll();
+		result.addObject("bookForm", bookForm);
+		result.addObject("publishers", publishers);
+		result.addObject("message", message);
+
+		return result;
 
 	}
-
 	protected ModelAndView listModelAndView() {
 		return this.listModelAndView(null);
 	}
 
 	protected ModelAndView listModelAndView(final String message) {
-		return null;
+		final ModelAndView result = new ModelAndView("book/list");
+		final Collection<Book> books = this.bookService.getAllBooksOfLoggedWriter();
+		final Collection<Book> booksCanChangeDraft = this.bookService.getBooksCanChangeDraft();
+
+		result.addObject("books", books);
+		result.addObject("booksCanChangeDraft", booksCanChangeDraft);
+		result.addObject("myList", true);
+		result.addObject("message", message);
+
+		return result;
 	}
 
 }

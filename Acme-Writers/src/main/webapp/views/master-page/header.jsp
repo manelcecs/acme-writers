@@ -59,6 +59,14 @@
 				</ul>
 			</li>
 		</security:authorize>
+		
+		<security:authorize access="hasRole('WRITER')">
+			<li><a class="fNiv" href="book/writer/list.do"><spring:message code="master.page.list.books" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('PUBLISHER')">
+			<li><a class="fNiv" href="book/publisher/list.do"><spring:message code="master.page.list.books" /></a></li>
+		</security:authorize>
 	</ul>
 </div>
 

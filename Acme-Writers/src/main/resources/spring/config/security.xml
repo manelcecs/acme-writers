@@ -41,7 +41,11 @@
 
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
-		<security:intercept-url pattern="/book/writer/**" access="hasRole('WTITER')" /> 
+		<security:intercept-url pattern="/book/writer/**" access="hasRole('WRITER')" /> 
+		<security:intercept-url pattern="/chapter/writer/**" access="hasRole('WRITER')" /> 
+		
+		<security:intercept-url pattern="/book/publisher/**" access="hasRole('PUBLISHER')" /> 
+		<security:intercept-url pattern="/chapter/publisher/**" access="hasRole('PUBLISHER')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

@@ -28,7 +28,11 @@
 		</display:column>
    		<display:column titleKey="book.list.numWords"><jstl:out value="${book.numWords}"/></display:column>
    		<display:column titleKey="book.list.publisher"><jstl:out value="${book.publisher.commercialName}"/></display:column>
-		<jstl:if test="${myList}">
+		<jstl:choose>
+		
+		
+		
+		<jstl:when test="${myList}">
 			 <display:column titleKey="book.list.display">
    				 <acme:button url="book/writer/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
@@ -46,27 +50,41 @@
    			 </display:column>
    			 
    			 <display:column titleKey="book.list.cancel">
-   			 <jstl:if test="${!book.draft}">
-   			 	<jstl:if test="${book.cancel}">
+   			 <jstl:choose>
+   			 <jstl:when test="${!book.draft and book.status == 'ACCEPTED'}">
+   			 	<jstl:if test="${book.cancelled}">
    				 <acme:button url="book/writer/cancel.do?idBook=${book.id}" type="button" code="book.list.revokeCancel"/>
    			 	</jstl:if>
-   			 	<jstl:if test="${!book.cancel}">
+   			 	<jstl:if test="${!book.cancelled}">
    				 <acme:button url="book/writer/cancel.do?idBook=${book.id}" type="button" code="book.list.cancel"/>
    			 	</jstl:if>
-   			 </jstl:if>
+   			 </jstl:when>
+   			 <jstl:when test="${!book.draft and book.status == 'REJECTED'}">
+   			 	<spring:message code="book.list.rejectedBook"/>
+   			 </jstl:when>
+   			 </jstl:choose>
    			 </display:column>
    			 
    			 <display:column titleKey="book.list.changeDraft">
-   			 <jstl:if test="${!book.draft and booksCanChangeDraft.contains(book)}">
+   			 <jstl:if test="${book.draft and booksCanChangeDraft.contains(book)}">
    				 <acme:button url="book/writer/changeDraft.do?idBook=${book.id}" type="button" code="book.list.changeDraft"/>
    			 </jstl:if>
    			 </display:column>
    		 	<display:column titleKey="book.list.status"><jstl:out value="${book.status}"/></display:column>
-		</jstl:if>
-		<jstl:if test="${!myList}">
+		</jstl:when>
+		
+		<jstl:when test="${publisher}">
+			<display:column titleKey="book.list.display">
+   				 <acme:button url="book/publisher/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
+   			 </display:column>
+   			 <display:column titleKey="book.list.status"><jstl:out value="${book.status}"/></display:column>
+		</jstl:when>
+
+		<jstl:otherwise>
 			<display:column titleKey="book.list.display">
    				 <acme:button url="book/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
 
-		</jstl:if>
+		</jstl:otherwise>
+		</jstl:choose>
 </display:table>

@@ -24,6 +24,7 @@
 		<value>/views/welcome/tiles.xml</value>
 		
 		<value>/views/book/tiles.xml</value>
+		<value>/views/chapter/tiles.xml</value>
 		
 	</util:list>
 

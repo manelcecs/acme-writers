@@ -29,6 +29,8 @@ public class ChapterService {
 	@Autowired
 	private WriterService		writerService;
 
+	public static final String	REGEXP	= "([\\W\\s]+)";
+
 
 	public Collection<Chapter> getChaptersOfABook(final int idBook) {
 		return this.chapterRepository.getChaptersOfABook(idBook);
@@ -50,10 +52,23 @@ public class ChapterService {
 
 		Assert.isTrue(book.getDraft());
 
+		Integer numPalabras;
+		if (chapter.getId() != 0) {
+			final Chapter chapterOld = this.findOne(chapter.getId());
+			final Integer numPalabrasOld = chapterOld.getText().split(ChapterService.REGEXP).length;
+
+			final Integer numPalabrasNuevo = chapter.getText().split(ChapterService.REGEXP).length;
+			numPalabras = numPalabrasNuevo - numPalabrasOld;
+
+		} else
+			numPalabras = chapter.getText().split(ChapterService.REGEXP).length;
+
+		book.setNumWords(book.getNumWords() + numPalabras);
+		this.bookService.save(book);
+
 		return this.chapterRepository.save(chapter);
 
 	}
-
 	public void delete(final int idChapter) {
 
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
@@ -67,12 +82,23 @@ public class ChapterService {
 
 		Assert.isTrue(book.getDraft());
 
+		final Integer numPalabras = chapter.getText().split(ChapterService.REGEXP).length;
+
+		book.setNumWords(book.getNumWords() - numPalabras);
+		this.bookService.save(book);
+
 		this.chapterRepository.delete(chapter);
 
 	}
 
 	public Chapter findOne(final int idChapter) {
 		return this.chapterRepository.findOne(idChapter);
+	}
+
+	public Chapter create(final Book book) {
+		final Chapter chapter = new Chapter();
+		chapter.setBook(book);
+		return chapter;
 	}
 
 }

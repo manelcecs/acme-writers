@@ -24,6 +24,7 @@
 		<value>/views/welcome/messages</value>
 		
 		<value>/views/book/messages</value>
+		<value>/views/chapter/messages</value>
 		
 	</util:list>
 

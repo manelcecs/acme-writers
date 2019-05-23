@@ -124,7 +124,7 @@ public class Book extends DomainEntity {
 		this.score = score;
 	}
 
-	@Min(1)
+	@Min(0)
 	@NotNull
 	public Integer getNumWords() {
 		return this.numWords;
