@@ -35,16 +35,19 @@ public class BookService {
 	private OpinionService	opinionService;
 
 	@Autowired
-	ChapterService							chapterService;
+	private WriterService	writerService;
 
 	@Autowired
-	PublisherService						publisherService;
+	private ChapterService							chapterService;
 
 	@Autowired
-	ReaderService							readerService;
+	private PublisherService						publisherService;
 
 	@Autowired
-	Validator								validator;
+	private ReaderService							readerService;
+
+	@Autowired
+	private Validator								validator;
 
 	@Autowired
 	private IntermediaryBetweenTransactions	intermediaryBetweenTransactions;
