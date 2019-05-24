@@ -63,6 +63,26 @@ public class ReaderReaderControler extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/reader/save", method = RequestMethod.POST)
+	public ModelAndView save(final Reader reader, final BindingResult binding) {
+
+		ModelAndView res;
+
+		try {
+			final Reader readerRect = this.readerService.reconstruct(reader, binding);
+			this.readerService.save(readerRect);
+			res = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final ValidationException oops) {
+			res = this.createEditModelAndView(reader);
+		} catch (final Throwable oops) {
+			res = this.createEditModelAndView(reader, "reader.edit.commit.error");
+
+		}
+
+		return res;
+
+	}
+
 	@RequestMapping(value = "/follow")
 	public ModelAndView follow(final int writerId) {
 		ModelAndView res;

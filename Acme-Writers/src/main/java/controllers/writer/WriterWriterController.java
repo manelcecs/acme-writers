@@ -70,6 +70,26 @@ public class WriterWriterController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/writer/save", method = RequestMethod.POST)
+	public ModelAndView save(final Writer writer, final BindingResult binding) {
+
+		ModelAndView res;
+
+		try {
+			final Writer writerRect = this.writerService.reconstruct(writer, binding);
+			this.writerService.save(writerRect);
+			res = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final ValidationException oops) {
+			res = this.createEditModelAndView(writer);
+		} catch (final Throwable oops) {
+			res = this.createEditModelAndView(writer, "writer.edit.commit.error");
+
+		}
+
+		return res;
+
+	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView listWriters() {
 		return this.createModelAndViewList();

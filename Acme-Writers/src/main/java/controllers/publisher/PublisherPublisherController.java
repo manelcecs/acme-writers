@@ -57,6 +57,26 @@ public class PublisherPublisherController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/publisher/save", method = RequestMethod.POST)
+	public ModelAndView save(final Publisher publisher, final BindingResult binding) {
+
+		ModelAndView res;
+
+		try {
+			final Publisher publisherRect = this.publisherService.reconstruct(publisher, binding);
+			this.publisherService.save(publisherRect);
+			res = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final ValidationException oops) {
+			res = this.createEditModelAndView(publisher);
+		} catch (final Throwable oops) {
+			res = this.createEditModelAndView(publisher, "publisher.edit.commit.error");
+
+		}
+
+		return res;
+
+	}
+
 	protected ModelAndView createEditModelAndView(final PublisherForm publisherForm, final String... messages) {
 
 		final ModelAndView result;
