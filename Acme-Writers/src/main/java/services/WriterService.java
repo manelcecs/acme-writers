@@ -160,9 +160,22 @@ public class WriterService {
 		return this.writerRepository.findAll();
 	}
 
-
 	public Writer findByPrincipal(final int idPrincipal) {
 		return this.writerRepository.findByPrincipal(idPrincipal);
+	}
+
+	//DASHBOARD-----------------------------------------------------------------------------------
+
+	public Collection<Writer> getWritersWithMoreBooks() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.writerRepository.getWritersWithMoreBooks();
+	}
+
+	//--------------------------------------------------------------------------------------------
+
+	public Collection<Writer> getWritersWithLessBooks() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.writerRepository.getWritersWithLessBooks();
 	}
 
 }

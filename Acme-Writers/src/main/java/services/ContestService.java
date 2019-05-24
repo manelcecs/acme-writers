@@ -73,4 +73,14 @@ public class ContestService {
 		return this.contestRepository.findAll();
 	}
 
+	public Collection<Contest> getContestsWithMoreParticipations() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.contestRepository.getContestsWithMoreParticipations();
+	}
+
+	public Collection<Contest> getContestsWithMoreSponsorships() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.contestRepository.getContestsWithMoreSponsorships();
+	}
+
 }
