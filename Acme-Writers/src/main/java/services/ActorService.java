@@ -82,14 +82,11 @@ public class ActorService {
 	private MessageService			messageService;
 
 	@Autowired
-	private MessageBoxService		messageBoxService;
+	private AdminConfigService		adminConfigService;
 
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
 
-	//	@Autowired
-	//	private OpinionService			opinionService;
-	//
-	//	@Autowired
-	//	private ParticipationService	participationService;
 
 	public Actor save(final Actor actor) {
 		return this.actorRepository.save(actor);
@@ -115,7 +112,6 @@ public class ActorService {
 	public Actor getActor(final int idActor) {
 		return this.actorRepository.getActor(idActor);
 	}
-
 
 	public void updateSpam() {
 		AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR");

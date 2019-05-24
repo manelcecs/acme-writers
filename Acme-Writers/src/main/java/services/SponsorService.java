@@ -24,6 +24,7 @@ import utiles.EmailValidator;
 import utiles.ValidateCreditCard;
 import domain.Actor;
 import domain.Sponsor;
+import domain.Sponsorship;
 import forms.SponsorForm;
 
 @Service
@@ -45,6 +46,9 @@ public class SponsorService {
 	@Autowired
 	private SponsorRepository		sponsorRepository;
 
+	@Autowired
+	private SponsorshipService		sponsorshipService;
+
 
 	public Sponsor create() {
 		final Sponsor res = new Sponsor();
@@ -56,11 +60,11 @@ public class SponsorService {
 		return res;
 	}
 
-	public Sponsor save(final Sponsor auditor) {
-		Assert.isTrue(auditor != null);
+	public Sponsor save(final Sponsor sponsor) {
+		Assert.isTrue(sponsor != null);
 
-		if (auditor.getId() == 0) {
-			final UserAccount userAccount = auditor.getUserAccount();
+		if (sponsor.getId() == 0) {
+			final UserAccount userAccount = sponsor.getUserAccount();
 
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			final String pass = encoder.encodePassword(userAccount.getPassword(), null);
@@ -68,16 +72,25 @@ public class SponsorService {
 
 			final UserAccount finalAccount = this.accountRepository.save(userAccount);
 
-			auditor.setUserAccount(finalAccount);
+			sponsor.setUserAccount(finalAccount);
 		} else {
 			Assert.isTrue(AuthorityMethods.checkIsSomeoneLogged());
 			Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.SPONSOR));
-			Assert.isTrue(!auditor.getBanned());
+			Assert.isTrue(!sponsor.getBanned());
 		}
 
-		final Sponsor res = this.sponsorRepository.save(auditor);
-
+		final Sponsor res = this.sponsorRepository.save(sponsor);
+		this.activateSponsorship(res);
 		return res;
+	}
+
+	private void activateSponsorship(final Sponsor sponsor) {
+		final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAllBySponsor(sponsor.getId());
+
+		for (final Sponsorship sponsorship : sponsorships)
+			sponsorship.setCancelled(false);
+		this.sponsorshipService.save(sponsorships);
+
 	}
 
 	public void flush() {

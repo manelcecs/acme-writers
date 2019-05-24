@@ -166,4 +166,8 @@ public class ReaderService {
 		return this.readerRepository.findOne(readerId);
 	}
 
+	public Collection<Reader> findAll() {
+		return this.readerRepository.findAll();
+	}
+
 }

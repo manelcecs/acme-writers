@@ -31,19 +31,22 @@ import domain.MessageBox;
 public class MessageService {
 
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageRepository		messageRepository;
 
 	@Autowired
-	private MessageBoxService	messageBoxService;
+	private MessageBoxService		messageBoxService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private AdminConfigService	adminConfigService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private Validator			validator;
+	private AdminConfigService		adminConfigService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	public Message create() {

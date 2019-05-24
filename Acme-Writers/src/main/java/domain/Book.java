@@ -5,6 +5,7 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -50,6 +51,7 @@ public class Book extends DomainEntity {
 
 	@SafeHtml
 	@NotBlank
+	@Lob
 	public String getDescription() {
 		return this.description;
 	}

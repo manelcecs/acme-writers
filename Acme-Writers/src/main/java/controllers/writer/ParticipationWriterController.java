@@ -124,7 +124,7 @@ public class ParticipationWriterController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Participation participation, final String message) {
 		final ModelAndView result = new ModelAndView("participation/create");
-		final Collection<Book> books = this.bookService.getBooksOfWriter(this.writerService.findByPrincipal(LoginService.getPrincipal()).getId());
+		final Collection<Book> books = this.bookService.getAllBooksOfLoggedWriter(); //MODIFICADO POR ANTONIO
 
 		result.addObject("participation", participation);
 		result.addObject("books", books);

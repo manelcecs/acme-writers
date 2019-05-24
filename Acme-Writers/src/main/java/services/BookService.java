@@ -1,6 +1,7 @@
 
 package services;
 
+import java.text.ParseException;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -29,25 +30,28 @@ import forms.BookForm;
 public class BookService {
 
 	@Autowired
-	private BookRepository	bookRepository;
+	private BookRepository					bookRepository;
 
 	@Autowired
-	private OpinionService	opinionService;
+	private MessageService					messageService;
 
 	@Autowired
-	private WriterService	writerService;
+	private OpinionService					opinionService;
 
 	@Autowired
-	private ChapterService							chapterService;
+	private WriterService					writerService;
 
 	@Autowired
-	private PublisherService						publisherService;
+	private ChapterService					chapterService;
 
 	@Autowired
-	private ReaderService							readerService;
+	private PublisherService				publisherService;
 
 	@Autowired
-	private Validator								validator;
+	private ReaderService					readerService;
+
+	@Autowired
+	private Validator						validator;
 
 	@Autowired
 	private IntermediaryBetweenTransactions	intermediaryBetweenTransactions;
@@ -206,7 +210,7 @@ public class BookService {
 		return this.bookRepository.getBooksOfPublisher(publisher.getId());
 	}
 
-	public Book changeStatus(final int idBook, final String status) {
+	public Book changeStatus(final int idBook, final String status) throws ParseException {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("PUBLISHER"));
 
 		final Book book = this.findOne(idBook);
@@ -221,8 +225,11 @@ public class BookService {
 
 		book.setStatus(status);
 
-		return this.bookRepository.save(book);
+		final Book bookSaved = this.bookRepository.save(book);
 
+		this.messageService.notifyStatusBook(bookSaved);
+
+		return bookSaved;
 	}
 
 	public Book copyBook(final int idBook) {
@@ -345,16 +352,24 @@ public class BookService {
 
 	public void computeScore() {
 		final Collection<Book> books = this.bookRepository.findAll();
+		final Double numReaders = 1.0 * this.readerService.findAll().size();
 		Double score = null;
 
 		for (final Book book : books) {
-			final Integer numOpinions = this.opinionService.getNumOpinionsOfBook(book.getId());
+			final Double numOpinions = 1.0 * this.opinionService.getNumOpinionsOfBook(book.getId());
+			final Double numLike = 1.0 * this.opinionService.getNumLikesOfBook(book.getId());
+			final Double numFav = 1.0 * this.bookRepository.getNumFavOfBook(book.getId());
 
 			if (numOpinions != 0) {
-				final Integer numLike = this.opinionService.getNumLikesOfBook(book.getId());
-				final Integer numFav = this.bookRepository.getNumFavOfBook(book.getId());
-				score = 1.0 * (numLike / numOpinions) * (numFav + numLike * 0.25);
-			}
+				if (numReaders != 0) {
+					score = 10.0 * (numLike / numOpinions) + (numFav / numReaders);
+					if (score > 10.0)
+						score = 10.0;
+				} else
+					score = 10.0 * (numLike / numOpinions);
+
+			} else
+				score = null;
 
 			book.setScore(score);
 
@@ -362,5 +377,4 @@ public class BookService {
 		}
 
 	}
-
 }
