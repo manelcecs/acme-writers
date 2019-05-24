@@ -29,6 +29,9 @@
 					<li>
 						<a href="genre/administrator/list.do"><spring:message code="master.page.administrator.genres" /></a>
 					</li>
+					<li>
+					    <a href="dashboard/administrator/display.do"><spring:message code="master.page.header.dashboard" /></a>
+					</li>
 				</ul>
 			</li>
 		</security:authorize>

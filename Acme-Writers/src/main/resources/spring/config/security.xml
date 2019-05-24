@@ -83,6 +83,9 @@
 		
 		<security:intercept-url pattern="/book/publisher/**" access="hasRole('PUBLISHER')" /> 
 		<security:intercept-url pattern="/chapter/publisher/**" access="hasRole('PUBLISHER')" />
+		
+		<security:intercept-url pattern="/dashboard/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
+		
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 

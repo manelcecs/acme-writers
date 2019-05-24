@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
@@ -151,6 +152,154 @@ public class AdministratorService {
 
 	public Collection<Administrator> findAll() {
 		return this.adminRepository.findAll();
+	}
+
+	//DASHBOARD----------------------------------------------------------
+
+	public Double getAvgOfBooksPerWriter() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getAvgOfBooksPerWriter();
+	}
+
+	public Integer getMinimumOfBooksPerWriter() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMinimumOfBooksPerWriter();
+	}
+
+	public Integer getMaximumOfBooksPerWriter() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMaximumOfBooksPerWriter();
+	}
+
+	public Double getSDOfBooksPerWriter() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getSDOfBooksPerWriter();
+	}
+
+	//---------------------------------------------------------------------
+
+	public Double getAvgOfContestPerPublisher() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getAvgOfContestPerPublisher();
+	}
+
+	public Integer getMinimumOfContestPerPublisher() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMinimumOfContestPerPublisher();
+	}
+
+	public Integer getMaximumOfContestPerPublisher() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMaximumOfContestPerPublisher();
+	}
+
+	public Double getSDOfContestPerPublisher() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getSDOfContestPerPublisher();
+	}
+
+	//------------------------------------------------------------------------
+
+	public Double getRatioOfBooksWithPublisherVsBooksIndependients() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getRatioOfBooksWithPublisherVsBooksIndependients();
+	}
+
+	//------------------------------------------------------------------------
+
+	public Double getRatioOfBooksAcceptedVsBooksRejected() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getRatioOfBooksAcceptedVsBooksRejected();
+	}
+
+	//------------------------------------------------------------------------
+
+	public Double getAvgOfChaptersPerBook() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getAvgOfChaptersPerBook();
+	}
+
+	public Integer getMinimumOfChaptersPerBook() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMinimumOfChaptersPerBook();
+	}
+
+	public Integer getMaximumOfChaptersPerBook() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMaximumOfChaptersPerBook();
+	}
+
+	public Double getSDOfChaptersPerBook() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getSDOfChaptersPerBook();
+	}
+
+	//--------------------------------------------------------------------------
+
+	public List<Object[]> getHistogramData() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getHistogramData();
+	}
+
+	//--------------------------------------------------------------------------
+
+	public Double getAvgOfSponsorshipsPerSponsor() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getAvgOfSponsorshipsPerSponsor();
+	}
+
+	public Integer getMinimumOfSponsorshipsPerSponsor() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMinimumOfSponsorshipsPerSponsor();
+	}
+
+	public Integer getMaximumOfSponsorshipsPerSponsor() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMaximumOfSponsorshipsPerSponsor();
+	}
+
+	public Double getSDOfSponsorshipsPerSponsor() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getSDOfSponsorshipsPerSponsor();
+	}
+
+	//--------------------------------------------------------------------------
+
+	public Double getRatioOfSponsorshipsCancelledVsSponsorshipsNotCancelled() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getRatioOfSponsorshipsCancelledVsSponsorshipsNotCancelled();
+	}
+
+	//--------------------------------------------------------------------------
+
+	public Double getAvgOfViewsPerSponsorship() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getAvgOfViewsPerSponsorship();
+	}
+
+	public Integer getMinimumOfViewsPerSponsorship() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMinimumOfViewsPerSponsorship();
+	}
+
+	public Integer getMaximumOfViewsPerSponsorship() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMaximumOfViewsPerSponsorship();
+	}
+
+	public Double getSDOfViewsPerSponsorship() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getSDOfViewsPerSponsorship();
+	}
+
+	public Integer getMaximumOfParticipationsContest() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMaximumOfParticipationsContest();
+	}
+
+	public Integer getMaximumOfSponsorshipsContest() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.adminRepository.getMaximumOfSponsorshipsContest();
 	}
 
 }

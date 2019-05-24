@@ -166,4 +166,10 @@ public class SponsorService {
 		return result;
 	}
 
+	//DASHBOARD------------------------------------------------------------
+	public Collection<Sponsor> getSponsorsWithMoreSponsorships() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		return this.sponsorRepository.getSponsorsWithMoreSponsorships();
+	}
+
 }
