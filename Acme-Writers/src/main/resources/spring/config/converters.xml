@@ -42,6 +42,9 @@
 		
 		<bean class="converters.BookToStringConverter"/>
 		<bean class="converters.StringToBookConverter"/>
+		
+		<bean class="converters.OpinionToStringConverter"/>
+		<bean class="converters.StringToOpinionConverter"/>
 	</util:list>
 	
 </beans>
