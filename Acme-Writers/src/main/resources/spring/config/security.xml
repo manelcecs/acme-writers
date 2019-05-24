@@ -36,6 +36,13 @@
 		<security:intercept-url pattern="/search/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/contest/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/contest/display.do" access="permitAll" /> 
+		
+		<security:intercept-url pattern="/actor/listWriters.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/listPublishers.do" access="permitAll" />
+		
+		
+		<security:intercept-url pattern="/book/**" access="permitAll" />
+		
 		<security:intercept-url pattern="/finder/reader/edit.do" access="hasRole('READER')" /> 
 		
 		<security:intercept-url pattern="/adminConfig/**" access="hasRole('ADMINISTRATOR')" /> 
@@ -90,7 +97,8 @@
 		<security:intercept-url pattern="/book/publisher/**" access="hasRole('PUBLISHER')" /> 
 		<security:intercept-url pattern="/chapter/publisher/**" access="hasRole('PUBLISHER')" />
 		
-		<security:intercept-url pattern="/dashboard/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
+		
+		<security:intercept-url pattern="/book/reader/**" access="hasRole('READER')" />
 		
 		<security:intercept-url pattern="/announcement/reader/**" access="hasRole('READER')" />
 	

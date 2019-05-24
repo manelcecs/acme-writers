@@ -29,6 +29,7 @@ public class ChapterService {
 	@Autowired
 	private WriterService		writerService;
 
+	//FIXME: Add en las palabras de spam
 	public static final String	REGEXP	= "([\\W\\s]+)";
 
 

@@ -50,6 +50,9 @@
 		</security:authorize>
 
 
+		<li><a class="fNiv" href="book/listAll.do"><spring:message code="master.page.list.AllBooks" /></a></li>	
+		<li><a class="fNiv" href="actor/listWriters.do"><spring:message code="master.page.list.writers" /></a></li>	
+		<li><a class="fNiv" href="actor/listPublishers.do"><spring:message code="master.page.list.publishers" /></a></li>	
 		<security:authorize access="hasRole('PUBLISHER')">
 			<li><a class="fNiv" href="contest/publisher/list.do"><spring:message
 						code="master.page.myContests" /></a></li>
@@ -115,6 +118,10 @@
 		
 		<security:authorize access="hasRole('WRITER')">
 			<li><a class="fNiv" href="book/writer/list.do"><spring:message code="master.page.list.books" /></a></li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('READER')">
+			<li><a class="fNiv" href="book/reader/listFavourites.do"><spring:message code="master.page.list.booksFavourites" /></a></li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('PUBLISHER')">

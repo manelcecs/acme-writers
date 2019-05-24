@@ -16,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.BookService;
 import services.ChapterService;
+import services.GenreService;
 import services.PublisherService;
 import services.WriterService;
 import controllers.AbstractController;
@@ -39,6 +40,9 @@ public class BookWriterController extends AbstractController {
 
 	@Autowired
 	PublisherService	publisherService;
+
+	@Autowired
+	GenreService		genreService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -139,6 +143,21 @@ public class BookWriterController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/copy", method = RequestMethod.GET)
+	public ModelAndView copy(@RequestParam final Integer idBook) {
+		ModelAndView result;
+
+		try {
+			this.bookService.copyBook(idBook);
+			result = new ModelAndView("redirect:list.do");
+		} catch (final Throwable oops) {
+			oops.printStackTrace();
+			result = this.listModelAndView("cannot.copy.book");
+		}
+
+		return result;
+	}
+
 	@RequestMapping(value = "/cancel", method = RequestMethod.GET)
 	public ModelAndView cancel(@RequestParam final Integer idBook) {
 		ModelAndView result;
@@ -165,6 +184,7 @@ public class BookWriterController extends AbstractController {
 		result.addObject("bookForm", bookForm);
 		result.addObject("publishers", publishers);
 		result.addObject("message", message);
+		result.addObject("genres", this.genreService.findAll());
 
 		return result;
 
@@ -182,8 +202,8 @@ public class BookWriterController extends AbstractController {
 		result.addObject("booksCanChangeDraft", booksCanChangeDraft);
 		result.addObject("myList", true);
 		result.addObject("message", message);
+		result.addObject("requestURI", "book/writer/list.do");
 
 		return result;
 	}
-
 }
