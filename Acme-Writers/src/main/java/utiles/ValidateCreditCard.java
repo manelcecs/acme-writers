@@ -58,7 +58,6 @@ public class ValidateCreditCard {
 		return res;
 	}
 
-
 	public static CreditCard checkNumeroAnno(final CreditCard card) {
 		int res = card.getExpirationYear();
 		if (res < 100)

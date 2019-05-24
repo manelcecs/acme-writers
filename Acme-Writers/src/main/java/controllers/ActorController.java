@@ -1,6 +1,7 @@
 
 package controllers;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -272,7 +273,7 @@ public class ActorController extends AbstractController {
 
 	}
 	@RequestMapping(value = "/saveData", method = RequestMethod.GET)
-	public ModelAndView fileJSON() throws JsonProcessingException {
+	public ModelAndView fileJSON() throws JsonProcessingException, ParseException {
 		final ModelAndView result = new ModelAndView("actor/exportData");
 
 		final String json = this.actorService.exportData();

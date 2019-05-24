@@ -47,6 +47,10 @@ public class ContestService {
 		return this.contestRepository.save(contest);
 	}
 
+	public void flush() {
+		this.contestRepository.flush();
+	}
+
 	public void delete(final Contest contest) throws ParseException {
 
 		final UserAccount principal = LoginService.getPrincipal();

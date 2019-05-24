@@ -58,7 +58,7 @@ public class AnnouncementService {
 
 		announcement.setMoment(new Date());
 
-		final Announcement res = this.announcementRepository.save(announcement);
+		final Announcement res = this.announcementRepository.saveAndFlush(announcement);
 
 		return res;
 	}

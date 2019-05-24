@@ -21,12 +21,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Announcement;
+import domain.Book;
+import domain.Chapter;
+import domain.Contest;
 import domain.CreditCard;
 import domain.Message;
 import domain.Publisher;
 import domain.Reader;
 import domain.SocialProfile;
 import domain.Sponsor;
+import domain.Sponsorship;
 import domain.Writer;
 
 @Service
@@ -54,6 +59,33 @@ public class ActorService {
 	@Autowired
 	private SocialProfileService	socialProfileService;
 
+	@Autowired
+	private BookService				bookService;
+
+	@Autowired
+	private ContestService			contestService;
+
+	@Autowired
+	private AnnouncementService		announcementService;
+
+	@Autowired
+	private ChapterService			chapterService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
+
+	@Autowired
+	private MessageService			messageService;
+
+	@Autowired
+	private MessageBoxService		messageBoxService;
+
+
+	//	@Autowired
+	//	private OpinionService			opinionService;
+	//
+	//	@Autowired
+	//	private ParticipationService	participationService;
 
 	public Actor save(final Actor actor) {
 		return this.actorRepository.save(actor);
@@ -80,12 +112,12 @@ public class ActorService {
 		return this.actorRepository.getActor(idActor);
 	}
 
-	public String exportData() throws JsonProcessingException {
+	public String exportData() throws JsonProcessingException, ParseException {
 		final ObjectMapper mapper = new ObjectMapper();
 		final List<Message> messages;
-		final List<SocialProfile> socialProfiles;
+		List<SocialProfile> socialProfiles;
 
-		final String json = "";
+		final StringBuilder json = new StringBuilder();
 
 		final UserAccount principal = LoginService.getPrincipal();
 		String authority = AuthorityMethods.getLoggedAuthority().getAuthority();
@@ -96,35 +128,73 @@ public class ActorService {
 		switch (authority) {
 		case "ADMINISTRATOR":
 
-			final Administrator anonymousAdmin = this.anonymizeAdmin(this.administratorService.findByPrincipal(principal));
-			this.administratorService.save(anonymousAdmin);
+			final Administrator administrator = this.administratorService.findByPrincipal(principal);
+			messages = (List<Message>) this.messageService.findAllByActor(administrator.getId());
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(administrator.getId());
+
+			json.append(mapper.writeValueAsString(administrator));
+			json.append(mapper.writeValueAsString(messages));
+			json.append(mapper.writeValueAsString(socialProfiles));
 
 			break;
 
 		case "WRITER":
 
-			final Writer anonymousWriter = this.anonymizeWriter(this.writerService.findByPrincipal(principal));
-			this.writerService.save(anonymousWriter);
+			final Writer writer = this.writerService.findByPrincipal(LoginService.getPrincipal());
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(writer.getId());
 
-			break;
+			json.append(mapper.writeValueAsString(writer));
+
+			final Collection<Book> books = this.bookService.getAllVisibleBooksOfWriter(writer.getId());
+			for (final Book book : books) {
+				json.append(mapper.writeValueAsString(book));
+
+				final Collection<Chapter> chapters = this.chapterService.getChaptersOfABook(book.getId());
+				for (final Chapter chapter : chapters)
+					json.append(mapper.writeValueAsString(chapter));
+			}
+
+			//Collection<Participation> participations = this.participationService.
+
+			final Collection<Announcement> announcements = this.announcementService.findAllWriter(writer.getId());
+			for (final Announcement ann : announcements)
+				json.append(mapper.writeValueAsString(ann));
+			json.append(mapper.writeValueAsString(socialProfiles));
 
 		case "READER":
 
-			final Reader anonymousReader = this.anonymizeReader(this.readerService.findByPrincipal(principal));
-			this.readerService.save(anonymousReader);
+			final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
+			json.append(mapper.writeValueAsString(reader));
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(reader.getId());
+			json.append(mapper.writeValueAsString(socialProfiles));
 
 			break;
 		case "SPONSOR":
-			final Sponsor anonymousSponsor = this.anonymizeSponsor(this.sponsorService.findByPrincipal(principal));
-			this.sponsorService.save(anonymousSponsor);
+			final Sponsor sponsor = this.sponsorService.findByPrincipal(LoginService.getPrincipal());
+			json.append(mapper.writeValueAsString(sponsor));
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(sponsor.getId());
+			this.socialProfileService.delete(socialProfiles);
+
+			final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAllBySponsor(sponsor.getId());
+			for (final Sponsorship s : sponsorships)
+				json.append(mapper.writeValueAsString(s));
+			json.append(mapper.writeValueAsString(socialProfiles));
+
 			break;
 
 		case "PUBLISHER":
-			final Publisher anonymousPublisher = this.anonymizePublisher(this.publisherService.findByPrincipal(principal));
-			this.publisherService.save(anonymousPublisher);
+			final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(publisher.getId());
+			json.append(mapper.writeValueAsString(publisher));
+			final Collection<Contest> contests = this.contestService.getContestsOfPublisher(publisher.getId());
+			for (final Contest c : contests)
+				json.append(mapper.writeValueAsString(c));
+
+			json.append(mapper.writeValueAsString(socialProfiles));
+
 			break;
 		}
-		return json;
+		return json.toString();
 	}
 	public void deleteData() throws ParseException {
 
@@ -220,6 +290,7 @@ public class ActorService {
 
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
+
 		return actor;
 	}
 
@@ -238,9 +309,35 @@ public class ActorService {
 
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
+
+		final Collection<Book> books = this.bookService.getAllVisibleBooksOfWriter(actor.getId());
+		for (final Book book : books) {
+			book.setCover("http://www.adrbook.com/db/galeri/304.jpg");
+			book.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+			book.setCancelled(true);
+
+			final Collection<Chapter> chapters = this.chapterService.getChaptersOfABook(book.getId());
+			for (final Chapter chapter : chapters) {
+				chapter.setTitle("Lorem ipsu, dolor");
+				chapter.setText("");
+				this.chapterService.save(chapter);
+				this.chapterService.flush();
+			}
+
+			this.bookService.save(book);
+			this.bookService.flush();
+		}
+
+		//Collection<Participation> participations = this.participationService.
+
+		final Collection<Announcement> announcements = this.announcementService.findAllWriter(actor.getId());
+		for (final Announcement ann : announcements) {
+			ann.setText("Lorem ipsum dolor.");
+			this.announcementService.save(ann);
+		}
+
 		return actor;
 	}
-
 	private Reader anonymizeReader(final Reader actor) {
 		//TODO: a�adir los objetos que falten
 
@@ -256,6 +353,9 @@ public class ActorService {
 
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
+
+		//Collection<Opinion> opinions  = this.opinionService.
+
 		return actor;
 	}
 
@@ -274,10 +374,20 @@ public class ActorService {
 
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
+
+		final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAllBySponsor(actor.getId());
+		for (final Sponsorship s : sponsorships) {
+			s.setBannerURL("http://www.adrbook.com/db/galeri/304.jpg");
+			s.setTargetPageURL("http://www.adrbook.com/db/galeri/304.jpg");
+			s.setCancelled(true);
+			this.sponsorshipService.save(s);
+			this.sponsorshipService.flush();
+		}
+
 		return actor;
 	}
 
-	private Publisher anonymizePublisher(final Publisher actor) {
+	private Publisher anonymizePublisher(final Publisher actor) throws ParseException {
 		//TODO: a�adir los objetos que falten
 
 		actor.setName("anonymous");
@@ -292,6 +402,15 @@ public class ActorService {
 
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
+
+		final Collection<Contest> contests = this.contestService.getContestsOfPublisher(actor.getId());
+		for (final Contest c : contests) {
+			c.setDescription("Lorem ipsum dolor");
+			c.setRules(null);
+			this.contestService.save(c);
+			this.contestService.flush();
+		}
+
 		return actor;
 	}
 
