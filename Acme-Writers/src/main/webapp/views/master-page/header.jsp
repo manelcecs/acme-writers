@@ -27,18 +27,13 @@
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-			<li><a href="adminConfig/administrator/display.do"><spring:message
-					<li>
-						<a href="adminConfig/administrator/display.do"><spring:message code="master.page.administrator.configuration" /></a>
-					</li>
-					<li>
-						<a href="genre/administrator/list.do"><spring:message code="master.page.administrator.genres" /></a>
-					</li>
-					<li>
-					    <a href="dashboard/administrator/display.do"><spring:message code="master.page.header.dashboard" /></a>
-					</li>
-				</ul>
-			</li>
+					<li><a href="adminConfig/administrator/display.do"><spring:message
+								code="master.page.administrator.configuration" /></a></li>
+					<li><a href="genre/administrator/list.do"><spring:message
+								code="master.page.administrator.genres" /></a></li>
+					<li><a href="dashboard/administrator/display.do"><spring:message
+								code="master.page.header.dashboard" /></a></li>
+				</ul></li>
 		</security:authorize>
 
 		<security:authorize access="hasRole('READER')">
@@ -78,13 +73,12 @@
 			<li><a class="fNiv" href="contest/list.do"><spring:message
 						code="master.page.contest.list" /></a></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('WRITER')">
-			<li><a class="fNiv"
-				href="announcement/writer/list.do"><spring:message
+			<li><a class="fNiv" href="announcement/writer/list.do"><spring:message
 						code="master.page.announcement.list" /></a></li>
 		</security:authorize>
-		
+
 		<security:authorize access="isAuthenticated()and not(hasRole('BAN'))">
 			<li><a class="fNiv" href="writer/list.do"><spring:message
 						code="master.page.writer.display" /></a></li>
@@ -112,13 +106,15 @@
 			<li><a class="fNiv" href="j_spring_security_logout"><spring:message
 						code="master.page.logout" /> </a></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('WRITER')">
-			<li><a class="fNiv" href="book/writer/list.do"><spring:message code="master.page.list.books" /></a></li>
+			<li><a class="fNiv" href="book/writer/list.do"><spring:message
+						code="master.page.list.books" /></a></li>
 		</security:authorize>
-		
+
 		<security:authorize access="hasRole('PUBLISHER')">
-			<li><a class="fNiv" href="book/publisher/list.do"><spring:message code="master.page.list.books" /></a></li>
+			<li><a class="fNiv" href="book/publisher/list.do"><spring:message
+						code="master.page.list.books" /></a></li>
 		</security:authorize>
 	</ul>
 </div>

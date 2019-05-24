@@ -69,6 +69,11 @@ public class ChapterService {
 		return this.chapterRepository.save(chapter);
 
 	}
+
+	public void flush() {
+		this.chapterRepository.flush();
+	}
+
 	public void delete(final int idChapter) {
 
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));

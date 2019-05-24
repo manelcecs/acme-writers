@@ -140,6 +140,10 @@ public class BookService {
 		return this.bookRepository.save(book);
 	}
 
+	public void flush() {
+		this.bookRepository.flush();
+	}
+
 	//==================================================
 
 	public void delete(final int idBook) {
