@@ -42,6 +42,7 @@
 
 		<value>/views/book/messages</value>
 		<value>/views/chapter/messages</value>
+		<value>/views/opinion/messages</value>
 		
 	</util:list>
 

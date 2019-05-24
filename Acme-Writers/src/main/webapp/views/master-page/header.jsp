@@ -41,8 +41,12 @@
 		</security:authorize>
 
 		<security:authorize access="hasRole('READER')">
-			<li><a class="fNiv" href="finder/reader/edit.do"><spring:message
-						code="master.page.finder.edit" /></a></li>
+			<li>
+				<a class="fNiv" href="finder/reader/edit.do"><spring:message code="master.page.finder.edit" /></a>
+			</li>
+			<li>
+				<a class="fNiv" href="opinion/reader/list.do"><spring:message code="master.page.opinion.list" /></a>
+			</li>
 			<li><a class="fNiv"
 				href="announcement/reader/listAllMyWriters.do"><spring:message
 						code="master.page.announcement.listMy" /></a></li>

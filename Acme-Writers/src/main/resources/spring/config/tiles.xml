@@ -41,6 +41,7 @@
 		
 		<value>/views/book/tiles.xml</value>
 		<value>/views/chapter/tiles.xml</value>
+		<value>/views/opinion/tiles.xml</value>
 		
 	</util:list>
 
