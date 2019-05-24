@@ -2,6 +2,7 @@
 package services;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -17,6 +18,7 @@ import org.springframework.validation.Validator;
 
 import repositories.SponsorshipRepository;
 import security.LoginService;
+import utiles.AuthorityMethods;
 import utiles.ValidateCreditCard;
 import domain.Actor;
 import domain.AdminConfig;
@@ -140,15 +142,25 @@ public class SponsorshipService {
 	}
 
 	public void cancelSponsorshipCaducate() throws ParseException {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+
 		final Collection<Actor> sponsors = this.sponsorService.findSponsorsWithExpiredCreditCard();
+		final Collection<Actor> recipients = new ArrayList<>();
 
 		for (final Actor actor : sponsors) {
 			final Collection<Sponsorship> sponsorships = this.sponsorshipRepository.findAllBySponsor(actor.getId());
-			for (final Sponsorship sponsorship : sponsorships)
-				sponsorship.setCancelled(true);
-			this.sponsorshipRepository.save(sponsorships);
+			if (!sponsorships.isEmpty()) {
+				recipients.add(actor);
+				for (final Sponsorship sponsorship : sponsorships)
+					sponsorship.setCancelled(true);
+				this.sponsorshipRepository.save(sponsorships);
+			}
 		}
 
-		this.messageService.notifySponsorshipCancelled(sponsors);
+		this.messageService.notifySponsorshipCancelled(recipients);
+	}
+
+	public Collection<Sponsorship> save(final Collection<Sponsorship> sponsorships) {
+		return this.sponsorshipRepository.save(sponsorships);
 	}
 }

@@ -90,4 +90,12 @@ public class OpinionService {
 		return opinionRec;
 	}
 
+	public Integer getNumLikesOfBook(final int idBook) {
+		return this.opinionRepository.getNumLikesOfBook(idBook);
+	}
+
+	public Integer getNumOpinionsOfBook(final int idBook) {
+		return this.opinionRepository.getNumOpinionsOfBook(idBook);
+	}
+
 }
