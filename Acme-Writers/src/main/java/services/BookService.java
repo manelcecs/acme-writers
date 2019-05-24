@@ -29,10 +29,10 @@ import forms.BookForm;
 public class BookService {
 
 	@Autowired
-	BookRepository							bookRepository;
+	private BookRepository	bookRepository;
 
 	@Autowired
-	WriterService							writerService;
+	private OpinionService	opinionService;
 
 	@Autowired
 	ChapterService							chapterService;
@@ -337,6 +337,26 @@ public class BookService {
 		readerLogged.setBooks(books);
 
 		this.readerService.save(readerLogged);
+
+	}
+
+	public void computeScore() {
+		final Collection<Book> books = this.bookRepository.findAll();
+		Double score = null;
+
+		for (final Book book : books) {
+			final Integer numOpinions = this.opinionService.getNumOpinionsOfBook(book.getId());
+
+			if (numOpinions != 0) {
+				final Integer numLike = this.opinionService.getNumLikesOfBook(book.getId());
+				final Integer numFav = this.bookRepository.getNumFavOfBook(book.getId());
+				score = 1.0 * (numLike / numOpinions) * (numFav + numLike * 0.25);
+			}
+
+			book.setScore(score);
+
+			this.bookRepository.save(book);
+		}
 
 	}
 

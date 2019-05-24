@@ -22,6 +22,7 @@ import utiles.AddPhoneCC;
 import utiles.AuthorityMethods;
 import utiles.EmailValidator;
 import utiles.ValidateCreditCard;
+import domain.Actor;
 import domain.Sponsor;
 import forms.SponsorForm;
 
@@ -170,6 +171,10 @@ public class SponsorService {
 	public Collection<Sponsor> getSponsorsWithMoreSponsorships() {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
 		return this.sponsorRepository.getSponsorsWithMoreSponsorships();
+	}
+
+	public Collection<Actor> findSponsorsWithExpiredCreditCard() {
+		return this.sponsorRepository.findSponsorsWithExpiredCreditCard();
 	}
 
 }
