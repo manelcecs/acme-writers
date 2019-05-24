@@ -110,15 +110,18 @@
 				<a class="fNiv" href="contest/list.do"><spring:message code="master.page.contest.list" /></a>
 			</li>
 		</security:authorize>
-		
-		
+
+
 		<security:authorize access="isAuthenticated()">
-			<li>
-				<a class="fNiv" href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a>
-			</li>
+			<li><a class="fNiv" href="actor/display.do"><spring:message code="master.page.profile" />(<security:authentication property="principal.username" />)</a></li>
+			<li><a class="fNiv" href="j_spring_security_logout"><spring:message
+						code="master.page.logout" /> </a></li>
 		</security:authorize>
-	
-	
+
+		<security:authorize access="hasRole('WRITER')">
+			<li><a class="fNiv" href="book/writer/list.do"><spring:message
+						code="master.page.list.books" /></a></li>
+		</security:authorize>
 		
 	</ul>
 </div>

@@ -75,9 +75,7 @@
 		<jstl:out value="${administrator.name }" />
 		<br />
 		<b><spring:message code="actor.surname" /></b>:
-		<jstl:forEach items="${administrator.surnames }" var="surname">
-			<jstl:out value="${surname }" />
-		</jstl:forEach>
+			<jstl:out value="${administrator.surname }" />
 		<br />
 		<b><spring:message code="actor.photoURL" /></b>:
 		<jstl:out value="${administrator.photoURL }" />
