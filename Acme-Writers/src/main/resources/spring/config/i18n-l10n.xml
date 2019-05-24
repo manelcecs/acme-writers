@@ -44,7 +44,8 @@
 		<value>/views/book/messages</value>
 		<value>/views/chapter/messages</value>
 		<value>/views/opinion/messages</value>
-		
+		<value>/views/participation/messages</value>
+
 	</util:list>
 
 </beans>

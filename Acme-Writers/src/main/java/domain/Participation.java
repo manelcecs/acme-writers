@@ -28,20 +28,9 @@ public class Participation extends DomainEntity {
 	private String	status;
 	private Integer	position;
 
-	private Book	book;
 	private Contest	contest;
+	private Book	book;
 
-
-	@Valid
-	//FIXME: @NotNull ??
-	@ManyToOne(optional = false)
-	public Book getBook() {
-		return this.book;
-	}
-
-	public void setBook(final Book book) {
-		this.book = book;
-	}
 
 	@NotBlank
 	@SafeHtml
@@ -65,7 +54,7 @@ public class Participation extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@Pattern(regexp = "^REJECTED|ACCEPTED$")
+	@Pattern(regexp = "^REJECTED|ACCEPTED|PENDING$")
 	@NotBlank
 	@SafeHtml
 	public String getStatus() {
@@ -77,7 +66,6 @@ public class Participation extends DomainEntity {
 	}
 
 	@Min(0)
-	@NotNull
 	public Integer getPosition() {
 		return this.position;
 	}
@@ -94,6 +82,17 @@ public class Participation extends DomainEntity {
 
 	public void setContest(final Contest contest) {
 		this.contest = contest;
+	}
+
+	@ManyToOne(optional = false)
+	@Valid
+	@NotNull
+	public Book getBook() {
+		return this.book;
+	}
+
+	public void setBook(final Book book) {
+		this.book = book;
 	}
 
 }

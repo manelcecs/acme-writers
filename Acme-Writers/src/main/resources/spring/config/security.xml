@@ -119,5 +119,8 @@
 			logout-success-url="/" 
 			invalidate-session="true" />
 	</security:http>
+	<security:intercept-url pattern="/participation/writer/**" access="hasRole('WRITER')" />
+	<security:intercept-url pattern="/participation/publisher/**" access="hasRole('PUBLISHER')" />
+	<security:intercept-url pattern="/participation/publisher,writer/**" access="hasRole('PUBLISHER') OR hasRole('WRITER')" />
 
 </beans>

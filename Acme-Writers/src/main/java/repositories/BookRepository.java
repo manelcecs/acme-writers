@@ -50,4 +50,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	@Query("select b from Book b where b.writer.id = ?1")
 	Collection<Book> getAllBooksOfAWriter(int idWriter);
 
+	@Query("select b from Book b where b.writer.id = ?1 and b.draft = false")
+	Collection<Book> getBooksOfWriter(int idWriter);
+
 }
