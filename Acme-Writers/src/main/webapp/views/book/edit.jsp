@@ -21,7 +21,14 @@
    		 <acme:textarea code="book.edit.description" path="description"/>
    	</p>
    	<p>
-   		 <acme:textbox code="book.edit.language" path="language"/>
+		<spring:message code="book.edit.language"/>: <select name="language">
+	  <option value="OTHER" <jstl:if test="${bookForm.language == 'OTHER'}"><jstl:out value="selected"/></jstl:if>>OTHER</option>
+	  <option value="EN" <jstl:if test="${bookForm.language == 'EN'}"><jstl:out value="selected"/></jstl:if>>EN</option>
+	  <option value="ES" <jstl:if test="${bookForm.language == 'ES'}"><jstl:out value="selected"/></jstl:if>>ES</option>
+	  <option value="IT" <jstl:if test="${bookForm.language == 'IT'}"><jstl:out value="selected"/></jstl:if>>IT</option>
+	  <option value="FR" <jstl:if test="${bookForm.language == 'FR'}"><jstl:out value="selected"/></jstl:if>>FR</option>
+	  <option value="DE" <jstl:if test="${bookForm.language == 'DE'}"><jstl:out value="selected"/></jstl:if>>DE</option>
+	</select>
    	</p>
    	<p>
    		 <acme:textbox code="book.edit.cover" path="cover"/>
