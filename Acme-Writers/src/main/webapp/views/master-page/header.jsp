@@ -27,7 +27,6 @@
 						code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
-			<li><a href="adminConfig/administrator/display.do"><spring:message
 					<li>
 						<a href="adminConfig/administrator/display.do"><spring:message code="master.page.administrator.configuration" /></a>
 					</li>

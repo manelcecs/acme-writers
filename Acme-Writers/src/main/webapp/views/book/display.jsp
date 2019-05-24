@@ -9,7 +9,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<button onclick="window.location.href=document.referrer"><spring:message code="book.display.back"/></button>
+<jstl:choose>
+
+<jstl:when test="${logged}">
+	<acme:button url="book/writer/list.do" type="button" code="book.display.back"/>
+</jstl:when>
+<jstl:otherwise>
+	<button onclick="window.location.href=document.referrer"><spring:message code="book.display.back"/></button>
+</jstl:otherwise>
+</jstl:choose>
 <br/>
 
 <jstl:if test="${publisher and book.status == 'PENDING'}">
