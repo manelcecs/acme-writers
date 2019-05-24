@@ -37,6 +37,9 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	@Query("select b from Book b where b.writer.id = ?1 and b.draft = false and (b.status = 'INDEPENDENT' or b.status = 'ACCEPTED') and b.cancelled = false")
 	Collection<Book> getAllVisibleBooksOfWriter(int idWriter);
 
+	@Query("select b from Book b where b.publisher.id = ?1 and b.draft = false and b.status = 'ACCEPTED' and b.cancelled = false")
+	Collection<Book> getAllVisibleBooksOfPublisher(int idWriter);
+
 	@Query("select distinct(c.book) from Chapter c where c.book.draft = true and c.book.writer.id = ?1")
 	Collection<Book> getBooksCanChangeDraft(int idWriter);
 

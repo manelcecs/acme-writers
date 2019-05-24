@@ -10,31 +10,40 @@
 
 
 <form:form modelAttribute="bookForm" action="book/writer/save.do">
-   	 <acme:hidden path="id"/>
-   	 <acme:hidden path="version"/>
+   	<acme:hidden path="id"/>
+   	<acme:hidden path="version"/>
    	 
   
-   	 <p>
+   	<p>
    		 <acme:textarea code="book.edit.title" path="title"/>
-   	 </p>
-   	 <p>
+   	</p>
+   	<p>
    		 <acme:textarea code="book.edit.description" path="description"/>
-   	 </p>
-   	 <p>
+   	</p>
+   	<p>
    		 <acme:textbox code="book.edit.language" path="language"/>
-   	 </p>
-   	 <p>
+   	</p>
+   	<p>
    		 <acme:textbox code="book.edit.cover" path="cover"/>
-   	 </p>
+   	</p>
 
-   	 <acme:select items="${publishers}" itemLabel="commercialName" code="book.edit.publisher" path="publisher"/>
+   	<acme:select items="${publishers}" itemLabel="commercialName" code="book.edit.publisher" path="publisher"/>
    	 
-   	<%--  <acme:select items="${genres}" itemLabel="genre" code="book.edit.genre" path="genre"/> --%>
+	
    	 
-   	
+   	<jstl:choose>
+	<jstl:when test="${cookie.language.value == 'es'}">
+		<acme:select items="${genres}" itemLabel="nameES" code="book.edit.genre" path="genre"/>
+	</jstl:when>
+	
+	<jstl:otherwise>
+		<acme:select items="${genres}" itemLabel="nameEN" code="book.edit.genre" path="genre"/>
+	</jstl:otherwise>
+	</jstl:choose>
    	  	 
    	 
-   	 <acme:submit name="save" code="book.edit.save"/>
-    </form:form>
+   	<acme:submit name="save" code="book.edit.save"/>
+
+</form:form>
 
 <acme:button code="book.edit.cancel" type="button" url="/book/writer/list.do"/>
