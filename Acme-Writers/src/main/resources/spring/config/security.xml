@@ -60,9 +60,9 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/contest/publisher/**" access="hasRole('PUBLISHER')" />
-		<security:intercept-url pattern="/participation/writer/**" access="hasRole('WRITER')" />
-		<security:intercept-url pattern="/participation/publisher/**" access="hasRole('PUBLISHER')" />
-		<security:intercept-url pattern="/participation/publisher,writer/**" access="hasRole('PUBLISHER') OR hasRole('WRITER')" />
+		
+		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" />
+
 		<security:intercept-url pattern="/administrator/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		
 		<security:intercept-url pattern="/publisher/register.do" access="permitAll" />
@@ -119,5 +119,8 @@
 			logout-success-url="/" 
 			invalidate-session="true" />
 	</security:http>
+	<security:intercept-url pattern="/participation/writer/**" access="hasRole('WRITER')" />
+	<security:intercept-url pattern="/participation/publisher/**" access="hasRole('PUBLISHER')" />
+	<security:intercept-url pattern="/participation/publisher,writer/**" access="hasRole('PUBLISHER') OR hasRole('WRITER')" />
 
 </beans>
