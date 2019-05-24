@@ -24,4 +24,7 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	// Workaround for the problem of hibernate with inheritances
 	@Query("select a from Actor a where a.id = ?1")
 	Actor getActor(int idActor);
+
+	@Query("select a from Actor a where a.spammer = true and a.userAccount.authorities.size > 0")
+	Collection<Actor> findSpamActors();
 }

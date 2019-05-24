@@ -81,6 +81,10 @@ public class PublisherService {
 		this.publisherRepository.flush();
 	}
 
+	public Publisher findOne(final int publisherId) {
+		return this.publisherRepository.findOne(publisherId);
+	}
+
 	public Publisher findByPrincipal(final UserAccount principal) {
 		return this.publisherRepository.findByPrincipal(principal.getId());
 	}
@@ -170,10 +174,6 @@ public class PublisherService {
 
 	public Collection<Publisher> findAll() {
 		return this.publisherRepository.findAll();
-	}
-
-	public Publisher findOne(final int idPublisher) {
-		return this.publisherRepository.findOne(idPublisher);
 	}
 
 }
