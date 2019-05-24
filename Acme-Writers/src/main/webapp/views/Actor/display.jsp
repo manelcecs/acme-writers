@@ -24,6 +24,16 @@
 
 <jstl:choose>
 	<jstl:when test="${authority == 'WRITER'}">
+	
+		<security:authorize access="hasRole('READER')">
+			<jstl:if test="${!followed}" >
+				<acme:button type="button" code="reader.writer.follow" url="/reader/follow.do?writerId=${writer.id}" />
+			</jstl:if>
+			<jstl:if test="${followed}" >
+				<acme:button type="button" code="reader.writer.unfollow" url="/reader/unfollow.do?writerId=${writer.id}" />
+			</jstl:if>
+		</security:authorize>
+		<hr />
 
 		<b><spring:message code="actor.name" /></b>:
 		<jstl:out value="${writer.name }" />

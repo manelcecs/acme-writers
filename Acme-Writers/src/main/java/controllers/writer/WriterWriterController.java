@@ -14,8 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.Authority;
+import security.LoginService;
+import services.ReaderService;
 import services.SocialProfileService;
 import services.WriterService;
+import utiles.AuthorityMethods;
 import controllers.AbstractController;
 import domain.SocialProfile;
 import domain.Writer;
@@ -30,6 +34,9 @@ public class WriterWriterController extends AbstractController {
 
 	@Autowired
 	private SocialProfileService	socialProfileService;
+
+	@Autowired
+	private ReaderService			readerService;
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -107,6 +114,17 @@ public class WriterWriterController extends AbstractController {
 
 			result.addObject("socialProfiles", socialProfiles);
 			result.addObject("requestURI", "actor/display.do");
+
+			if (AuthorityMethods.checkIsSomeoneLogged())
+				if (AuthorityMethods.chechAuthorityLogged(Authority.READER)) {
+					boolean followed = false;
+					for (final Writer w : this.readerService.findByPrincipal(LoginService.getPrincipal()).getWriters())
+						if (w.getId() == writerId) {
+							followed = true;
+							break;
+						}
+					result.addObject("followed", followed);
+				}
 
 			this.configValues(result);
 			return result;

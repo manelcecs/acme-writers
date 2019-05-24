@@ -25,5 +25,4 @@
 		<put-attribute name="title" value="Lista de Escritores" />
 		<put-attribute name="body" value="/views/writer/list.jsp" />
 	</definition>
-	
 </tiles-definitions>

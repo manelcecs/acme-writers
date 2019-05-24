@@ -15,8 +15,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
-import forms.SponsorshipForm;
-
 @Entity
 @Access(AccessType.PROPERTY)
 public class Sponsorship extends DomainEntity {
@@ -101,15 +99,16 @@ public class Sponsorship extends DomainEntity {
 		this.views = views;
 	}
 
-	public SponsorshipForm castToForm() {
-		final SponsorshipForm sponsorshipForm = new SponsorshipForm();
-
-		sponsorshipForm.setId(this.getId());
-		sponsorshipForm.setBannerURL(this.getBannerURL());
-		sponsorshipForm.setContests(this.getContests());
-		sponsorshipForm.setTargetPageURL(this.getTargetPageURL());
-
-		return sponsorshipForm;
-
-	}
+	//	public SponsorshipForm castToForm() {
+	//		final SponsorshipForm sponsorshipForm = new SponsorshipForm();
+	//
+	//		sponsorshipForm.setId(this.getId());
+	//		sponsorshipForm.setBannerURL(this.getBannerURL());
+	//		sponsorshipForm.setPositions(this.getPositions());
+	//		sponsorshipForm.setTargetPageURL(this.getTargetPageURL());
+	//		sponsorshipForm.setCreditCard(this.getCreditCard());
+	//
+	//		return sponsorshipForm;
+	//
+	//	}
 }

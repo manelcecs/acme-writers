@@ -13,9 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import security.LoginService;
 import services.ReaderService;
+import services.WriterService;
 import controllers.AbstractController;
 import domain.Reader;
+import domain.Writer;
 import forms.ReaderForm;
 
 @Controller
@@ -24,6 +27,9 @@ public class ReaderReaderControler extends AbstractController {
 
 	@Autowired
 	private ReaderService	readerService;
+
+	@Autowired
+	private WriterService	writerService;
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -55,6 +61,40 @@ public class ReaderReaderControler extends AbstractController {
 
 		return res;
 
+	}
+
+	@RequestMapping(value = "/follow")
+	public ModelAndView follow(final int writerId) {
+		ModelAndView res;
+
+		final Writer writer = this.writerService.findOne(writerId);
+		final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
+
+		try {
+			this.readerService.follow(reader, writer);
+			res = new ModelAndView("redirect:/announcement/reader/listAllMyWriters.do");
+		} catch (final Exception oops) {
+			res = new ModelAndView("redirect:/announcement/reader/list.do");
+		}
+
+		return res;
+	}
+
+	@RequestMapping(value = "/unfollow")
+	public ModelAndView unfollow(final int writerId) {
+		ModelAndView res;
+
+		final Writer writer = this.writerService.findOne(writerId);
+		final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
+
+		try {
+			this.readerService.unfollow(reader, writer);
+			res = new ModelAndView("redirect:/announcement/reader/listAllMyWriters.do");
+		} catch (final Exception oops) {
+			res = new ModelAndView("redirect:/announcement/reader/listAllMyWriters.do");
+		}
+
+		return res;
 	}
 
 	protected ModelAndView createEditModelAndView(final ReaderForm readerForm, final String... messages) {

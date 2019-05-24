@@ -21,4 +21,5 @@
 			<display:column titleKey="writer.list.name"><jstl:out value="${writer.name}"/></display:column>
 			<display:column titleKey="writer.list.surname"><jstl:out value="${writer.surname}"/></display:column>
 			<display:column titleKey="writer.list.seeMore"><acme:button code="writer.list.seeMore" type="button" url="/writer/display.do?writerId=${writer.id}"/></display:column>
+			
 </display:table>

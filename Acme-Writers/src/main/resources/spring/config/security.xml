@@ -52,8 +52,6 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/contest/publisher/**" access="hasRole('PUBLISHER')" />
-		
-		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" />
 
 		<security:intercept-url pattern="/administrator/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		
@@ -63,7 +61,11 @@
 		
 		<security:intercept-url pattern="/reader/register.do" access="permitAll" />
 		<security:intercept-url pattern="/reader/save.do" access="permitAll" />
-		<security:intercept-url pattern="/reader/writer/**" access="hasRole('READER')" />
+		<security:intercept-url pattern="/reader/reader/**" access="hasRole('READER')" />
+		
+		<security:intercept-url pattern="/reader/follow.do" access="hasRole('READER')" />
+		<security:intercept-url pattern="/reader/unfollow.do" access="hasRole('READER')" />
+		
 				
 		<security:intercept-url pattern="/sponsor/register.do" access="permitAll" />
 		<security:intercept-url pattern="/sponsor/save.do" access="permitAll" />
@@ -78,6 +80,10 @@
 		<security:intercept-url pattern="/actor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/writer/display.do" access="permitAll" />
 		<security:intercept-url pattern="/writer/list.do" access="permitAll" />
+		
+		<security:intercept-url pattern="/announcement/writer/**" access="hasRole('WRITER')" />
+		
+		
 		<security:intercept-url pattern="/book/writer/**" access="hasRole('WRITER')" /> 
 		<security:intercept-url pattern="/chapter/writer/**" access="hasRole('WRITER')" /> 
 		
@@ -86,6 +92,7 @@
 		
 		<security:intercept-url pattern="/dashboard/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
 		
+		<security:intercept-url pattern="/announcement/reader/**" access="hasRole('READER')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 
