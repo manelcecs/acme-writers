@@ -41,4 +41,12 @@
 						<acme:button url="" type="button" code="contest.list.viewPublisher"/>
 				</display:column>
 			</jstl:if>
+			<security:authorize access="hasRole('WRITER')">
+				<jstl:if test="${actual.before(contest.deadline)}">
+					<display:column titleKey="contest.list.participate">
+						<acme:button url="participation/writer/create.do?idContest=${contest.id}" type="button" code="contest.list.participate"/>
+					</display:column>
+				</jstl:if>
+			</security:authorize>
+			
 </display:table>

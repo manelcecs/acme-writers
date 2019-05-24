@@ -18,6 +18,7 @@ import security.LoginService;
 import security.UserAccount;
 import utiles.AuthorityMethods;
 import domain.Contest;
+import domain.Participation;
 import domain.Publisher;
 
 @Service
@@ -29,6 +30,9 @@ public class ContestService {
 
 	@Autowired
 	private PublisherService		publisherService;
+
+	@Autowired
+	private ParticipationService	participationService;
 
 	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -58,10 +62,10 @@ public class ContestService {
 		final Publisher publisher = this.publisherService.findByPrincipal(principal);
 		Assert.isTrue(contest.getPublisher().getId() == publisher.getId());
 		Assert.isTrue(this.isBeforeDeadline(contest.getDeadline()));
+		final Collection<Participation> participations = this.participationService.getParticipationsOfContest(contest.getId());
 		this.contestRepository.delete(contest);
-
+		this.participationService.deleteCollectionOfParticipations(participations);
 	}
-
 	public Collection<Contest> getContestsOfPublisher(final int idPublisher) {
 		return this.contestRepository.getContestsOfPublisher(idPublisher);
 	}
