@@ -15,7 +15,7 @@ import domain.Chapter;
 
 @Controller
 @RequestMapping("/chapter")
-public class ChapterController {
+public class ChapterController extends AbstractController {
 
 	@Autowired
 	BookService		bookService;

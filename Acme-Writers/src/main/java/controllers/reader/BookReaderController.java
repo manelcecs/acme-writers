@@ -15,11 +15,12 @@ import services.GenreService;
 import services.PublisherService;
 import services.ReaderService;
 import services.WriterService;
+import controllers.AbstractController;
 import domain.Reader;
 
 @Controller
 @RequestMapping("/book/reader")
-public class BookReaderController {
+public class BookReaderController extends AbstractController {
 
 	@Autowired
 	BookService			bookService;
@@ -48,6 +49,8 @@ public class BookReaderController {
 		result.addObject("favourites", true);
 		result.addObject("favouritesBooks", reader.getBooks());
 		result.addObject("requestURI", "book/reader/listFavourites.do");
+
+		this.configValues(result);
 
 		return result;
 	}
@@ -90,6 +93,8 @@ public class BookReaderController {
 		result.addObject("favourites", true);
 		result.addObject("message", message);
 		result.addObject("requestURI", "book/reader/listFavourites.do");
+
+		this.configValues(result);
 
 		return result;
 	}

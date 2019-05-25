@@ -98,6 +98,7 @@ public class AnnouncementWriterController extends AbstractController {
 		return res;
 	}
 
+	//FIXME redirect añadiendo message luego
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(final int announcementId) {
 		final ModelAndView res = new ModelAndView("redirect:/list.do");

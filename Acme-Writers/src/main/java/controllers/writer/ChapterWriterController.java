@@ -15,13 +15,14 @@ import security.LoginService;
 import services.BookService;
 import services.ChapterService;
 import services.WriterService;
+import controllers.AbstractController;
 import domain.Book;
 import domain.Chapter;
 import domain.Writer;
 
 @Controller
 @RequestMapping("/chapter/writer")
-public class ChapterWriterController {
+public class ChapterWriterController extends AbstractController {
 
 	@Autowired
 	BookService		bookService;
@@ -46,6 +47,7 @@ public class ChapterWriterController {
 		else {
 			result.addObject("chapter", chapter);
 			result.addObject("myChapter", true);
+			this.configValues(result);
 		}
 		return result;
 	}
@@ -122,6 +124,7 @@ public class ChapterWriterController {
 
 		result.addObject("chapter", chapter);
 		result.addObject("message", message);
+		this.configValues(result);
 
 		return result;
 	}

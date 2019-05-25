@@ -90,7 +90,7 @@ public class ContestPublisherController extends AbstractController {
 		result.addObject("actual", actual);
 		result.addObject("requestURI", "contest/publisher/list.do");
 		result.addObject("message", message);
-		//		this.configValues(result);
+		this.configValues(result);
 		return result;
 	}
 
@@ -105,7 +105,7 @@ public class ContestPublisherController extends AbstractController {
 
 		result.addObject("contest", contest);
 
-		//		this.configValues(result);
+		this.configValues(result);
 		return result;
 
 	}
@@ -118,7 +118,7 @@ public class ContestPublisherController extends AbstractController {
 		final ModelAndView result = new ModelAndView("contest/create");
 		result.addObject("contest", contest);
 		result.addObject("message", message);
-		//		this.configValues(result);
+		this.configValues(result);
 
 		return result;
 	}
