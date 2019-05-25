@@ -7,9 +7,12 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
-
-<acme:button code="participation.display.back" type="button" url="/participation/writer/list.do"/>
-
+<jstl:if test="${publisher}">
+	<acme:button code="participation.display.back" type="button" url="/participation/publisher/list.do"/>
+</jstl:if>
+<jstl:if test="${writer}">
+	<acme:button code="participation.display.back" type="button" url="/participation/writer/list.do"/>
+</jstl:if>
 <acme:text label="participation.display.comment" value="${participation.comment}"/>
 <acme:text label="participation.display.moment" value="${participation.moment}"/>
 <acme:text label="participation.display.status" value="${participation.status}"/>

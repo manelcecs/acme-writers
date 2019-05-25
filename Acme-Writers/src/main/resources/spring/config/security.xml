@@ -36,6 +36,9 @@
 		<security:intercept-url pattern="/search/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/contest/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/contest/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/participation/writer/**" access="hasRole('WRITER')" />
+		<security:intercept-url pattern="/participation/publisher/**" access="hasRole('PUBLISHER')" />
+		<security:intercept-url pattern="/participation/publisher,writer/**" access="hasRole('PUBLISHER') OR hasRole('WRITER')" />
 		
 		<security:intercept-url pattern="/actor/listWriters.do" access="permitAll" />
 		<security:intercept-url pattern="/actor/listPublishers.do" access="permitAll" />
@@ -110,10 +113,6 @@
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
 		
 		
-		<security:intercept-url pattern="/participation/writer/**" access="hasRole('WRITER')" />
-		<security:intercept-url pattern="/participation/publisher/**" access="hasRole('PUBLISHER')" />
-		<security:intercept-url pattern="/participation/publisher,writer/**" access="hasRole('PUBLISHER') OR hasRole('WRITER')" />
-
 		<security:form-login 
 			login-page="/security/login.do"
 			password-parameter="password" 

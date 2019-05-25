@@ -90,21 +90,6 @@ public class ParticipationPublisherController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int idParticipation) {
-		final ModelAndView result;
-
-		final Participation participation = this.participationService.findOne(idParticipation);
-
-		result = new ModelAndView("participation/display");
-
-		result.addObject("participation", participation);
-
-		//	this.configValues(result);
-		return result;
-
-	}
-
 	protected ModelAndView createEditModelAndView(final Participation participation) {
 		return this.createEditModelAndView(participation, null);
 	}

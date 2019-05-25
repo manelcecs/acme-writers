@@ -15,8 +15,10 @@
 	<jstl:if test="${publisher}">
 	
 		<display:column titleKey="participation.list.edit">
-			<jstl:if test="${!actual.before(contest.deadline)}">
-				<acme:button url="participation/publisher/edit.do?idParticipation=${participation.id}" type="button" code="participation.list.edit"/>
+			<jstl:if test="${participation != null}">
+				<jstl:if test="${actual.before(participation.contest.deadline) || (!actual.before(participation.contest.deadline) && participation.status == 'ACCEPTED')}">
+					<acme:button url="participation/publisher/edit.do?idParticipation=${participation.id}" type="button" code="participation.list.edit"/>
+				</jstl:if>
 			</jstl:if>
 		</display:column>
 		
@@ -29,10 +31,12 @@
 			<acme:button url="contest/display.do?idContest=${participation.contest.id}" type="button" code="participation.list.viewContest"/>
 		</display:column>
 	<security:authorize access="hasRole('WRITER')">
-		<jstl:if test="${actual.before(participation.contest.deadline)}">
-			<display:column titleKey="participation.list.delete">
-					<acme:button url="participation/writer/delete.do?idParticipation=${participation.id}" type="button" code="participation.list.delete"/>
-			</display:column>
+		<jstl:if test="${participation != null}">
+			<jstl:if test="${actual.before(participation.contest.deadline)}">
+				<display:column titleKey="participation.list.delete">
+						<acme:button url="participation/writer/delete.do?idParticipation=${participation.id}" type="button" code="participation.list.delete"/>
+				</display:column>
+			</jstl:if>
 		</jstl:if>
 	</security:authorize>
 

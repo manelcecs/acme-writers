@@ -103,28 +103,13 @@ public class ParticipationWriterController extends AbstractController {
 		return result;
 	}
 
-	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int idParticipation) {
-		final ModelAndView result;
-
-		final Participation participation = this.participationService.findOne(idParticipation);
-
-		result = new ModelAndView("participation/display");
-
-		result.addObject("participation", participation);
-
-		//	this.configValues(result);
-		return result;
-
-	}
-
 	protected ModelAndView createEditModelAndView(final Participation participation) {
 		return this.createEditModelAndView(participation, null);
 	}
 
 	protected ModelAndView createEditModelAndView(final Participation participation, final String message) {
 		final ModelAndView result = new ModelAndView("participation/create");
-		final Collection<Book> books = this.bookService.getAllBooksOfLoggedWriter(); //MODIFICADO POR ANTONIO
+		final Collection<Book> books = this.bookService.getAllBooksOfLoggedWriter();
 
 		result.addObject("participation", participation);
 		result.addObject("books", books);

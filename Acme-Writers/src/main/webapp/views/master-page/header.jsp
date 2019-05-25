@@ -56,6 +56,9 @@
 			<li>
 				<a class="fNiv" href="contest/publisher/list.do"><spring:message code="master.page.myContests" /></a>
 			</li>
+			<li>
+				<a class="fNiv" href="participation/publisher/list.do"><spring:message code="master.page.myParticipations" /></a>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('SPONSOR')">
@@ -121,6 +124,10 @@
 		<security:authorize access="hasRole('WRITER')">
 			<li><a class="fNiv" href="book/writer/list.do"><spring:message
 						code="master.page.list.books" /></a></li>
+						
+			<li>
+				<a class="fNiv" href="participation/writer/list.do"><spring:message code="master.page.myParticipations" /></a>
+			</li>
 		</security:authorize>
 		
 	</ul>
