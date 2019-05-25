@@ -48,6 +48,9 @@
 		
 		<bean class="converters.OpinionToStringConverter"/>
 		<bean class="converters.StringToOpinionConverter"/>
+		
+		<bean class="converters.ParticipationToStringConverter"/>
+		<bean class="converters.StringToParticipationConverter"/>
 	</util:list>
 	
 </beans>

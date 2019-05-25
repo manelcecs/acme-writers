@@ -12,12 +12,13 @@ import domain.Participation;
 @Repository
 public interface ParticipationRepository extends JpaRepository<Participation, Integer> {
 
-	//TODO por david
-	@Query("select a from Actor a")
+	@Query("select p from Participation p join p.book b where b.writer.id = ?1")
+	Collection<Participation> getParticipationsOfWriter(int idWriter);
+
+	@Query("select p from Participation p join p.contest c where c.id = ?1")
 	Collection<Participation> getParticipationsOfContest(int idContest);
 
-	//TODO por david
-	@Query("select a from Actor a")
-	Collection<Participation> getParticipationsOfWriter(int idWriter);
+	@Query("select p from Participation p join p.contest c join c.publisher pu where pu.id = ?1")
+	Collection<Participation> getParticipationsOfPublisher(int idPublisher);
 
 }

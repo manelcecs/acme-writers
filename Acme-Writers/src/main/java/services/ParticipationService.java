@@ -63,22 +63,27 @@ public class ParticipationService {
 		return this.participationRepository.getParticipationsOfWriter(idWriter);
 	}
 
+	public Collection<Participation> getParticipationsOfPublisher(final int idPublisher) {
+		return this.participationRepository.getParticipationsOfPublisher(idPublisher);
+	}
+
 	public Participation save(final Participation participation) throws ParseException {
+		Participation participationSave;
 		if (participation.getId() == 0) {
 			Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
 			Assert.isTrue(this.contestService.isBeforeDeadline(participation.getContest().getDeadline()));
-
 			final UserAccount principal = LoginService.getPrincipal();
 			final Writer writer = this.writerService.findByPrincipal(principal);
 			Assert.isTrue(participation.getBook().getWriter().getId() == writer.getId());
+			Assert.isTrue(this.contestService.isBeforeDeadline(participation.getContest().getDeadline()));
 		} else {
 			Assert.isTrue(AuthorityMethods.chechAuthorityLogged("PUBLISHER"));
-			Assert.isTrue(!this.contestService.isBeforeDeadline(participation.getContest().getDeadline()));
 			final UserAccount principal = LoginService.getPrincipal();
 			final Publisher publisher = this.publisherService.findByPrincipal(principal);
 			Assert.isTrue(participation.getContest().getPublisher().getId() == publisher.getId());
 		}
-		return this.participationRepository.save(participation);
+		participationSave = this.participationRepository.save(participation);
+		return participationSave;
 	}
 
 	public void delete(final Participation participation) {
@@ -104,18 +109,22 @@ public class ParticipationService {
 			final Date actual = this.FORMAT.parse(DATETIMENOW.getYear() + "/" + DATETIMENOW.getMonthOfYear() + "/" + DATETIMENOW.getDayOfMonth() + " " + DATETIMENOW.getHourOfDay() + ":" + LocalDateTime.now().getMinuteOfHour() + ":"
 				+ DATETIMENOW.getSecondOfMinute());
 			participationRec.setMoment(actual);
-		} else {
+		} else
 			participationRec = this.participationRepository.findOne(participation.getId());
+		if (this.contestService.isBeforeDeadline(participationRec.getContest().getDeadline())) {
+			final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
+			Assert.isTrue(participationRec.getContest().getPublisher().equals(publisher));
+			Assert.isTrue(participationRec.getStatus().equals("PENDING"));
+			Assert.isTrue(participation.getStatus().equals("ACCEPTED") || participation.getStatus().equals("REJECTED"));
 			participationRec.setStatus(participation.getStatus());
+		} else if (participationRec.getStatus().equals("ACCEPTED"))
 			participationRec.setPosition(participation.getPosition());
-		}
 
 		this.validator.validate(participationRec, binding);
 		if (binding.hasErrors()) {
 			binding.getAllErrors();
 			throw new ValidationException();
 		}
-
 		return participationRec;
 	}
 

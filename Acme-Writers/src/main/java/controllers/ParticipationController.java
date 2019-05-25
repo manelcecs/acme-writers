@@ -26,12 +26,14 @@ public class ParticipationController extends AbstractController {
 		final Participation participation = this.participationService.findOne(idParticipation);
 
 		result = new ModelAndView("participation/display");
-
+		if (utiles.AuthorityMethods.chechAuthorityLogged("WRITER"))
+			result.addObject("writer", true);
+		else
+			result.addObject("publisher", true);
 		result.addObject("participation", participation);
 
 		this.configValues(result);
 		return result;
 
 	}
-
 }

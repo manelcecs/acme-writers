@@ -1,5 +1,5 @@
 
-package controllers.writer;
+package controllers.publisher;
 
 import java.text.ParseException;
 import java.util.Collection;
@@ -16,36 +16,43 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
-import services.BookService;
+import security.UserAccount;
 import services.ParticipationService;
-import services.WriterService;
+import services.PublisherService;
 import controllers.AbstractController;
-import domain.Book;
 import domain.Participation;
-import domain.Writer;
+import domain.Publisher;
 
 @Controller
-@RequestMapping("/participation/writer")
-public class ParticipationWriterController extends AbstractController {
+@RequestMapping("/participation/publisher")
+public class ParticipationPublisherController extends AbstractController {
 
 	@Autowired
 	private ParticipationService	participationService;
 
 	@Autowired
-	private WriterService			writerService;
-
-	@Autowired
-	private BookService				bookService;
+	private PublisherService		publisherService;
 
 
-	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam final int idContest) throws ParseException {
-		final Participation participation = this.participationService.create(idContest);
-		return this.createEditModelAndView(participation);
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam final int idParticipation) throws ParseException {
+		ModelAndView result;
 
+		final Participation participation = this.participationService.findOne(idParticipation);
+		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
+		if (participation.getContest().getPublisher().getId() != publisher.getId())
+			result = this.listModelAndView("participation.cannot.edit");
+		else {
+			final Date actual = new Date();
+
+			result = this.createEditModelAndView(participation);
+			result.addObject("actual", actual);
+		}
+		this.configValues(result);
+		return result;
 	}
 
-	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
+	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final Participation participation, final BindingResult binding) {
 		ModelAndView result;
 
@@ -54,7 +61,11 @@ public class ParticipationWriterController extends AbstractController {
 			this.participationService.save(participationRec);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final ValidationException oops) {
-			oops.printStackTrace();
+			participation.setBook(this.participationService.findOne(participation.getId()).getBook());
+			participation.setComment(this.participationService.findOne(participation.getId()).getComment());
+			participation.setContest(this.participationService.findOne(participation.getId()).getContest());
+			participation.setMoment(this.participationService.findOne(participation.getId()).getMoment());
+
 			result = this.createEditModelAndView(participation);
 		} catch (final Throwable oops) {
 			oops.printStackTrace();
@@ -68,30 +79,15 @@ public class ParticipationWriterController extends AbstractController {
 		return this.listModelAndView(null);
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.GET)
-	public ModelAndView delete(@RequestParam final int idParticipation) throws ParseException {
-		ModelAndView result;
-		final Participation participation = this.participationService.findOne(idParticipation);
-
-		try {
-			this.participationService.delete(participation);
-			result = new ModelAndView("redirect:list.do");
-		} catch (final Throwable oops) {
-			result = this.listModelAndView("participation.cannot.delete");
-		}
-		return result;
-
-	}
-
 	protected ModelAndView listModelAndView(final String message) throws ParseException {
 		final ModelAndView result = new ModelAndView("participation/list");
-		final Writer writer = this.writerService.findByPrincipal(LoginService.getPrincipal());
-		final Collection<Participation> participations = this.participationService.getParticipationsOfWriter(writer.getId());
+		final UserAccount principal = LoginService.getPrincipal();
+		final Collection<Participation> participations = this.participationService.getParticipationsOfPublisher(this.publisherService.findByPrincipal(principal).getId());
 		final Date actual = new Date();
-		result.addObject("participations", participations);
-		result.addObject("writer", true);
 		result.addObject("actual", actual);
-		result.addObject("requestURI", "participation/writer/list.do");
+		result.addObject("participations", participations);
+		result.addObject("publisher", true);
+		result.addObject("requestURI", "participation/publisher/list.do");
 		result.addObject("message", message);
 		//this.configValues(result);
 		return result;
@@ -102,11 +98,8 @@ public class ParticipationWriterController extends AbstractController {
 	}
 
 	protected ModelAndView createEditModelAndView(final Participation participation, final String message) {
-		final ModelAndView result = new ModelAndView("participation/create");
-		final Collection<Book> books = this.bookService.getAllBooksOfLoggedWriter();
-
+		final ModelAndView result = new ModelAndView("participation/edit");
 		result.addObject("participation", participation);
-		result.addObject("books", books);
 		result.addObject("message", message);
 		//	this.configValues(result);
 

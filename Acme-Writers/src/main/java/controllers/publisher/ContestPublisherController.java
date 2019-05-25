@@ -2,13 +2,11 @@
 package controllers.publisher;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.Valid;
 
-import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -29,12 +27,10 @@ import domain.Publisher;
 public class ContestPublisherController extends AbstractController {
 
 	@Autowired
-	private ContestService			contestService;
+	private ContestService		contestService;
 
 	@Autowired
-	private PublisherService		publisherService;
-
-	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+	private PublisherService	publisherService;
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -45,11 +41,12 @@ public class ContestPublisherController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Contest contest, final BindingResult binding) {
+	public ModelAndView save(@Valid final Contest contest, final BindingResult binding) throws ParseException {
 		ModelAndView result;
 
 		contest.setRules(utiles.ValidatorCollection.deleteStringsBlanksInCollection(contest.getRules()));
-
+		if (!this.contestService.isBeforeDeadline(contest.getDeadline()))
+			binding.rejectValue("deadline", "javax.validation.constraints.Future.message");
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(contest);
 		else
@@ -87,9 +84,7 @@ public class ContestPublisherController extends AbstractController {
 		final ModelAndView result = new ModelAndView("contest/list");
 		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 		final Collection<Contest> contests = this.contestService.getContestsOfPublisher(publisher.getId());
-		final LocalDateTime DATETIMENOW = LocalDateTime.now();
-		final Date actual = this.FORMAT.parse(DATETIMENOW.getYear() + "/" + DATETIMENOW.getMonthOfYear() + "/" + DATETIMENOW.getDayOfMonth() + " " + DATETIMENOW.getHourOfDay() + ":" + LocalDateTime.now().getMinuteOfHour() + ":"
-			+ DATETIMENOW.getSecondOfMinute());
+		final Date actual = new Date();
 		result.addObject("contests", contests);
 		result.addObject("publisher", true);
 		result.addObject("actual", actual);
