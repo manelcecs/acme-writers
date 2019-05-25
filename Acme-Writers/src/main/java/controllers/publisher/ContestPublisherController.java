@@ -45,7 +45,8 @@ public class ContestPublisherController extends AbstractController {
 		ModelAndView result;
 
 		contest.setRules(utiles.ValidatorCollection.deleteStringsBlanksInCollection(contest.getRules()));
-		if (!this.contestService.isBeforeDeadline(contest.getDeadline()))
+
+		if (contest.getDeadline() != null && !this.contestService.isBeforeDeadline(contest.getDeadline()))
 			binding.rejectValue("deadline", "javax.validation.constraints.Future.message");
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(contest);

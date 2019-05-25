@@ -30,6 +30,9 @@
 						<a href="adminConfig/administrator/display.do"><spring:message code="master.page.administrator.configuration" /></a>
 					</li>
 					<li>
+						<a href="administrator/administrator/register.do"><spring:message code="master.page.administrator.register" /></a>
+					</li>
+					<li>
 						<a href="genre/administrator/list.do"><spring:message code="master.page.administrator.genres" /></a>
 					</li>
 					<li>
@@ -49,12 +52,18 @@
 			<li>
 				<a class="fNiv" href="finder/reader/edit.do"><spring:message code="master.page.finder.edit" /></a>
 			</li>
+			<li>
+				<a class="fNiv" href="announcement/reader/listAllMyWriters.do"><spring:message code="master.page.announcement.listMy" /></a>
+			</li>
 		</security:authorize>
 		
 		<security:authorize access="hasRole('WRITER')">
 			<li>
 				<a class="fNiv" href="book/writer/list.do"><spring:message code="master.page.list.books" /></a>
 			</li>			
+			<li>
+				<a class="fNiv" href="announcement/writer/list.do"><spring:message code="master.page.announcement.list" /></a>
+			</li>
 			<li>
 				<a class="fNiv" href="participation/writer/list.do"><spring:message code="master.page.myParticipations" /></a>
 			</li>

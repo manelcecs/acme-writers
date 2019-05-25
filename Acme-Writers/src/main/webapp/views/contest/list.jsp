@@ -38,7 +38,7 @@
 				</display:column>
 								
 ¡				<display:column titleKey="contest.list.viewPublisher">
-						<acme:button url="" type="button" code="contest.list.viewPublisher"/>
+						<acme:button url="actor/display.do?idActor=226" type="button" code="contest.list.viewPublisher"/>
 				</display:column>
 			</jstl:if>
 			<security:authorize access="hasRole('WRITER')">

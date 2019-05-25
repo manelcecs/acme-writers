@@ -1820,7 +1820,6 @@ Kids will also learn to use contractions which is more natural in spoken English
         <property value="false" name="cancelled" />
         <property value="INDEPENDENT" name="status" />
         <property value="false" name="draft" />
-        <property value="0.0" name="score" />
         <property value="6000" name="numWords" />
         <property name="genre" ref="genre1" />
         <property name="writer" ref="writer0" />
@@ -1835,7 +1834,6 @@ Kids will also learn to use contractions which is more natural in spoken English
         <property value="false" name="cancelled" />
         <property value="PENDING" name="status" />
         <property value="true" name="draft" />
-        <property value="0.0" name="score" />
         <property value="8000" name="numWords" />
         <property name="genre" ref="genre1" />
         <property name="writer" ref="writer0" />
@@ -1851,7 +1849,6 @@ Kids will also learn to use contractions which is more natural in spoken English
         <property value="false" name="cancelled" />
         <property value="ACCEPTED" name="status" />
         <property value="false" name="draft" />
-        <property value="0.0" name="score" />
         <property value="150" name="numWords" />
         <property name="genre" ref="genre2" />
         <property name="writer" ref="writer1" />

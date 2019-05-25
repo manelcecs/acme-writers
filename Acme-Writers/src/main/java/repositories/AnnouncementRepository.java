@@ -12,7 +12,7 @@ import domain.Announcement;
 @Repository
 public interface AnnouncementRepository extends JpaRepository<Announcement, Integer> {
 
-	@Query("select a from Announcement a where a.writer.id = ?1 ORDER BY moment DESC")
+	@Query("select a from Announcement a where a.writer.id = ?1 ORDER BY a.moment DESC")
 	Collection<Announcement> findAllWriter(final int writerId);
 
 }
