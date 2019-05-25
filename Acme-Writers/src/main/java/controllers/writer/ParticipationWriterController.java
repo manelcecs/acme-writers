@@ -2,13 +2,11 @@
 package controllers.writer;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.ValidationException;
 
-import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -38,8 +36,6 @@ public class ParticipationWriterController extends AbstractController {
 
 	@Autowired
 	private BookService				bookService;
-
-	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
@@ -91,9 +87,7 @@ public class ParticipationWriterController extends AbstractController {
 		final ModelAndView result = new ModelAndView("participation/list");
 		final Writer writer = this.writerService.findByPrincipal(LoginService.getPrincipal());
 		final Collection<Participation> participations = this.participationService.getParticipationsOfWriter(writer.getId());
-		final LocalDateTime DATETIMENOW = LocalDateTime.now();
-		final Date actual = this.FORMAT.parse(DATETIMENOW.getYear() + "/" + DATETIMENOW.getMonthOfYear() + "/" + DATETIMENOW.getDayOfMonth() + " " + DATETIMENOW.getHourOfDay() + ":" + LocalDateTime.now().getMinuteOfHour() + ":"
-			+ DATETIMENOW.getSecondOfMinute());
+		final Date actual = new Date();
 		result.addObject("participations", participations);
 		result.addObject("writer", true);
 		result.addObject("actual", actual);

@@ -20,21 +20,22 @@
 
 <form:form modelAttribute="participation" action="participation/publisher/edit.do">
 	<acme:hidden path="id"/>
+	
 	<acme:text label="participation.edit.comment" value="${participation.comment}"/>
 	<acme:text label="participation.edit.moment" value="${participation.moment}"/>
 	<acme:text label="participation.edit.contest" value="${participation.contest.description}"/>
 	<acme:text label="participation.edit.book" value="${participation.book.title}"/>
-	
-			<jstl:if test="${!actual.before(participation.contest.deadline)}">
+			<jstl:if test="${actual.before(participation.contest.deadline) && participation.status == 'PENDING'}">
  				<form:label path="status"><spring:message code="participation.edit.status"/></form:label>
      			<form:select path="status" multiple="false" >
-	     			<form:option value="PENDING" ><jstl:out value="PENDING"/></form:option>
 	     			<form:option value="ACCEPTED" ><jstl:out value="ACCEPTED"/></form:option>
 	     			<form:option value="REJECTED" ><jstl:out value="REJECTED"/></form:option>
    				</form:select>
+		    <br/>
 		    </jstl:if> 
-			<jstl:if test="${actual.before(participation.contest.deadline) && participation.status == 'ACCEPTED'}">
+			<jstl:if test="${!actual.before(participation.contest.deadline) && (participation.status == 'ACCEPTED' || participation.status == null)}">
 				<acme:inputNumber code="participation.edit.position" path="position"/>
+		    <br/>
 			</jstl:if>
 		<acme:submit name="save" code="participation.edit.save" />
 		<acme:cancel url="/participation/publisher/list.do" code="participation.edit.cancel"/>

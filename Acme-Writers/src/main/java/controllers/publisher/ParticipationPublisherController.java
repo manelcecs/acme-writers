@@ -2,13 +2,11 @@
 package controllers.publisher;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 
 import javax.validation.ValidationException;
 
-import org.joda.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -35,8 +33,6 @@ public class ParticipationPublisherController extends AbstractController {
 	@Autowired
 	private PublisherService		publisherService;
 
-	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int idParticipation) throws ParseException {
@@ -46,8 +42,12 @@ public class ParticipationPublisherController extends AbstractController {
 		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 		if (participation.getContest().getPublisher().getId() != publisher.getId())
 			result = this.listModelAndView("participation.cannot.edit");
-		else
+		else {
+			final Date actual = new Date();
+
 			result = this.createEditModelAndView(participation);
+			result.addObject("actual", actual);
+		}
 		this.configValues(result);
 		return result;
 	}
@@ -61,6 +61,11 @@ public class ParticipationPublisherController extends AbstractController {
 			this.participationService.save(participationRec);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final ValidationException oops) {
+			participation.setBook(this.participationService.findOne(participation.getId()).getBook());
+			participation.setComment(this.participationService.findOne(participation.getId()).getComment());
+			participation.setContest(this.participationService.findOne(participation.getId()).getContest());
+			participation.setMoment(this.participationService.findOne(participation.getId()).getMoment());
+
 			result = this.createEditModelAndView(participation);
 		} catch (final Throwable oops) {
 			oops.printStackTrace();
@@ -78,12 +83,10 @@ public class ParticipationPublisherController extends AbstractController {
 		final ModelAndView result = new ModelAndView("participation/list");
 		final UserAccount principal = LoginService.getPrincipal();
 		final Collection<Participation> participations = this.participationService.getParticipationsOfPublisher(this.publisherService.findByPrincipal(principal).getId());
-		final LocalDateTime DATETIMENOW = LocalDateTime.now();
-		final Date actual = this.FORMAT.parse(DATETIMENOW.getYear() + "/" + DATETIMENOW.getMonthOfYear() + "/" + DATETIMENOW.getDayOfMonth() + " " + DATETIMENOW.getHourOfDay() + ":" + LocalDateTime.now().getMinuteOfHour() + ":"
-			+ DATETIMENOW.getSecondOfMinute());
+		final Date actual = new Date();
+		result.addObject("actual", actual);
 		result.addObject("participations", participations);
 		result.addObject("publisher", true);
-		result.addObject("actual", actual);
 		result.addObject("requestURI", "participation/publisher/list.do");
 		result.addObject("message", message);
 		//this.configValues(result);
