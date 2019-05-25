@@ -107,6 +107,8 @@ public class GenreAdministratorController extends AbstractController {
 
 		final Collection<Genre> genres = this.genreService.findAllMinusGENRE();
 		genres.remove(genre);
+		final Collection<Genre> allSubgenres = this.genreService.getChildrenOfAGenre(genre);
+		genres.removeAll(allSubgenres);
 
 		result.addObject("genre", genre);
 		result.addObject("genres", genres);
