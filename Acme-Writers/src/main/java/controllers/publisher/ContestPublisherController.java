@@ -45,11 +45,12 @@ public class ContestPublisherController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(@Valid final Contest contest, final BindingResult binding) {
+	public ModelAndView save(@Valid final Contest contest, final BindingResult binding) throws ParseException {
 		ModelAndView result;
 
 		contest.setRules(utiles.ValidatorCollection.deleteStringsBlanksInCollection(contest.getRules()));
-
+		if (!this.contestService.isBeforeDeadline(contest.getDeadline()))
+			binding.rejectValue("deadline", "javax.validation.constraints.Future.message");
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(contest);
 		else
