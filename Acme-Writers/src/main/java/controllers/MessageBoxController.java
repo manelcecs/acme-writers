@@ -147,8 +147,8 @@ public class MessageBoxController extends AbstractController {
 
 		final Collection<MessageBox> posibleParents = this.messageBoxService.findPosibleParents(actor.getId());
 		posibleParents.remove(messageBox);
-		final Collection<MessageBox> childrens = this.messageBoxService.findChildren(messageBox.getId());
-		posibleParents.remove(childrens);
+		final Collection<MessageBox> childrens = this.messageBoxService.allChildren(messageBox);
+		posibleParents.removeAll(childrens);
 
 		result.addObject("messageBox", messageBox);
 		result.addObject("posibleParents", posibleParents);

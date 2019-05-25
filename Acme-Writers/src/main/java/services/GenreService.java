@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -56,6 +57,11 @@ public class GenreService {
 		if (genre.getParent() == null)
 			genre.setParent(generalGenre);
 
+		Assert.isTrue(genre.getId() != genre.getParent().getId());
+
+		final Collection<Genre> childrens = this.getChildrenOfAGenre(genre);
+		Assert.isTrue(!childrens.contains(genre.getParent()));
+
 		return this.genreRepository.save(genre);
 	}
 	public Collection<String> getAllNameES() {
@@ -95,5 +101,26 @@ public class GenreService {
 
 		this.genreRepository.delete(genre);
 
+	}
+
+	public Collection<Genre> getChildren(final int id) {
+		return this.genreRepository.getChildren(id);
+	}
+
+	public Collection<Genre> getChildrenOfAGenre(final Genre genre) {
+		final Collection<Genre> acum = new ArrayList<>();
+		return this.getChildrenOfAGenre(genre, acum);
+	}
+
+	private Collection<Genre> getChildrenOfAGenre(final Genre genre, final Collection<Genre> acum) {
+		final Collection<Genre> childrens = this.getChildren(genre.getId());
+		if (childrens.size() == 0)
+			acum.add(genre);
+		else {
+			for (final Genre child : childrens)
+				this.getChildrenOfAGenre(child, acum);
+			acum.add(genre);
+		}
+		return acum;
 	}
 }

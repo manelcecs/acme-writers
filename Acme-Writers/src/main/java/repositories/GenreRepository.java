@@ -27,4 +27,7 @@ public interface GenreRepository extends JpaRepository<Genre, Integer> {
 	@Query("select g from Genre g where g.parent.id = ?1")
 	Collection<Genre> getSubgenres(int idGenre);
 
+	@Query("select g from Genre g where g.parent.id = ?1")
+	Collection<Genre> getChildren(int id);
+
 }
