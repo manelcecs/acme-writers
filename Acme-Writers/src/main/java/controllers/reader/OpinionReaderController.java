@@ -121,6 +121,8 @@ public class OpinionReaderController extends AbstractController {
 		result.addObject("opinion", opinion);
 		result.addObject("message", message);
 
+		this.configValues(result);
+
 		return result;
 	}
 

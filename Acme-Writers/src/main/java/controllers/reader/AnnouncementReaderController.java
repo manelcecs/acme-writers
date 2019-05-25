@@ -75,6 +75,8 @@ public class AnnouncementReaderController extends AbstractController {
 		res.addObject("announcement", ann);
 		res.addObject("back", false);
 
+		this.configValues(res);
+
 		return res;
 	}
 

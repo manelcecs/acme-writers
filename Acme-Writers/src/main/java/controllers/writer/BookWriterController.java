@@ -67,6 +67,7 @@ public class BookWriterController extends AbstractController {
 			//FIXME: ADD THE OPINIONS
 			result.addObject("requestURIChapters", "book/writer/display.do?idBook=" + idBook);
 			result.addObject("requestURIOpinions", "book/writer/display.do?idBook=" + idBook);
+			this.configValues(result);
 		} else
 			result = new ModelAndView("redirect:list.do");
 
@@ -186,6 +187,8 @@ public class BookWriterController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("genres", this.genreService.findAll());
 
+		this.configValues(result);
+
 		return result;
 
 	}
@@ -203,6 +206,8 @@ public class BookWriterController extends AbstractController {
 		result.addObject("myList", true);
 		result.addObject("message", message);
 		result.addObject("requestURI", "book/writer/list.do");
+
+		this.configValues(result);
 
 		return result;
 	}
