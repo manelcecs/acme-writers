@@ -28,8 +28,13 @@
 		<acme:textbox code="writer.edit.email" path="email" />
 		<acme:textbox code="writer.edit.phoneNumber" path="phoneNumber" id="phone" />
 		<br />
-		<acme:textbox code="writer.edit.creditcard.holder" path="creditCard.holder"/>
-		<acme:textbox code="writer.edit.creditcard.make" path="creditCard.make"/>
+		<acme:textbox code="writer.edit.creditcard.holder" path="creditCard.holder"/>		
+		<form:label path="creditCard.make"><spring:message code="writer.edit.creditcard.make"/></form:label>
+     			<form:select path="creditCard.make" multiple="false" >
+	     			<jstl:forEach items="${makers }" var="make">
+	     				<form:option value="${ make}" label="${make}" />
+	     			</jstl:forEach>
+   				</form:select>
 		<acme:inputNumber code="writer.edit.creditcard.number" path="creditCard.number"/>
 		<acme:inputNumber code="writer.edit.creditcard.expirationMonth" path="creditCard.expirationMonth" />
 		<acme:inputNumber code="writer.edit.creditcard.expirationYear" path="creditCard.expirationYear" />
@@ -58,7 +63,12 @@
 		<acme:textbox code="writer.edit.phoneNumber" path="phoneNumber" id="phone" />
 		<br />
 		<acme:textbox code="writer.edit.creditcard.holder" path="creditCard.holder"/>
-		<acme:textbox code="writer.edit.creditcard.make" path="creditCard.make"/>
+		<form:label path="creditCard.make"><spring:message code="writer.edit.creditcard.make"/></form:label>
+     			<form:select path="creditCard.make" multiple="false" >
+	     			<jstl:forEach items="${makers }" var="make">
+	     				<form:option value="${ make}" label="${make}" />
+	     			</jstl:forEach>
+   				</form:select>
 		<acme:inputNumber code="writer.edit.creditcard.number" path="creditCard.number"/>
 		<acme:inputNumber code="writer.edit.creditcard.expirationMonth" path="creditCard.expirationMonth" />
 		<acme:inputNumber code="writer.edit.creditcard.expirationYear" path="creditCard.expirationYear" />
