@@ -12,16 +12,16 @@ import domain.Genre;
 @Repository
 public interface GenreRepository extends JpaRepository<Genre, Integer> {
 
-	@Query("select g from Genre g where g.nameEN != 'GENRE' or g.nameES != 'GÉNERO'")
+	@Query("select g from Genre g where g.nameEN != 'GENRE' ")
 	Collection<Genre> findAllMinusGENRE();
 
-	@Query("select g.nameES from Genre g where g.nameES != 'GÉNERO'")
+	@Query("select g.nameES from Genre g where g.nameEN != 'GENRE'")
 	Collection<String> getAllNameES();
 
 	@Query("select g.nameEN from Genre g where g.nameEN != 'GENRE'")
 	Collection<String> getAllNameEN();
 
-	@Query("select g from Genre g where g.nameEN = 'GENRE' and g.nameES = 'GÉNERO'")
+	@Query("select g from Genre g where g.nameEN = 'GENRE'")
 	Genre getGeneralGenre();
 
 	@Query("select g from Genre g where g.parent.id = ?1")

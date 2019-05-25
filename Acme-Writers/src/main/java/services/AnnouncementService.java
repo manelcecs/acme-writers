@@ -79,6 +79,7 @@ public class AnnouncementService {
 		return res;
 	}
 	public void delete(final Announcement announcement) {
+		Assert.isTrue(announcement.getWriter().getId() == this.actorService.findByUserAccount(LoginService.getPrincipal()).getId());
 		this.announcementRepository.delete(announcement);
 	}
 

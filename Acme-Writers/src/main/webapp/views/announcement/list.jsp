@@ -35,7 +35,7 @@
 		</display:column>
 		<display:column titleKey="announcement.list.delete">
 			<acme:button
-				url="announcement/writer/delete.do?announcementId=${announcement.id}"
+				url="/announcement/writer/delete.do?announcementId=${announcement.id}"
 				type="button" code="announcement.list.delete" />
 
 		</display:column>

@@ -40,6 +40,9 @@ public class ReaderService {
 	private AdminConfigService		adminConfigService;
 
 	@Autowired
+	private MessageBoxService		messageBoxService;
+
+	@Autowired
 	private Validator				validator;
 
 	@Autowired
@@ -53,8 +56,8 @@ public class ReaderService {
 
 		reader.setFinder(this.finderService.generateNewFinder());
 		reader.setBanned(false);
-		reader.setSpammer(false);
-		//TODO: reader.setMessageBoxes(this.)
+		reader.setSpammer(null);
+		reader.setMessageBoxes(this.messageBoxService.initializeNewUserBoxes());
 
 		return reader;
 	}
@@ -144,6 +147,9 @@ public class ReaderService {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.READER));
 		Assert.isTrue(this.findByPrincipal(LoginService.getPrincipal()).getId() == reader.getId());
 
+		Assert.isTrue(!writer.getBanned());
+		Assert.isTrue(writer.getUserAccount().getAuthorities().size() >= 1);
+
 		final Collection<Writer> writersFollowed = reader.getWriters();
 		writersFollowed.add(writer);
 		reader.setWriters(writersFollowed);
@@ -155,13 +161,15 @@ public class ReaderService {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.READER));
 		Assert.isTrue(this.findByPrincipal(LoginService.getPrincipal()).getId() == reader.getId());
 
+		Assert.isTrue(!writer.getBanned());
+		Assert.isTrue(writer.getUserAccount().getAuthorities().size() >= 1);
+
 		final Collection<Writer> writersFollowed = reader.getWriters();
 		writersFollowed.remove(writer);
 		reader.setWriters(writersFollowed);
 
 		this.readerRepository.saveAndFlush(reader);
 	}
-
 	public Reader findOne(final int readerId) {
 		return this.readerRepository.findOne(readerId);
 	}

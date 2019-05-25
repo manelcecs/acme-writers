@@ -46,8 +46,10 @@ public class GenreService {
 	}
 
 	public Genre save(final Genre genre) {
+		//FIXME codificacion
+
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
-		Assert.isTrue(!genre.getNameES().equals("GÃ‰NERO") && !genre.getNameEN().equals("GENRE"));
+		Assert.isTrue(!genre.getNameES().equals("GÉNERO") && !genre.getNameEN().equals("GENRE"));
 		final Genre generalGenre = this.genreRepository.getGeneralGenre();
 		Assert.isTrue(genre.getId() != generalGenre.getId());
 

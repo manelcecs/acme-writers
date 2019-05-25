@@ -53,7 +53,7 @@ public class SponsorService {
 	public Sponsor create() {
 		final Sponsor res = new Sponsor();
 
-		res.setSpammer(false);
+		res.setSpammer(null);
 		res.setBanned(false);
 		res.setMessageBoxes(this.messageBoxService.initializeNewUserBoxes());
 

@@ -22,6 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Contest extends DomainEntity {
 
+	//private String				title;
 	private String				description;
 	private String				prize;
 	private Collection<String>	rules;
@@ -29,6 +30,16 @@ public class Contest extends DomainEntity {
 
 	private Publisher			publisher;
 
+
+	//	@SafeHtml
+	//	@NotBlank
+	//	public String getTitle() {
+	//		return this.title;
+	//	}
+	//
+	//	public void setTitle(final String title) {
+	//		this.title = title;
+	//	}
 
 	@SafeHtml
 	@NotBlank

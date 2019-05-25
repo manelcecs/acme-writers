@@ -125,10 +125,10 @@ public class GenreAdministratorController extends AbstractController {
 			namesES.remove(this.genreService.findOne(genre.getId()).getNameES());
 		}
 
-		if (genre.getNameEN().toUpperCase().equals("GENRE"))
+		if (genre.getNameEN().toUpperCase().trim().equals("GENRE") || genre.getNameEN().toUpperCase().trim().equals("GÉNERO") || genre.getNameES().toUpperCase().trim().equals("GENERO"))
 			binding.rejectValue("nameEN", "genre.error.namelikeGenre");
 
-		if (genre.getNameES().toUpperCase().equals("GÉNERO") || genre.getNameES().toUpperCase().equals("GENERO"))
+		if (genre.getNameES().toUpperCase().trim().equals("GÉNERO") || genre.getNameES().toUpperCase().trim().equals("GENERO") || genre.getNameES().toUpperCase().trim().equals("GENRE"))
 			binding.rejectValue("nameES", "genre.error.namelikeGenre");
 
 		if (namesEN.contains(genre.getNameEN().trim().toLowerCase()))
