@@ -49,7 +49,7 @@ public class PublisherService {
 
 	public Publisher create() throws ParseException {
 		final Publisher res = new Publisher();
-		res.setSpammer(false);
+		res.setSpammer(null);
 		res.setBanned(false);
 		res.setMessageBoxes(this.messageBoxService.initializeNewUserBoxes());
 		return res;

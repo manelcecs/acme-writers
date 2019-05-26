@@ -23,7 +23,7 @@
 		<p>
 			<acme:textarea code="participation.create.comment" path="comment"/>
 		</p>
-		<acme:select items="${books}" itemLabel="title" code="participation.create.book" path="book"/>			
+		<acme:select items="${books}" itemLabel="title" code="participation.create.book" path="book" optional="false"/>			
 		<acme:submit name="save" code="participation.create.save" />
 		<acme:cancel url="/contest/list.do" code="participation.create.cancel"/>
 </form:form>

@@ -75,7 +75,7 @@ public class SearchController extends AbstractController {
 		result.addObject("requestURI", "search/display.do");
 		result.addObject("message", messageCode);
 
-		//this.configValues(result);
+		this.configValues(result);
 		return result;
 	}
 }

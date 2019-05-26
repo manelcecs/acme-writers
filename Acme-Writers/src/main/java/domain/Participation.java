@@ -65,7 +65,7 @@ public class Participation extends DomainEntity {
 		this.status = status;
 	}
 
-	@Min(0)
+	@Min(1)
 	public Integer getPosition() {
 		return this.position;
 	}

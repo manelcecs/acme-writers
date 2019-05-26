@@ -1,6 +1,7 @@
 
 package forms;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 
 public class SpamWordForm {
@@ -9,6 +10,7 @@ public class SpamWordForm {
 
 
 	@SafeHtml
+	@NotBlank
 	public String getSpamWord() {
 		return this.spamWord;
 	}

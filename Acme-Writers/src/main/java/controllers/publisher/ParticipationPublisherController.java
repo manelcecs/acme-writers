@@ -74,6 +74,7 @@ public class ParticipationPublisherController extends AbstractController {
 
 		return result;
 	}
+
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() throws ParseException {
 		return this.listModelAndView(null);
@@ -89,7 +90,8 @@ public class ParticipationPublisherController extends AbstractController {
 		result.addObject("publisher", true);
 		result.addObject("requestURI", "participation/publisher/list.do");
 		result.addObject("message", message);
-		//this.configValues(result);
+
+		this.configValues(result);
 		return result;
 	}
 
@@ -101,7 +103,8 @@ public class ParticipationPublisherController extends AbstractController {
 		final ModelAndView result = new ModelAndView("participation/edit");
 		result.addObject("participation", participation);
 		result.addObject("message", message);
-		//	this.configValues(result);
+
+		this.configValues(result);
 
 		return result;
 	}

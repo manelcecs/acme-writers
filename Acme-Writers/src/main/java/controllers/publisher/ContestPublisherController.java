@@ -45,7 +45,8 @@ public class ContestPublisherController extends AbstractController {
 		ModelAndView result;
 
 		contest.setRules(utiles.ValidatorCollection.deleteStringsBlanksInCollection(contest.getRules()));
-		if (!this.contestService.isBeforeDeadline(contest.getDeadline()))
+
+		if (contest.getDeadline() != null && !this.contestService.isBeforeDeadline(contest.getDeadline()))
 			binding.rejectValue("deadline", "javax.validation.constraints.Future.message");
 		if (binding.hasErrors())
 			result = this.createEditModelAndView(contest);
@@ -90,7 +91,7 @@ public class ContestPublisherController extends AbstractController {
 		result.addObject("actual", actual);
 		result.addObject("requestURI", "contest/publisher/list.do");
 		result.addObject("message", message);
-		//		this.configValues(result);
+		this.configValues(result);
 		return result;
 	}
 
@@ -105,7 +106,7 @@ public class ContestPublisherController extends AbstractController {
 
 		result.addObject("contest", contest);
 
-		//		this.configValues(result);
+		this.configValues(result);
 		return result;
 
 	}
@@ -118,7 +119,7 @@ public class ContestPublisherController extends AbstractController {
 		final ModelAndView result = new ModelAndView("contest/create");
 		result.addObject("contest", contest);
 		result.addObject("message", message);
-		//		this.configValues(result);
+		this.configValues(result);
 
 		return result;
 	}

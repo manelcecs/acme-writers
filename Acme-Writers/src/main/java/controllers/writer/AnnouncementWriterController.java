@@ -100,13 +100,31 @@ public class AnnouncementWriterController extends AbstractController {
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(final int announcementId) {
-		final ModelAndView res = new ModelAndView("redirect:/list.do");
+		ModelAndView res;
 		try {
 			final Announcement ann = this.announcementService.findOne(announcementId);
 			this.announcementService.delete(ann);
+
+			res = this.listModelAndView();
 		} catch (final Throwable oops) {
-			res.addObject("message", "announcement.delete.error");
+			res = this.listModelAndView("announcement.delete.error");
 		}
+
+		return res;
+	}
+
+	protected ModelAndView listModelAndView(final String... args) {
+		final ModelAndView res = new ModelAndView("announcement/list");
+
+		final Collection<Announcement> announcements = this.announcementService.findAllWriter(this.actorService.findByUserAccount(LoginService.getPrincipal()).getId());
+		res.addObject("announcements", announcements);
+
+		res.addObject("writer", true);
+
+		for (final String s : args)
+			res.addObject("message", s);
+
+		this.configValues(res);
 
 		return res;
 	}

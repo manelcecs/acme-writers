@@ -93,7 +93,7 @@ public class ParticipationWriterController extends AbstractController {
 		result.addObject("actual", actual);
 		result.addObject("requestURI", "participation/writer/list.do");
 		result.addObject("message", message);
-		//this.configValues(result);
+		this.configValues(result);
 		return result;
 	}
 
@@ -108,7 +108,7 @@ public class ParticipationWriterController extends AbstractController {
 		result.addObject("participation", participation);
 		result.addObject("books", books);
 		result.addObject("message", message);
-		//	this.configValues(result);
+		this.configValues(result);
 
 		return result;
 	}

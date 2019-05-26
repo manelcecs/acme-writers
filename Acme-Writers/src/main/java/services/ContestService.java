@@ -63,9 +63,12 @@ public class ContestService {
 		Assert.isTrue(contest.getPublisher().getId() == publisher.getId());
 		Assert.isTrue(this.isBeforeDeadline(contest.getDeadline()));
 		final Collection<Participation> participations = this.participationService.getParticipationsOfContest(contest.getId());
-		this.contestRepository.delete(contest);
+
 		this.participationService.deleteCollectionOfParticipations(participations);
+		this.contestRepository.delete(contest);
+
 	}
+
 	public Collection<Contest> getContestsOfPublisher(final int idPublisher) {
 		return this.contestRepository.getContestsOfPublisher(idPublisher);
 	}

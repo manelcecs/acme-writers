@@ -47,7 +47,7 @@ public class WriterService {
 
 	public Writer create() {
 		final Writer res = new Writer();
-		res.setSpammer(false);
+		res.setSpammer(null);
 		res.setBanned(false);
 		res.setMessageBoxes(this.messageBoxService.initializeNewUserBoxes());
 		return res;

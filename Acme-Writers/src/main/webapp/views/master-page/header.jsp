@@ -22,12 +22,15 @@
 	<ul id="jMenu">
 
 		<security:authorize access="hasRole('ADMINISTRATOR')">
-			<li><a class="fNiv"><spring:message
-						code="master.page.administrator" /></a>
+			<li>
+				<a class="fNiv"><spring:message	code="master.page.administrator" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li>
 						<a href="adminConfig/administrator/display.do"><spring:message code="master.page.administrator.configuration" /></a>
+					</li>
+					<li>
+						<a href="administrator/administrator/register.do"><spring:message code="master.page.administrator.register" /></a>
 					</li>
 					<li>
 						<a href="genre/administrator/list.do"><spring:message code="master.page.administrator.genres" /></a>
@@ -49,8 +52,22 @@
 			<li>
 				<a class="fNiv" href="finder/reader/edit.do"><spring:message code="master.page.finder.edit" /></a>
 			</li>
+			<li>
+				<a class="fNiv" href="announcement/reader/listAllMyWriters.do"><spring:message code="master.page.announcement.listMy" /></a>
+			</li>
 		</security:authorize>
 		
+		<security:authorize access="hasRole('WRITER')">
+			<li>
+				<a class="fNiv" href="book/writer/list.do"><spring:message code="master.page.list.books" /></a>
+			</li>			
+			<li>
+				<a class="fNiv" href="announcement/writer/list.do"><spring:message code="master.page.announcement.list" /></a>
+			</li>
+			<li>
+				<a class="fNiv" href="participation/writer/list.do"><spring:message code="master.page.myParticipations" /></a>
+			</li>
+		</security:authorize>
 			
 		<security:authorize access="hasRole('PUBLISHER')">
 			<li>
@@ -69,21 +86,31 @@
 		
 		<security:authorize access="isAnonymous()">
 			<li>
-			<a class="fNiv" href="writer/list.do"><spring:message code="master.page.writer.display" /></a></li>
+				<a class="fNiv" href="writer/list.do"><spring:message code="master.page.writer.display" /></a>
+			</li>
 			<li>
-				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a></li>
-			<li><a class="fNIv"><spring:message code="master.page.register" /></a>
-				<ul><li class="arrow"></li>
+				<a class="fNiv" href="book/listAll.do"><spring:message code="master.page.book.display" /></a>
+			</li>
+			<li>
+				<a class="fNiv" href="search/display.do"><spring:message code="master.page.search.display" /></a>
+			</li>
+			
+			<li>
+				<a class="fNIv"><spring:message code="master.page.register" /></a>
+				<ul>
+					<li class="arrow"></li>
 					<li><a href="writer/register.do"><spring:message code="master.page.register.wiriter" /></a></li>
 					<li><a href="reader/register.do"><spring:message code="master.page.register.reader" /></a></li>
 					<li><a href="publisher/register.do"><spring:message code="master.page.register.publisher" /></a></li>
 					<li><a href="sponsor/register.do"><spring:message code="master.page.register.sponsor" /></a></li>
-					</ul>
+				</ul>
 			</li>
 			<li>
 				<a class="fNiv" href="contest/list.do"><spring:message code="master.page.contest.list" /></a>
 			</li>
-			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
+			<li>
+				<a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a>
+			</li>
 		</security:authorize>
 		
 		
@@ -121,14 +148,7 @@
 						code="master.page.logout" /> </a></li>
 		</security:authorize>
 
-		<security:authorize access="hasRole('WRITER')">
-			<li><a class="fNiv" href="book/writer/list.do"><spring:message
-						code="master.page.list.books" /></a></li>
-						
-			<li>
-				<a class="fNiv" href="participation/writer/list.do"><spring:message code="master.page.myParticipations" /></a>
-			</li>
-		</security:authorize>
+		
 		
 	</ul>
 </div>

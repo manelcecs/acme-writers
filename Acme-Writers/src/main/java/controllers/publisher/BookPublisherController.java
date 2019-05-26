@@ -89,6 +89,8 @@ public class BookPublisherController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("publisher", true);
 
+		this.configValues(result);
+
 		return result;
 	}
 
