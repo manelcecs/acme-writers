@@ -8,7 +8,7 @@
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
 <display:table pagesize="5" name="participations" id="participation" requestURI="${requestURI}">
-	<display:column titleKey="participation.list.contest"><jstl:out value="${participation.contest.description}"/></display:column>
+	<display:column titleKey="participation.list.contest"><jstl:out value="${participation.contest.title}"/></display:column>
 	<display:column titleKey="participation.list.status"><jstl:out value="${participation.status}"/></display:column>
 	<display:column titleKey="participation.list.position"><jstl:out value="${participation.position}"/></display:column>
 	
@@ -16,20 +16,23 @@
 	
 		<display:column titleKey="participation.list.edit">
 			<jstl:if test="${participation != null}">
-				<jstl:if test="${actual.before(participation.contest.deadline) || (!actual.before(participation.contest.deadline) && participation.status == 'ACCEPTED')}">
-					<acme:button url="participation/publisher/edit.do?idParticipation=${participation.id}" type="button" code="participation.list.edit"/>
+				<jstl:if test="${actual.before(participation.contest.deadline) && participation.status == 'PENDING'}">
+					<acme:button url="participation/publisher/edit.do?idParticipation=${participation.id}" type="button" code="participation.list.changeStatus"/>
+				</jstl:if>
+				<jstl:if test="${!actual.before(participation.contest.deadline) && participation.status == 'ACCEPTED' && participation.position == null}">
+					<acme:button url="participation/publisher/edit.do?idParticipation=${participation.id}" type="button" code="participation.list.changePosition"/>
 				</jstl:if>
 			</jstl:if>
 		</display:column>
 		
+		<display:column titleKey="participation.list.viewContest">
+			<acme:button url="contest/display.do?idContest=${participation.contest.id}&urlBack=${requestURI}" type="button" code="participation.list.viewContest"/>
+		</display:column>
 	</jstl:if>			
 		<display:column titleKey="participation.list.seeMore">
 			<acme:button url="participation/publisher,writer/display.do?idParticipation=${participation.id}" type="button" code="participation.list.seeMore"/>
 		</display:column>
 									
-		<display:column titleKey="participation.list.viewContest">
-			<acme:button url="contest/display.do?idContest=${participation.contest.id}" type="button" code="participation.list.viewContest"/>
-		</display:column>
 	<security:authorize access="hasRole('WRITER')">
 		<jstl:if test="${participation != null}">
 			<jstl:if test="${actual.before(participation.contest.deadline)}">
@@ -38,6 +41,10 @@
 				</display:column>
 			</jstl:if>
 		</jstl:if>
+		
+		<display:column titleKey="participation.list.viewContest">
+			<acme:button url="contest/display.do?idContest=${participation.contest.id}&urlBack=${requestURI}" type="button" code="participation.list.viewContest"/>
+		</display:column>
 	</security:authorize>
 
 			

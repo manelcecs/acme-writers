@@ -14,6 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import services.ContestService;
 import services.SponsorshipService;
+import utiles.AuthorityMethods;
 import domain.Contest;
 import domain.Sponsorship;
 
@@ -38,12 +39,15 @@ public class ContestController extends AbstractController {
 		result.addObject("viewAll", true);
 		result.addObject("requestURI", "contest/list.do");
 		result.addObject("actual", actual);
+		if (AuthorityMethods.checkIsSomeoneLogged())
+			if (utiles.AuthorityMethods.chechAuthorityLogged("WRITER"))
+				result.addObject("canParticipate", this.contestService.getContestCanParticipate());
 		this.configValues(result);
 		return result;
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int idContest) throws ParseException {
+	public ModelAndView display(@RequestParam final int idContest, @RequestParam(required = false, defaultValue = "contest/list.do") final String urlBack) throws ParseException {
 
 		ModelAndView result;
 
@@ -54,6 +58,7 @@ public class ContestController extends AbstractController {
 		final Sponsorship sponsorshipRandom = this.sponsorshipService.getRandomOfAContest(idContest);
 		result.addObject("sponsorshipRandom", sponsorshipRandom);
 		result.addObject("requestURI", "contest/display.do?idContest=" + idContest);
+		result.addObject("urlBack", urlBack);
 
 		this.configValues(result);
 		return result;

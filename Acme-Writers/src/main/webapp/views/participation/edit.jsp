@@ -23,7 +23,7 @@
 	
 	<acme:text label="participation.edit.comment" value="${participation.comment}"/>
 	<acme:text label="participation.edit.moment" value="${participation.moment}"/>
-	<acme:text label="participation.edit.contest" value="${participation.contest.description}"/>
+	<acme:text label="participation.edit.contest" value="${participation.contest.title}"/>
 	<acme:text label="participation.edit.book" value="${participation.book.title}"/>
 			<jstl:if test="${actual.before(participation.contest.deadline) && participation.status == 'PENDING'}">
  				<form:label path="status"><spring:message code="participation.edit.status"/></form:label>
@@ -34,8 +34,13 @@
 		    <br/>
 		    </jstl:if> 
 			<jstl:if test="${!actual.before(participation.contest.deadline) && (participation.status == 'ACCEPTED' || participation.status == null)}">
-				<acme:inputNumber code="participation.edit.position" path="position"/>
-		    <br/>
+ 				<form:label path="position"><spring:message code="participation.edit.position"/></form:label>			
+				<form:select path="position" multiple="false" >
+					<jstl:forEach items="${positions}" var="position">
+	     				<form:option value="${position}" ><jstl:out value="${position}"/></form:option>
+   					</jstl:forEach>
+   				</form:select>		    
+   			<br/>
 			</jstl:if>
 		<acme:submit name="save" code="participation.edit.save" />
 		<acme:cancel url="/participation/publisher/list.do" code="participation.edit.cancel"/>

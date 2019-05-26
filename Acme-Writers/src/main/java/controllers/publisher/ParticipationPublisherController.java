@@ -2,8 +2,10 @@
 package controllers.publisher;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.ValidationException;
 
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import security.UserAccount;
+import services.ContestService;
 import services.ParticipationService;
 import services.PublisherService;
 import controllers.AbstractController;
@@ -33,6 +36,9 @@ public class ParticipationPublisherController extends AbstractController {
 	@Autowired
 	private PublisherService		publisherService;
 
+	@Autowired
+	private ContestService			contestService;
+
 
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit(@RequestParam final int idParticipation) throws ParseException {
@@ -40,14 +46,27 @@ public class ParticipationPublisherController extends AbstractController {
 
 		final Participation participation = this.participationService.findOne(idParticipation);
 		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
-		if (participation.getContest().getPublisher().getId() != publisher.getId())
-			result = this.listModelAndView("participation.cannot.edit");
-		else {
-			final Date actual = new Date();
+		if ((this.contestService.isBeforeDeadline(participation.getContest().getDeadline()) && participation.getStatus().equals("PENDING"))
+			|| (!this.contestService.isBeforeDeadline(participation.getContest().getDeadline()) && participation.getStatus().equals("ACCEPTED") && participation.getPosition() == null)) {
+			if (participation.getContest().getPublisher().getId() != publisher.getId())
+				result = this.listModelAndView("participation.cannot.edit");
+			else {
+				final Date actual = new Date();
+				final Integer numOfPositions = this.participationService.getNumberOfParticipationsInAContest(participation.getContest().getId());
+				int i = 1;
+				final List<Integer> positions = new ArrayList<Integer>();
+				while (i <= numOfPositions) {
+					positions.add(i);
+					i++;
+				}
+				positions.removeAll(this.participationService.getAvailablePositions(participation.getContest().getId()));
+				result = this.createEditModelAndView(participation);
+				result.addObject("actual", actual);
+				result.addObject("positions", positions);
+			}
+		} else
+			result = new ModelAndView("redirect:/participation/publisher/list.do");
 
-			result = this.createEditModelAndView(participation);
-			result.addObject("actual", actual);
-		}
 		this.configValues(result);
 		return result;
 	}

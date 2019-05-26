@@ -377,4 +377,10 @@ public class BookService {
 		}
 
 	}
+
+	public Collection<Book> getBooksCanParticipate(final int idContest) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+		return this.bookRepository.getBooksCanParticipate(writerLogged.getId(), idContest);
+	}
 }

@@ -40,8 +40,13 @@ public class ParticipationWriterController extends AbstractController {
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int idContest) throws ParseException {
-		final Participation participation = this.participationService.create(idContest);
-		return this.createEditModelAndView(participation);
+		ModelAndView result;
+		if (this.bookService.getBooksCanParticipate(idContest).size() > 0) {
+			final Participation participation = this.participationService.create(idContest);
+			result = this.createEditModelAndView(participation);
+		} else
+			result = new ModelAndView("redirect:/contest/list.do");
+		return result;
 
 	}
 
@@ -103,7 +108,7 @@ public class ParticipationWriterController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Participation participation, final String message) {
 		final ModelAndView result = new ModelAndView("participation/create");
-		final Collection<Book> books = this.bookService.getAllBooksOfLoggedWriter();
+		final Collection<Book> books = this.bookService.getBooksCanParticipate(participation.getContest().getId());
 
 		result.addObject("participation", participation);
 		result.addObject("books", books);

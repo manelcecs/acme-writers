@@ -102,7 +102,7 @@ public class ContestPublisherController extends AbstractController {
 		final Contest contest = this.contestService.findOne(idContest);
 
 		result = new ModelAndView("contest/display");
-		result.addObject("publisher", true);
+		result.addObject("urlBack", "contest/publisher/list.do");
 
 		result.addObject("contest", contest);
 
