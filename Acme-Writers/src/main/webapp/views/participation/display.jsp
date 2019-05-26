@@ -17,7 +17,7 @@
 <acme:text label="participation.display.moment" value="${participation.moment}"/>
 <acme:text label="participation.display.status" value="${participation.status}"/>
 <acme:text label="participation.display.position" value="${participation.position}"/>
-<acme:text label="participation.display.contest" value="${participation.contest.description}"/>
+<acme:text label="participation.display.contest" value="${participation.contest.title}"/>
 <acme:text label="participation.display.book" value="${participation.book.title}"/>
 
 

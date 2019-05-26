@@ -1408,7 +1408,8 @@
     
         <!-- Contest -->
     <bean class="domain.Contest" id="contest0">
-        <property name="description" value="Concurso de ficción de libros de tamaño pequeño"/>
+        <property name="title" value="Concurso de ficción de libros de tamaño pequeño"/>
+        <property name="description" value="En este concurso puede participar cualquier libro de ficción de tamaño pequeño (máximo 10000 palabras)"/>
         <property name="prize" value="El ganador se llevará 2000€ y el segundo puesto 1300€"/>
         <property name="rules">
             <list>
@@ -1421,7 +1422,8 @@
     </bean>
     
     <bean class="domain.Contest" id="contest1">
-        <property name="description" value="Concurso para escritores amateurs"/>
+        <property name="title" value="Concurso para escritores amateurs"/>
+        <property name="description" value="En este concurso puede participar cualquier escritor amateur"/>    
         <property name="prize" value="El ganador se llevará un conjunto de libros valorados en 300€"/>
         <property name="rules">
             <list>
@@ -1434,7 +1436,8 @@
     </bean>
     
     <bean class="domain.Contest" id="contest2">
-        <property name="description" value="Concurso de jovenes talentos"/>
+        <property name="title" value="Concurso de jovenes talentos"/>
+        <property name="description" value="En este concurso puede participar cualquier escritor jóven"/>       
         <property name="prize" value="Beca valorada en 3000€ para cursar un curso sobre redacción en la prestigiosa Universidad de Lisboa"/>
         <property name="rules">
             <list>

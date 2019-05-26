@@ -8,14 +8,10 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<jstl:choose>
-<jstl:when test="${publisher}">
-	<acme:button code="contest.display.back" type="button" url="/contest/publisher/list.do"/>
-</jstl:when>
-<jstl:otherwise>
-		<acme:button code="contest.display.back" type="button" url="/contest/list.do"/>
-</jstl:otherwise>
-</jstl:choose>
+
+<acme:button code="contest.display.back" type="button" url="${urlBack}"/>
+
+<acme:text label="contest.display.title" value="${contest.title}"/>
 <acme:text label="contest.display.description" value="${contest.description}"/>
 <acme:text label="contest.display.prize" value="${contest.prize}"/>
 <acme:text label="contest.display.deadline" value="${contest.deadline}"/>

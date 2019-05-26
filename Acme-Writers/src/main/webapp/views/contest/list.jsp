@@ -12,7 +12,7 @@
 </jstl:if>
 
 <display:table pagesize="5" name="contests" id="contest" requestURI="${requestURI}">
-			<display:column titleKey="contest.list.description"><jstl:out value="${contest.description}"/></display:column>
+			<display:column titleKey="contest.list.title"><jstl:out value="${contest.title}"/></display:column>
 			<display:column titleKey="contest.list.prize"><jstl:out value="${contest.prize}"/></display:column>
 			<display:column titleKey="contest.list.deadline"><jstl:out value="${contest.deadline}"/></display:column>
 		
@@ -42,11 +42,11 @@
 				</display:column>
 			</jstl:if>
 			<security:authorize access="hasRole('WRITER')">
-				<jstl:if test="${actual.before(contest.deadline)}">
 					<display:column titleKey="contest.list.participate">
+				<jstl:if test="${actual.before(contest.deadline) && canParticipate.contains(contest)}">
 						<acme:button url="participation/writer/create.do?idContest=${contest.id}" type="button" code="contest.list.participate"/>
-					</display:column>
 				</jstl:if>
+					</display:column>
 			</security:authorize>
 			
 </display:table>

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
@@ -42,6 +43,9 @@ public class ParticipationService {
 	private PublisherService		publisherService;
 
 	@Autowired
+	private BookService				bookService;
+
+	@Autowired
 	private Validator				validator;
 
 	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
@@ -75,7 +79,7 @@ public class ParticipationService {
 			final UserAccount principal = LoginService.getPrincipal();
 			final Writer writer = this.writerService.findByPrincipal(principal);
 			Assert.isTrue(participation.getBook().getWriter().getId() == writer.getId());
-			Assert.isTrue(this.contestService.isBeforeDeadline(participation.getContest().getDeadline()));
+			Assert.isTrue(this.bookService.getBooksCanParticipate(participation.getContest().getId()).contains(participation.getBook()));
 		} else {
 			Assert.isTrue(AuthorityMethods.chechAuthorityLogged("PUBLISHER"));
 			final UserAccount principal = LoginService.getPrincipal();
@@ -85,7 +89,6 @@ public class ParticipationService {
 		participationSave = this.participationRepository.save(participation);
 		return participationSave;
 	}
-
 	public void delete(final Participation participation) {
 
 		final UserAccount principal = LoginService.getPrincipal();
@@ -131,5 +134,13 @@ public class ParticipationService {
 
 	public Collection<Participation> getParticipationsOfContest(final int idContest) {
 		return this.participationRepository.getParticipationsOfContest(idContest);
+	}
+
+	public Integer getNumberOfParticipationsInAContest(final int idContest) {
+		return this.participationRepository.getNumberOfParticipations(idContest);
+	}
+
+	public List<Integer> getAvailablePositions(final int idContest) {
+		return this.participationRepository.getAvailablePositions(idContest);
 	}
 }

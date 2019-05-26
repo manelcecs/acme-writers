@@ -21,6 +21,9 @@
 <form:form modelAttribute="contest" action="contest/publisher/create.do">
 		
 		<p>
+			<acme:textbox code="contest.create.title" path="title"/>
+		</p>
+		<p>
 			<acme:textarea code="contest.create.description" path="description"/>
 		</p>
 		<p>
