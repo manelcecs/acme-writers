@@ -33,9 +33,9 @@
 		<acme:textbox code="adminConfig.edit.welcomeMessageES" path="welcomeMessageES"/>
 		<acme:textbox code="adminConfig.edit.countryCode" path="countryCode"/>
 		<acme:textbox code="adminConfig.edit.bannerURL" path="bannerURL"/>
-		<acme:inputNumber code="adminConfig.edit.flatRate" path="flatRate"/>
-		<acme:inputNumber code="adminConfig.edit.VAT" path="VAT"/>
-		<acme:inputNumber code="adminConfig.edit.spammerPercentage" path="spammerPercentage"/>
+		<acme:inputDouble code="adminConfig.edit.flatRate" path="flatRate" val="${adminConfigForm.flatRate}"/>
+		<acme:inputDouble code="adminConfig.edit.VAT" path="VAT" val="${adminConfigForm.VAT}"/>
+		<acme:inputDouble code="adminConfig.edit.spammerPercentage" path="spammerPercentage"  val="${adminConfigForm.spammerPercentage}"/>
 		
 		<acme:submit name="save" code="adminConfig.edit.save"/>
 		<acme:button url="adminConfig/administrator/display.do" type="button" code="adminConfig.edit.back"/>
