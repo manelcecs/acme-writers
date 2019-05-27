@@ -21,11 +21,11 @@
 <form:form modelAttribute="participation" action="participation/publisher/edit.do">
 	<acme:hidden path="id"/>
 	
-	<acme:text label="participation.edit.comment" value="${participation.comment}"/>
-	<acme:text label="participation.edit.moment" value="${participation.moment}"/>
-	<acme:text label="participation.edit.contest" value="${participation.contest.title}"/>
-	<acme:text label="participation.edit.book" value="${participation.book.title}"/>
-			<jstl:if test="${actual.before(participation.contest.deadline) && participation.status == 'PENDING'}">
+	<acme:text label="participation.edit.comment" value="${participationBD.comment}"/>
+	<acme:text label="participation.edit.moment" value="${participationBD.moment}"/>
+	<acme:text label="participation.edit.contest" value="${participationBD.contest.title}"/>
+	<acme:text label="participation.edit.book" value="${participationBD.book.title}"/>
+			<jstl:if test="${actual.before(participationBD.contest.deadline) && participationBD.status == 'PENDING'}">
  				<form:label path="status"><spring:message code="participation.edit.status"/></form:label>
      			<form:select path="status" multiple="false" >
 	     			<form:option value="ACCEPTED" ><jstl:out value="ACCEPTED"/></form:option>
@@ -33,9 +33,10 @@
    				</form:select>
 		    <br/>
 		    </jstl:if> 
-			<jstl:if test="${!actual.before(participation.contest.deadline) && (participation.status == 'ACCEPTED' || participation.status == null)}">
+			<jstl:if test="${!actual.before(participationBD.contest.deadline) && participationBD.status == 'ACCEPTED'}">
  				<form:label path="position"><spring:message code="participation.edit.position"/></form:label>			
 				<form:select path="position" multiple="false" >
+					<form:option value="" ><spring:message code="participation.edit.nullPosition"/></form:option>
 					<jstl:forEach items="${positions}" var="position">
 	     				<form:option value="${position}" ><jstl:out value="${position}"/></form:option>
    					</jstl:forEach>
