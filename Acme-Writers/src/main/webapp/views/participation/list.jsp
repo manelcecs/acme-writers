@@ -19,7 +19,7 @@
 				<jstl:if test="${actual.before(participation.contest.deadline) && participation.status == 'PENDING'}">
 					<acme:button url="participation/publisher/edit.do?idParticipation=${participation.id}" type="button" code="participation.list.changeStatus"/>
 				</jstl:if>
-				<jstl:if test="${!actual.before(participation.contest.deadline) && participation.status == 'ACCEPTED' && participation.position == null}">
+				<jstl:if test="${!actual.before(participation.contest.deadline) && participation.status == 'ACCEPTED'}">
 					<acme:button url="participation/publisher/edit.do?idParticipation=${participation.id}" type="button" code="participation.list.changePosition"/>
 				</jstl:if>
 			</jstl:if>

@@ -47,7 +47,7 @@ public class ParticipationPublisherController extends AbstractController {
 		final Participation participation = this.participationService.findOne(idParticipation);
 		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 		if ((this.contestService.isBeforeDeadline(participation.getContest().getDeadline()) && participation.getStatus().equals("PENDING"))
-			|| (!this.contestService.isBeforeDeadline(participation.getContest().getDeadline()) && participation.getStatus().equals("ACCEPTED") && participation.getPosition() == null)) {
+			|| (!this.contestService.isBeforeDeadline(participation.getContest().getDeadline()) && participation.getStatus().equals("ACCEPTED"))) {
 			if (participation.getContest().getPublisher().getId() != publisher.getId())
 				result = this.listModelAndView("participation.cannot.edit");
 			else {
@@ -80,14 +80,8 @@ public class ParticipationPublisherController extends AbstractController {
 			this.participationService.save(participationRec);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final ValidationException oops) {
-			participation.setBook(this.participationService.findOne(participation.getId()).getBook());
-			participation.setComment(this.participationService.findOne(participation.getId()).getComment());
-			participation.setContest(this.participationService.findOne(participation.getId()).getContest());
-			participation.setMoment(this.participationService.findOne(participation.getId()).getMoment());
-
 			result = this.createEditModelAndView(participation);
 		} catch (final Throwable oops) {
-			oops.printStackTrace();
 			result = this.createEditModelAndView(participation, "cannot.save.participation");
 		}
 
@@ -120,7 +114,9 @@ public class ParticipationPublisherController extends AbstractController {
 
 	protected ModelAndView createEditModelAndView(final Participation participation, final String message) {
 		final ModelAndView result = new ModelAndView("participation/edit");
+		final Participation participationBD = this.participationService.findOne(participation.getId());
 		result.addObject("participation", participation);
+		result.addObject("participationBD", participationBD);
 		result.addObject("message", message);
 
 		this.configValues(result);
