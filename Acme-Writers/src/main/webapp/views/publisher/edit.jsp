@@ -35,8 +35,13 @@
 		<br />
 		<acme:textbox code="publisher.edit.creditcard.holder"
 			path="creditCard.holder" />
-		<acme:textbox code="publisher.edit.creditcard.make"
-			path="creditCard.make" />
+		<acme:textbox code="writer.edit.creditcard.holder" path="creditCard.holder"/>
+		<form:label path="creditCard.make"><spring:message code="publisher.edit.creditcard.make"/></form:label> 
+     			<form:select path="creditCard.make" multiple="false" > 
+	     			<jstl:forEach items="${makers }" var="make"> 
+	     				<form:option value="${ make}" label="${make}" /> 
+	     			</jstl:forEach> 
+   				</form:select> 
 		<acme:inputNumber code="publisher.edit.creditcard.number"
 			path="creditCard.number" />
 		<acme:inputNumber code="publisher.edit.creditcard.expirationMonth"
@@ -72,8 +77,12 @@
 		<br />
 		<acme:textbox code="publisher.edit.creditcard.holder"
 			path="creditCard.holder" />
-		<acme:textbox code="publisher.edit.creditcard.make"
-			path="creditCard.make" />
+		<form:label path="creditCard.make"><spring:message code="publisher.edit.creditcard.make"/></form:label> 
+     			<form:select path="creditCard.make" multiple="false" > 
+	     			<jstl:forEach items="${makers }" var="make"> 
+	     				<form:option value="${ make}" label="${make}" /> 
+	     			</jstl:forEach> 
+   				</form:select> 
 		<acme:inputNumber code="publisher.edit.creditcard.number"
 			path="creditCard.number" />
 		<acme:inputNumber code="publisher.edit.creditcard.expirationMonth"

@@ -89,7 +89,8 @@ public class PublisherPublisherController extends AbstractController {
 		for (final String s : messages)
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
-		result.addObject("makers", this.creditCardsMakers());
+
+		this.setCreditCardMakes(result);
 		this.configValues(result);
 
 		return result;
@@ -107,7 +108,8 @@ public class PublisherPublisherController extends AbstractController {
 		for (final String s : messages)
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
-		result.addObject("makers", this.creditCardsMakers());
+
+		this.setCreditCardMakes(result);
 		this.configValues(result);
 
 		return result;

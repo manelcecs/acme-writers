@@ -68,24 +68,24 @@
 
 		<security:intercept-url pattern="/administrator/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		
-		<security:intercept-url pattern="/publisher/register.do" access="permitAll" />
-		<security:intercept-url pattern="/publisher/save.do" access="permitAll" />
+		<security:intercept-url pattern="/publisher/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/publisher/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/publisher/publisher/**" access="hasRole('PUBLISHER')" />
 		
-		<security:intercept-url pattern="/reader/register.do" access="permitAll" />
-		<security:intercept-url pattern="/reader/save.do" access="permitAll" />
-		<security:intercept-url pattern="/reader/writer/**" access="hasRole('READER')" />
+		<security:intercept-url pattern="/reader/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/reader/save.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/reader/reader/**" access="hasRole('READER')" />
 				
 		<security:intercept-url pattern="/reader/follow.do" access="hasRole('READER')" />
 		<security:intercept-url pattern="/reader/unfollow.do" access="hasRole('READER')" />
 		
 				
-		<security:intercept-url pattern="/sponsor/register.do" access="permitAll" />
-		<security:intercept-url pattern="/sponsor/save.do" access="permitAll" />
+		<security:intercept-url pattern="/sponsor/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/sponsor/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/sponsor/sponsor/**" access="hasRole('SPONSOR')" />
 		
-		<security:intercept-url pattern="/writer/register.do" access="permitAll" />
-		<security:intercept-url pattern="/writer/save.do" access="permitAll" />
+		<security:intercept-url pattern="/writer/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/writer/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/writer/writer/**" access="hasRole('WRITER')" />
 		
 		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />
