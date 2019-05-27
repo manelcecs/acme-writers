@@ -130,6 +130,7 @@ public class ReaderReaderControler extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
+		result.addObject("makers", this.creditCardsMakers());
 		this.configValues(result);
 
 		return result;
@@ -148,6 +149,7 @@ public class ReaderReaderControler extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
+		result.addObject("makers", this.creditCardsMakers());
 		this.configValues(result);
 
 		return result;

@@ -46,4 +46,8 @@ public class AbstractController {
 		model.addObject("systemName", this.adminConfigService.getAdminConfig().getSystemName());
 	}
 
+	public void setCreditCardMakes(final ModelAndView model) {
+		model.addObject("makers", this.adminConfigService.getAdminConfig().getCreditCardMakes());
+	}
+
 }

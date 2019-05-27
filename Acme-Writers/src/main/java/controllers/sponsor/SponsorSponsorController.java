@@ -90,6 +90,7 @@ public class SponsorSponsorController extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
+		this.setCreditCardMakes(result);
 		this.configValues(result);
 
 		return result;
@@ -108,6 +109,7 @@ public class SponsorSponsorController extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
+		this.setCreditCardMakes(result);
 		this.configValues(result);
 
 		return result;
