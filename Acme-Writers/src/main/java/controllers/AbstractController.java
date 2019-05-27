@@ -10,8 +10,6 @@
 
 package controllers;
 
-import java.util.Collection;
-
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,8 +44,8 @@ public class AbstractController {
 		model.addObject("systemName", this.adminConfigService.getAdminConfig().getSystemName());
 	}
 
-	public Collection<String> creditCardsMakers() {
-		return this.adminConfigService.getAdminConfig().getCreditCardMakes();
+	public void setCreditCardMakes(final ModelAndView model) {
+		model.addObject("makers", this.adminConfigService.getAdminConfig().getCreditCardMakes());
 	}
 
 }

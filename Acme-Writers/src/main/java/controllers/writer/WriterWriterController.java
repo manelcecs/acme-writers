@@ -164,7 +164,8 @@ public class WriterWriterController extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
-		result.addObject("makers", this.creditCardsMakers());
+		this.setCreditCardMakes(result);
+
 		this.configValues(result);
 
 		return result;
@@ -183,7 +184,7 @@ public class WriterWriterController extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
-		result.addObject("makers", this.creditCardsMakers());
+		this.setCreditCardMakes(result);
 		this.configValues(result);
 
 		return result;
