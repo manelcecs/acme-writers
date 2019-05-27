@@ -304,7 +304,7 @@ public class BookService {
 
 		Assert.isTrue(book.getWriter().equals(writerLogged));
 
-		Assert.isTrue(!book.getDraft() && book.getStatus().equals("ACCEPTED"));
+		Assert.isTrue(!book.getDraft() && (book.getStatus().equals("ACCEPTED") || book.getStatus().equals("INDEPENDENT")));
 
 		book.setCancelled(!book.getCancelled());
 

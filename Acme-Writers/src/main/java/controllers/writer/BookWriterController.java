@@ -17,6 +17,7 @@ import security.LoginService;
 import services.BookService;
 import services.ChapterService;
 import services.GenreService;
+import services.OpinionService;
 import services.PublisherService;
 import services.WriterService;
 import controllers.AbstractController;
@@ -44,6 +45,9 @@ public class BookWriterController extends AbstractController {
 	@Autowired
 	GenreService		genreService;
 
+	@Autowired
+	OpinionService		opionionService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -65,6 +69,7 @@ public class BookWriterController extends AbstractController {
 			result.addObject("chapters", this.chapterService.getChaptersOfABook(book.getId()));
 
 			//FIXME: ADD THE OPINIONS
+			result.addObject("opinions", this.opionionService.getOpinionsOfBook(idBook));
 			result.addObject("requestURIChapters", "book/writer/display.do?idBook=" + idBook);
 			result.addObject("requestURIOpinions", "book/writer/display.do?idBook=" + idBook);
 			this.configValues(result);
@@ -206,6 +211,7 @@ public class BookWriterController extends AbstractController {
 		result.addObject("myList", true);
 		result.addObject("message", message);
 		result.addObject("requestURI", "book/writer/list.do");
+		result.addObject("title", "book.title.myBooks");
 
 		this.configValues(result);
 

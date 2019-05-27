@@ -79,6 +79,8 @@ public class ActorController extends AbstractController {
 		result.addObject("actors", this.writerService.findAll());
 		result.addObject("rolView", "WRITER");
 
+		this.configValues(result);
+
 		return result;
 	}
 
@@ -89,6 +91,7 @@ public class ActorController extends AbstractController {
 		result.addObject("actors", this.publisherService.findAll());
 		result.addObject("rolView", "PUBLISHER");
 
+		this.configValues(result);
 		return result;
 	}
 

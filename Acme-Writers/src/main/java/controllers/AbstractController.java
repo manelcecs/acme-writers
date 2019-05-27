@@ -36,6 +36,8 @@ public class AbstractController {
 		result.addObject("exception", oops.getMessage());
 		result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));
 
+		this.configValues(result);
+
 		return result;
 	}
 

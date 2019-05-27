@@ -87,7 +87,6 @@ public class ParticipationPublisherController extends AbstractController {
 
 			result = this.createEditModelAndView(participation);
 		} catch (final Throwable oops) {
-			oops.printStackTrace();
 			result = this.createEditModelAndView(participation, "cannot.save.participation");
 		}
 

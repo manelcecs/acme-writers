@@ -103,6 +103,7 @@ public class ContestPublisherController extends AbstractController {
 
 		result = new ModelAndView("contest/display");
 		result.addObject("urlBack", "contest/publisher/list.do");
+		result.addObject("publisher", true);
 
 		result.addObject("contest", contest);
 

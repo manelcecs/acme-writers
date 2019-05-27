@@ -98,4 +98,8 @@ public class OpinionService {
 		return this.opinionRepository.getNumOpinionsOfBook(idBook);
 	}
 
+	public Collection<Book> getOpinionsOfBook(final int idBook) {
+		return this.opinionRepository.getOpinionsOfBook(idBook);
+	}
+
 }
