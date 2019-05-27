@@ -42,8 +42,8 @@
                     <value>FLY</value>
                 </list>
             </property>
-            <property name="flatRate" value="3000" />
-            <property name="VAT" value="10.0" />
+            <property name="flatRate" value="0.5" />
+            <property name="VAT" value="21.0" />
             <property name="spammerPercentage" value="10.0" />
     </bean>
     
