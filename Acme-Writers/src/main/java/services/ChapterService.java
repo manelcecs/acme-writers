@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -103,6 +104,19 @@ public class ChapterService {
 
 		this.chapterRepository.delete(chapter);
 
+	}
+
+	public Collection<Chapter> getAllChaptersOfWriter(final int writerId) {
+		return this.getAllChaptersOfWriter(writerId);
+	}
+
+	public Collection<Chapter> getAllChaptersOfPublisher(final Collection<Book> booksPublisher) {
+		final Collection<Chapter> res = new ArrayList<>();
+
+		for (final Book b : booksPublisher)
+			res.addAll(this.chapterRepository.getChaptersOfABook(b.getId()));
+
+		return res;
 	}
 
 	public Chapter findOne(final int idChapter) {

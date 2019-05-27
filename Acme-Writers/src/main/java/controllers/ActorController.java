@@ -2,6 +2,7 @@
 package controllers;
 
 import java.text.ParseException;
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +14,22 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountRepository;
 import services.ActorService;
+import services.AdminConfigService;
 import services.AdministratorService;
+import services.AnnouncementService;
+import services.BookService;
+import services.ChapterService;
+import services.ContestService;
 import services.MessageService;
+import services.OpinionService;
+import services.ParticipationService;
 import services.PublisherService;
 import services.ReaderService;
 import services.SocialProfileService;
 import services.SponsorService;
+import services.SponsorshipService;
 import services.WriterService;
 import utiles.AuthorityMethods;
 
@@ -27,11 +37,18 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 
 import domain.Actor;
 import domain.Administrator;
+import domain.Announcement;
+import domain.Book;
+import domain.Chapter;
+import domain.Contest;
 import domain.Message;
+import domain.Opinion;
+import domain.Participation;
 import domain.Publisher;
 import domain.Reader;
 import domain.SocialProfile;
 import domain.Sponsor;
+import domain.Sponsorship;
 import domain.Writer;
 
 @Controller
@@ -61,6 +78,32 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private MessageService			messageService;
+	@Autowired
+	private BookService				bookService;
+
+	@Autowired
+	private ContestService			contestService;
+
+	@Autowired
+	private AnnouncementService		announcementService;
+
+	@Autowired
+	private ChapterService			chapterService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
+
+	@Autowired
+	private AdminConfigService		adminConfigService;
+
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
+
+	@Autowired
+	private ParticipationService	participationService;
+
+	@Autowired
+	private OpinionService			opinionService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -176,6 +219,7 @@ public class ActorController extends AbstractController {
 			result = new ModelAndView("writer/edit");
 			result.addObject("writer", writer);
 			result.addObject("edit", true);
+			this.setCreditCardMakes(result);
 			break;
 
 		case "READER":
@@ -190,6 +234,7 @@ public class ActorController extends AbstractController {
 			result = new ModelAndView("publisher/edit");
 			result.addObject("publisher", publisher);
 			result.addObject("edit", true);
+			this.setCreditCardMakes(result);
 			break;
 
 		case "SPONSOR":
@@ -197,6 +242,7 @@ public class ActorController extends AbstractController {
 			result = new ModelAndView("sponsor/edit");
 			result.addObject("sponsor", sponsor);
 			result.addObject("edit", true);
+			this.setCreditCardMakes(result);
 			break;
 		default:
 
@@ -211,8 +257,8 @@ public class ActorController extends AbstractController {
 	@RequestMapping(value = "/displayData", method = RequestMethod.GET)
 	public ModelAndView displayData() {
 		final ModelAndView result = new ModelAndView("actor/displayData");
-		List<Message> messages;
-		final List<SocialProfile> socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles();
+		List<Message> messages = null;
+		List<SocialProfile> socialProfiles = null;
 
 		final UserAccount principal = LoginService.getPrincipal();
 		String authority = AuthorityMethods.getLoggedAuthority().getAuthority();
@@ -224,51 +270,65 @@ public class ActorController extends AbstractController {
 
 		switch (authority) {
 		case "ADMINISTRATOR":
+
 			final Administrator administrator = this.administratorService.findByPrincipal(principal);
 			messages = (List<Message>) this.messageService.findAllByActor(administrator.getId());
-			result.addObject("administrator", administrator);
-			result.addObject("messages", messages);
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(administrator.getId());
+
 			break;
 
 		case "WRITER":
+
 			final Writer writer = this.writerService.findByPrincipal(LoginService.getPrincipal());
-
-			result.addObject("writer", writer);
-
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(writer.getId());
 			messages = (List<Message>) this.messageService.findAllByActor(writer.getId());
+			final Collection<Book> books = this.bookService.getAllVisibleBooksOfWriter(writer.getId());
+			final Collection<Chapter> chapters = this.chapterService.getAllChaptersOfWriter(writer.getId());
 
-			result.addObject("messages", messages);
+			final Collection<Participation> participations = this.participationService.getParticipationsOfWriter(writer.getId());
 
-			break;
+			final Collection<Announcement> announcements = this.announcementService.findAllWriter(writer.getId());
+
+			result.addObject("books", books);
+			result.addObject("chapters", chapters);
+			result.addObject("participations", participations);
+			result.addObject("announcements", announcements);
 
 		case "READER":
+
 			final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
+			final Collection<Opinion> opinions = this.opinionService.findOpinionsByReader(reader.getId());
 			messages = (List<Message>) this.messageService.findAllByActor(reader.getId());
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(reader.getId());
 
-			result.addObject("reader", reader);
-
-			result.addObject("messages", messages);
-
+			result.addObject("opinions", opinions);
 			break;
-
 		case "SPONSOR":
 			final Sponsor sponsor = this.sponsorService.findByPrincipal(LoginService.getPrincipal());
-
-			result.addObject("sponsor", sponsor);
-
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(sponsor.getId());
+			this.socialProfileService.delete(socialProfiles);
 			messages = (List<Message>) this.messageService.findAllByActor(sponsor.getId());
-			result.addObject("messages", messages);
+			final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAllBySponsor(sponsor.getId());
+
+			result.addObject("sponsorships", sponsorships);
+
 			break;
 
 		case "PUBLISHER":
 			final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
-
-			result.addObject("publisher", publisher);
-
+			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(publisher.getId());
+			final Collection<Contest> contests = this.contestService.getContestsOfPublisher(publisher.getId());
+			final Collection<Book> booksPublisher = this.bookService.getAllVisibleBooksOfPublisher(publisher.getId());
+			final Collection<Chapter> chaptersPublisher = this.chapterService.getAllChaptersOfPublisher(booksPublisher);
 			messages = (List<Message>) this.messageService.findAllByActor(publisher.getId());
-			result.addObject("messages", messages);
+
+			result.addObject("contests", contests);
+			result.addObject("books", booksPublisher);
+			result.addObject("chapters", chaptersPublisher);
+
 			break;
 		}
+		result.addObject("messages", messages);
 		result.addObject("socialProfiles", socialProfiles);
 
 		this.configValues(result);
