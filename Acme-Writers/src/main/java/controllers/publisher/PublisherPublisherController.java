@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.PublisherService;
+import services.SocialProfileService;
 import controllers.AbstractController;
 import domain.Publisher;
+import domain.SocialProfile;
 import forms.PublisherForm;
 
 @Controller
@@ -23,7 +25,10 @@ import forms.PublisherForm;
 public class PublisherPublisherController extends AbstractController {
 
 	@Autowired
-	private PublisherService	publisherService;
+	private PublisherService		publisherService;
+
+	@Autowired
+	private SocialProfileService	socialProfileService;
 
 
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
@@ -77,6 +82,39 @@ public class PublisherPublisherController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(final Integer publisherId) {
+		return this.createModelAndViewDisplay(publisherId);
+	}
+
+	protected ModelAndView createModelAndViewDisplay(final Integer publisherId) {
+
+		final Publisher actor = this.publisherService.findOne(publisherId);
+
+		if (actor == null)
+			return new ModelAndView("redirect:/");
+		else {
+
+			final ModelAndView result = new ModelAndView("actor/display");
+
+			result.addObject("actor", actor);
+			result.addObject("userLogged", null);
+
+			result.addObject("back", true);
+
+			result.addObject("authority", "PUBLISHER");
+
+			final List<SocialProfile> socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(publisherId);
+			result.addObject("publisher", actor);
+
+			result.addObject("socialProfiles", socialProfiles);
+			result.addObject("requestURI", "actor/display.do");
+
+			this.configValues(result);
+			return result;
+		}
+
+	}
 	protected ModelAndView createEditModelAndView(final PublisherForm publisherForm, final String... messages) {
 
 		final ModelAndView result;

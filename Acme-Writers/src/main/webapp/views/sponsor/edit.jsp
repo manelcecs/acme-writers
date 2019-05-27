@@ -66,7 +66,6 @@
 			id="phone" />
 		<br />
 		<acme:textbox code="sponsor.edit.creditcard.holder" path="creditCard.holder"/>
-		<acme:textbox code="sponsor.edit.creditcard.holder" path="creditCard.holder"/>
 		<form:label path="creditCard.make"><spring:message code="sponsor.edit.creditcard.make"/></form:label> 
      			<form:select path="creditCard.make" multiple="false" > 
 	     			<jstl:forEach items="${makers }" var="make"> 
