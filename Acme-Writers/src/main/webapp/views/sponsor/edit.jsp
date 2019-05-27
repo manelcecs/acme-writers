@@ -30,7 +30,12 @@
 		<acme:textbox code="sponsor.edit.phoneNumber" path="phoneNumber" id="phone" />
 		<br />
 		<acme:textbox code="sponsor.edit.creditcard.holder" path="creditCard.holder"/>
-		<acme:textbox code="sponsor.edit.creditcard.make" path="creditCard.make"/>
+		<form:label path="creditCard.make"><spring:message code="sponsor.edit.creditcard.make"/></form:label> 
+     			<form:select path="creditCard.make" multiple="false" > 
+	     			<jstl:forEach items="${makers }" var="make"> 
+	     				<form:option value="${ make}" label="${make}" /> 
+	     			</jstl:forEach> 
+   				</form:select> 
 		<acme:inputNumber code="sponsor.edit.creditcard.number" path="creditCard.number"/>
 		<acme:inputNumber code="sponsor.edit.creditcard.expirationMonth" path="creditCard.expirationMonth" />
 		<acme:inputNumber code="sponsor.edit.creditcard.expirationYear" path="creditCard.expirationYear" />
@@ -61,7 +66,12 @@
 			id="phone" />
 		<br />
 		<acme:textbox code="sponsor.edit.creditcard.holder" path="creditCard.holder"/>
-		<acme:textbox code="sponsor.edit.creditcard.make" path="creditCard.make"/>
+		<form:label path="creditCard.make"><spring:message code="sponsor.edit.creditcard.make"/></form:label> 
+     			<form:select path="creditCard.make" multiple="false" > 
+	     			<jstl:forEach items="${makers }" var="make"> 
+	     				<form:option value="${ make}" label="${make}" /> 
+	     			</jstl:forEach> 
+   				</form:select> 
 		<acme:inputNumber code="sponsor.edit.creditcard.number" path="creditCard.number"/>
 		<acme:inputNumber code="sponsor.edit.creditcard.expirationMonth" path="creditCard.expirationMonth" />
 		<acme:inputNumber code="sponsor.edit.creditcard.expirationYear" path="creditCard.expirationYear" />

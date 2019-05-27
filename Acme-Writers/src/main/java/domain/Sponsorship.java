@@ -8,6 +8,7 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -42,6 +43,7 @@ public class Sponsorship extends DomainEntity {
 
 	@URL
 	@NotBlank
+	@Lob
 	public String getBannerURL() {
 		return this.bannerURL;
 	}
@@ -52,6 +54,7 @@ public class Sponsorship extends DomainEntity {
 
 	@URL
 	@NotBlank
+	@Lob
 	public String getTargetPageURL() {
 		return this.targetPageURL;
 	}

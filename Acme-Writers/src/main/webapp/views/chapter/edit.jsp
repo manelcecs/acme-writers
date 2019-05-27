@@ -35,5 +35,5 @@
    	 <acme:submit name="save" code="chapter.edit.save"/>
     </form:form>
 
-<acme:button code="chapter.edit.cancel" type="button" url="/book/writer/list.do"/>
+<acme:button code="chapter.edit.cancel" type="button" url="/book/writer/display.do?idBook=${idBook}"/>
 

@@ -1,6 +1,8 @@
 
 package controllers.writer;
 
+import java.util.Collection;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,14 @@ import security.LoginService;
 import services.BookService;
 import services.ChapterService;
 import services.WriterService;
+import controllers.AbstractController;
 import domain.Book;
 import domain.Chapter;
 import domain.Writer;
 
 @Controller
 @RequestMapping("/chapter/writer")
-public class ChapterWriterController {
+public class ChapterWriterController extends AbstractController {
 
 	@Autowired
 	BookService		bookService;
@@ -46,6 +49,7 @@ public class ChapterWriterController {
 		else {
 			result.addObject("chapter", chapter);
 			result.addObject("myChapter", true);
+			this.configValues(result);
 		}
 		return result;
 	}
@@ -86,6 +90,11 @@ public class ChapterWriterController {
 	public ModelAndView save(@Valid final Chapter chapter, final BindingResult bindingResult) {
 		ModelAndView result;
 
+		final Collection<Integer> numbersOfBook = this.chapterService.getNumbersOfChaptersOfABook(chapter.getId());
+
+		if (numbersOfBook.contains(chapter.getNumber()))
+			bindingResult.rejectValue("number", "chapter.constraint.numberChapter");
+
 		if (bindingResult.hasErrors())
 			result = this.createEditModelAndView(chapter);
 		else
@@ -122,6 +131,8 @@ public class ChapterWriterController {
 
 		result.addObject("chapter", chapter);
 		result.addObject("message", message);
+		result.addObject("idBook", chapter.getBook().getId());
+		this.configValues(result);
 
 		return result;
 	}

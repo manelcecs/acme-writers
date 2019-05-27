@@ -75,9 +75,7 @@
 		<jstl:out value="${administrator.name }" />
 		<br />
 		<b><spring:message code="actor.surname" /></b>:
-		<jstl:forEach items="${administrator.surnames }" var="surname">
-			<jstl:out value="${surname }" />
-		</jstl:forEach>
+			<jstl:out value="${administrator.surname }" />
 		<br />
 		<b><spring:message code="actor.photoURL" /></b>:
 		<jstl:out value="${administrator.photoURL }" />
@@ -229,23 +227,28 @@
 	<display:column titleKey="actor.socialProfiles.link">
 		<jstl:out value="${ profile.link}" />
 	</display:column>
-	<display:column titleKey="actor.socialProfiles.edit">
-		<acme:button
-			url="/socialProfile/edit.do?socialProfileId=${profile.id}"
-			type="button" code="actor.socialProfiles.edit" />
-	</display:column>
-	<display:column titleKey="actor.socialProfiles.delete">
-		<acme:button
-			url="/socialProfile/delete.do?socialProfileId=${profile.id}"
-			type="button" code="actor.socialProfiles.delete" />
-	</display:column>
+	<security:authorize access="isAuthenticated()">
+   	 <jstl:if test="${actor.userAccount.id == userLogged.id}">
+   		 <display:column titleKey="actor.socialProfiles.edit">
+   			<acme:button url="/socialProfile/edit.do?socialProfileId=${profile.id}" type="button" code="actor.socialProfiles.edit" />
+   		 </display:column>
+   		 <display:column titleKey="actor.socialProfiles.delete">
+   			 <acme:button
+   				 url="/socialProfile/delete.do?socialProfileId=${profile.id}"
+   				 type="button" code="actor.socialProfiles.delete" />
+   		 </display:column>
+
+   	 </jstl:if>
+    </security:authorize>
+
 </display:table>
 <br />
 
 
 <jstl:if test="${actor.userAccount.id == userLogged.id}">
-	<acme:button url="socialProfile/create.do" type="button"
-		code="actor.socialProfile.create" />
+    <acme:button url="socialProfile/create.do" type="button"
+   	 code="actor.socialProfile.create" />
 </jstl:if>
+
 
 

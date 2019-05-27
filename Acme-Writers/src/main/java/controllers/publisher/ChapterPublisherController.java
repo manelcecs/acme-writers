@@ -13,12 +13,13 @@ import services.BookService;
 import services.ChapterService;
 import services.PublisherService;
 import services.WriterService;
+import controllers.AbstractController;
 import domain.Chapter;
 import domain.Publisher;
 
 @Controller
 @RequestMapping("/chapter/publisher")
-public class ChapterPublisherController {
+public class ChapterPublisherController extends AbstractController {
 
 	@Autowired
 	BookService			bookService;
@@ -47,6 +48,9 @@ public class ChapterPublisherController {
 			result.addObject("chapter", chapter);
 			result.addObject("publisher", true);
 		}
+
+		this.configValues(result);
+
 		return result;
 	}
 

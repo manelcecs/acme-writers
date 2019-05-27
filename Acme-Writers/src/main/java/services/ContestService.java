@@ -18,7 +18,9 @@ import security.LoginService;
 import security.UserAccount;
 import utiles.AuthorityMethods;
 import domain.Contest;
+import domain.Participation;
 import domain.Publisher;
+import domain.Writer;
 
 @Service
 @Transactional
@@ -29,6 +31,12 @@ public class ContestService {
 
 	@Autowired
 	private PublisherService		publisherService;
+
+	@Autowired
+	private ParticipationService	participationService;
+
+	@Autowired
+	private WriterService			writerService;
 
 	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
@@ -58,6 +66,9 @@ public class ContestService {
 		final Publisher publisher = this.publisherService.findByPrincipal(principal);
 		Assert.isTrue(contest.getPublisher().getId() == publisher.getId());
 		Assert.isTrue(this.isBeforeDeadline(contest.getDeadline()));
+		final Collection<Participation> participations = this.participationService.getParticipationsOfContest(contest.getId());
+
+		this.participationService.deleteCollectionOfParticipations(participations);
 		this.contestRepository.delete(contest);
 
 	}
@@ -85,6 +96,12 @@ public class ContestService {
 	public Collection<Contest> getContestsWithMoreSponsorships() {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
 		return this.contestRepository.getContestsWithMoreSponsorships();
+	}
+
+	public Collection<Contest> getContestCanParticipate() {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+		return this.contestRepository.getContestCanParticipate(writerLogged.getId());
 	}
 
 }

@@ -1,6 +1,7 @@
 
 package forms;
 
+import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 
 public class CreditCardMakeForm {
@@ -9,6 +10,7 @@ public class CreditCardMakeForm {
 
 
 	@SafeHtml
+	@NotBlank
 	public String getCreditCardMake() {
 		return this.creditCardMake;
 	}

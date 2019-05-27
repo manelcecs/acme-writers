@@ -4,16 +4,20 @@ package services;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import repositories.ActorRepository;
+import security.Authority;
 import security.LoginService;
 import security.UserAccount;
+import security.UserAccountRepository;
 import utiles.AuthorityMethods;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -78,14 +82,11 @@ public class ActorService {
 	private MessageService			messageService;
 
 	@Autowired
-	private MessageBoxService		messageBoxService;
+	private AdminConfigService		adminConfigService;
 
+	@Autowired
+	private UserAccountRepository	userAccountRepository;
 
-	//	@Autowired
-	//	private OpinionService			opinionService;
-	//
-	//	@Autowired
-	//	private ParticipationService	participationService;
 
 	public Actor save(final Actor actor) {
 		return this.actorRepository.save(actor);
@@ -110,6 +111,92 @@ public class ActorService {
 	// Workaround for the problem of hibernate with inheritances
 	public Actor getActor(final int idActor) {
 		return this.actorRepository.getActor(idActor);
+	}
+
+	public void updateSpam() {
+		AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR");
+		final Double spammerPercentaje = this.adminConfigService.getAdminConfig().getSpammerPercentage() / 100.0;
+		for (final Actor a : this.actorRepository.findAll()) {
+			final Collection<Message> allMessages = this.messageService.findAllByActor(a.getId());
+			if (allMessages.size() > 0) {
+				final Integer totalMessages = allMessages.size();
+				final Integer spamMessages = this.messageService.getSpamMessages(allMessages);
+				final boolean spammer = spamMessages >= spammerPercentaje * totalMessages;
+				if (a.getSpammer() != null) {
+					if (a.getSpammer() != spammer) {
+						a.setSpammer(spammer);
+						this.actorRepository.save(a);
+					}
+				} else {
+					a.setSpammer(spammer);
+					this.actorRepository.save(a);
+				}
+			}
+		}
+	}
+
+	public void ban(final Actor actor) {
+		final UserAccount principal = LoginService.getPrincipal();
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		Assert.isTrue(!(actor.equals(this.findByUserAccount(principal))));
+		Assert.isTrue(actor.getSpammer());
+
+		actor.setBanned(true);
+
+		final UserAccount userAccount = actor.getUserAccount();
+		userAccount.removeAuthority(userAccount.getAuthorities().iterator().next());
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority auth = new Authority();
+
+		auth.setAuthority(Authority.BAN);
+		authorities.add(auth);
+		userAccount.setAuthorities(authorities);
+
+		final UserAccount res = this.userAccountRepository.save(userAccount);
+		actor.setUserAccount(res);
+
+		this.save(actor);
+	}
+
+	public void unban(final Actor actor) {
+		final UserAccount principal = LoginService.getPrincipal();
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR"));
+		Assert.isTrue(!(actor.equals(this.findByUserAccount(principal))));
+
+		actor.setBanned(false);
+
+		final UserAccount userAccount = actor.getUserAccount();
+		userAccount.removeAuthority(userAccount.getAuthorities().iterator().next());
+		final Collection<Authority> authorities = new ArrayList<Authority>();
+		final Authority authority = new Authority();
+
+		if (this.publisherService.findOne(actor.getId()) != null) {
+			authority.setAuthority(Authority.PUBLISHER);
+			authorities.add(authority);
+		} else if (this.readerService.findOne(actor.getId()) != null) {
+			authority.setAuthority(Authority.READER);
+			authorities.add(authority);
+		} else if (this.administratorService.findOne(actor.getId()) != null) {
+			authority.setAuthority(Authority.ADMINISTRATOR);
+			authorities.add(authority);
+		} else if (this.sponsorService.findOne(actor.getId()) != null) {
+			authority.setAuthority(Authority.SPONSOR);
+			authorities.add(authority);
+		} else if (this.writerService.findOne(actor.getId()) != null) {
+			authority.setAuthority(Authority.WRITER);
+			authorities.add(authority);
+		}
+
+		userAccount.setAuthorities(authorities);
+		final UserAccount res = this.userAccountRepository.save(userAccount);
+		actor.setUserAccount(res);
+
+		this.save(actor);
+	}
+
+	public Collection<Actor> getSpammerActors() {
+		AuthorityMethods.chechAuthorityLogged("ADMINISTRATOR");
+		return this.actorRepository.findSpamActors();
 	}
 
 	public String exportData() throws JsonProcessingException, ParseException {

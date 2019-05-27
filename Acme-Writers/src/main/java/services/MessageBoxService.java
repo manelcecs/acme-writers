@@ -49,6 +49,18 @@ public class MessageBoxService {
 	public MessageBox save(final MessageBox messageBox) {
 		Assert.isTrue(this.notLikeOriginalName(messageBox.getName()));
 
+		if (messageBox.getParent() != null) {
+			Assert.isTrue(messageBox.getId() != messageBox.getParent().getId());
+			final Collection<MessageBox> childrens = this.allChildren(messageBox);
+			Assert.isTrue(!childrens.contains(messageBox.getParent()));
+		}
+
+		if (messageBox.getId() != 0) {
+			final MessageBox boxBD = this.messageBoxRepository.findOne(messageBox.getId());
+			Assert.isTrue(boxBD.getDeleteable() == messageBox.getDeleteable());
+			Assert.isTrue(messageBox.getDeleteable());
+		}
+
 		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final MessageBox boxSave = this.messageBoxRepository.save(messageBox);
 
@@ -57,10 +69,6 @@ public class MessageBoxService {
 			messageBoxes.add(boxSave);
 			actor.setMessageBoxes(messageBoxes);
 			this.actorService.save(actor);
-		} else {
-			final MessageBox boxBD = this.messageBoxRepository.findOne(messageBox.getId());
-			Assert.isTrue(boxBD.getDeleteable() == messageBox.getDeleteable());
-			Assert.isTrue(messageBox.getDeleteable());
 		}
 
 		return boxSave;
@@ -175,6 +183,12 @@ public class MessageBoxService {
 		result.setParent(messageBox.getParent());
 		result.setName(messageBox.getName());
 
+		if (messageBox.getParent() != null) {
+			Assert.isTrue(messageBox.getId() != messageBox.getParent().getId());
+			final Collection<MessageBox> childrens = this.allChildren(messageBox);
+			Assert.isTrue(!childrens.contains(messageBox.getParent()));
+		}
+
 		this.validator.validate(result, binding);
 
 		if (binding.hasErrors())
@@ -182,6 +196,7 @@ public class MessageBoxService {
 
 		return result;
 	}
+
 	public MessageBox findOne(final int id) {
 		return this.messageBoxRepository.findOne(id);
 	}
@@ -232,7 +247,7 @@ public class MessageBoxService {
 		return res;
 	}
 
-	private Collection<MessageBox> allChildren(final MessageBox box) {
+	public Collection<MessageBox> allChildren(final MessageBox box) {
 		final Collection<MessageBox> acum = new ArrayList<>();
 		return this.allChildren(box, acum);
 	}

@@ -109,7 +109,7 @@
 </table>
 
 <display:table pagesize="5" name="contestsWithMoreParticipations" id="contestWithMoreParticipations" requestURI="${requestURI}">
-	<display:column titleKey="administrator.dashboard.contestsWithMoreParticipations">- <jstl:out value="${contestWithMoreParticipations.description} : ${maximumOfParticipationsContest}"/></display:column>
+	<display:column titleKey="administrator.dashboard.contestsWithMoreParticipations">- <jstl:out value="${contestWithMoreParticipations.title} : ${maximumOfParticipationsContest}"/></display:column>
 </display:table> 
 
 <hr/>
@@ -149,7 +149,7 @@
 </table>
 
 <display:table pagesize="5" name="contestsWithMoreSponsorships" id="contestWithMoreSponsorships" requestURI="${requestURI}">
-	<display:column titleKey="administrator.dashboard.contestsWithMoreSponsorships">- <jstl:out value="${contestWithMoreSponsorships.description} : ${maximumOfSponsorshipsContest}"/></display:column>
+	<display:column titleKey="administrator.dashboard.contestsWithMoreSponsorships">- <jstl:out value="${contestWithMoreSponsorships.title} : ${maximumOfSponsorshipsContest}"/></display:column>
 </display:table> 
 
 <display:table pagesize="5" name="sponsorsWithMoreSponsorships" id="sponsorWithMoreSponsorships" requestURI="${requestURI}">

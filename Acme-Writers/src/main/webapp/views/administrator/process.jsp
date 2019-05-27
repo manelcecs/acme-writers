@@ -9,20 +9,16 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-
-
-<jstl:if test="${nameChanged}">
 <hr>
-	<h3>
-		<spring:message code="administrator.process.notifyRebranding" />
-	</h3>
 
-	<acme:button code="administrator.process.notifyRebrandingDo" type="button" url="administrator/notifyRebranding.do" />
-</jstl:if>
+<h3>
+	<spring:message code="administrator.process.cancelCreditCardCaducate" />
+</h3>
+
+<acme:button code="administrator.process.accion" type="button" url="administrator/cancelSponsorship.do" />
 
 
 <hr>
-
 
 <h3>
 	<spring:message code="administrator.process.computeScore" />

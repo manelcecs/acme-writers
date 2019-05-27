@@ -4,6 +4,8 @@ package domain;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.validation.Valid;
@@ -49,6 +51,7 @@ public class Book extends DomainEntity {
 
 	@SafeHtml
 	@NotBlank
+	@Lob
 	public String getDescription() {
 		return this.description;
 	}
@@ -69,7 +72,7 @@ public class Book extends DomainEntity {
 	}
 
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	public Ticker getTicker() {
 		return this.ticker;
 	}

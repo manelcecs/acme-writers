@@ -12,7 +12,6 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -28,20 +27,9 @@ public class Participation extends DomainEntity {
 	private String	status;
 	private Integer	position;
 
-	private Book	book;
 	private Contest	contest;
+	private Book	book;
 
-
-	@Valid
-	//FIXME: @NotNull ??
-	@ManyToOne(optional = false)
-	public Book getBook() {
-		return this.book;
-	}
-
-	public void setBook(final Book book) {
-		this.book = book;
-	}
 
 	@NotBlank
 	@SafeHtml
@@ -53,7 +41,6 @@ public class Participation extends DomainEntity {
 		this.comment = comment;
 	}
 
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@NotNull
@@ -65,7 +52,7 @@ public class Participation extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@Pattern(regexp = "^REJECTED|ACCEPTED$")
+	@Pattern(regexp = "^REJECTED|ACCEPTED|PENDING$")
 	@NotBlank
 	@SafeHtml
 	public String getStatus() {
@@ -76,8 +63,7 @@ public class Participation extends DomainEntity {
 		this.status = status;
 	}
 
-	@Min(0)
-	@NotNull
+	@Min(1)
 	public Integer getPosition() {
 		return this.position;
 	}
@@ -94,6 +80,17 @@ public class Participation extends DomainEntity {
 
 	public void setContest(final Contest contest) {
 		this.contest = contest;
+	}
+
+	@ManyToOne(optional = false)
+	@Valid
+	@NotNull
+	public Book getBook() {
+		return this.book;
+	}
+
+	public void setBook(final Book book) {
+		this.book = book;
 	}
 
 }

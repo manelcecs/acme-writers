@@ -1,6 +1,7 @@
 
 package services;
 
+import java.text.ParseException;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -19,6 +20,8 @@ import utiles.IntermediaryBetweenTransactions;
 import domain.Book;
 import domain.Chapter;
 import domain.Publisher;
+import domain.Reader;
+import domain.Ticker;
 import domain.Writer;
 import forms.BookForm;
 
@@ -27,19 +30,28 @@ import forms.BookForm;
 public class BookService {
 
 	@Autowired
-	BookRepository							bookRepository;
+	private BookRepository					bookRepository;
 
 	@Autowired
-	WriterService							writerService;
+	private MessageService					messageService;
 
 	@Autowired
-	ChapterService							chapterService;
+	private OpinionService					opinionService;
 
 	@Autowired
-	PublisherService						publisherService;
+	private WriterService					writerService;
 
 	@Autowired
-	Validator								validator;
+	private ChapterService					chapterService;
+
+	@Autowired
+	private PublisherService				publisherService;
+
+	@Autowired
+	private ReaderService					readerService;
+
+	@Autowired
+	private Validator						validator;
 
 	@Autowired
 	private IntermediaryBetweenTransactions	intermediaryBetweenTransactions;
@@ -189,12 +201,16 @@ public class BookService {
 		return this.bookRepository.getAllVisibleBooksOfWriter(idWriter);
 	}
 
+	public Collection<Book> getAllVisibleBooksOfPublisher(final int idPublisher) {
+		return this.bookRepository.getAllVisibleBooksOfPublisher(idPublisher);
+	}
+
 	public Collection<Book> getBooksOfLoggedPublisher() {
 		final Publisher publisher = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 		return this.bookRepository.getBooksOfPublisher(publisher.getId());
 	}
 
-	public Book changeStatus(final int idBook, final String status) {
+	public Book changeStatus(final int idBook, final String status) throws ParseException {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("PUBLISHER"));
 
 		final Book book = this.findOne(idBook);
@@ -209,8 +225,11 @@ public class BookService {
 
 		book.setStatus(status);
 
-		return this.bookRepository.save(book);
+		final Book bookSaved = this.bookRepository.save(book);
 
+		this.messageService.notifyStatusBook(bookSaved);
+
+		return bookSaved;
 	}
 
 	public Book copyBook(final int idBook) {
@@ -224,25 +243,38 @@ public class BookService {
 
 		Assert.isTrue(!book.getDraft() && book.getStatus().equals("REJECTED"));
 
-		book.setId(0);
-		book.setDraft(true);
-		book.setPublisher(null);
-		book.setStatus(null);
-		book.setTicker(this.intermediaryBetweenTransactions.generateTicker());
+		final Book bookClone = new Book();
+		bookClone.setDraft(true);
+		bookClone.setPublisher(null);
+		bookClone.setStatus("INDEPENDENT");
+		final Ticker ticker = this.intermediaryBetweenTransactions.generateTicker();
+		bookClone.setTicker(ticker);
+		bookClone.setCancelled(book.getCancelled());
+		bookClone.setCover(book.getCover());
+		bookClone.setDescription(book.getDescription());
+		bookClone.setGenre(book.getGenre());
+		bookClone.setLanguage(book.getLanguage());
+		bookClone.setNumWords(0);
+		bookClone.setScore(0.0);
+		bookClone.setTitle(book.getTitle());
+		bookClone.setWriter(book.getWriter());
 
-		final Book bookSaved = this.bookRepository.save(book);
+		final Book bookSaved = this.bookRepository.save(bookClone);
 
 		final Collection<Chapter> chapters = this.chapterService.getChaptersOfABook(idBook);
 		for (final Chapter chapter : chapters) {
-			chapter.setId(0);
-			chapter.setBook(bookSaved);
-			this.chapterService.save(chapter);
+			final Chapter chapterClone = new Chapter();
+			chapterClone.setBook(bookSaved);
+			chapterClone.setNumber(chapter.getNumber());
+			chapterClone.setText(chapter.getText());
+			chapterClone.setTitle(chapter.getTitle());
+
+			this.chapterService.save(chapterClone);
 		}
 
 		return bookSaved;
 
 	}
-
 	public Book changeDraft(final int idBook) {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
 
@@ -272,7 +304,7 @@ public class BookService {
 
 		Assert.isTrue(book.getWriter().equals(writerLogged));
 
-		Assert.isTrue(!book.getDraft() && book.getStatus().equals("ACCEPTED"));
+		Assert.isTrue(!book.getDraft() && (book.getStatus().equals("ACCEPTED") || book.getStatus().equals("INDEPENDENT")));
 
 		book.setCancelled(!book.getCancelled());
 
@@ -280,4 +312,75 @@ public class BookService {
 
 	}
 
+	public void addBookToFavouriteList(final int idBook) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("READER"));
+
+		final Book book = this.findOne(idBook);
+
+		final Reader readerLogged = this.readerService.findByPrincipal(LoginService.getPrincipal());
+		final Collection<Book> books = readerLogged.getBooks();
+
+		Assert.isTrue(!books.contains(book));
+
+		Assert.isTrue(!book.getDraft() && !book.getCancelled() && (book.getStatus().equals("INDEPENDENT") || book.getStatus().equals("ACCEPTED")));
+
+		books.add(book);
+
+		readerLogged.setBooks(books);
+
+		this.readerService.save(readerLogged);
+
+	}
+
+	public void deleteBookFromFavouriteList(final int idBook) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("READER"));
+
+		final Book book = this.findOne(idBook);
+
+		final Reader readerLogged = this.readerService.findByPrincipal(LoginService.getPrincipal());
+		final Collection<Book> books = readerLogged.getBooks();
+
+		Assert.isTrue(books.contains(book));
+
+		books.remove(book);
+
+		readerLogged.setBooks(books);
+
+		this.readerService.save(readerLogged);
+
+	}
+
+	public void computeScore() {
+		final Collection<Book> books = this.bookRepository.findAll();
+		final Double numReaders = 1.0 * this.readerService.findAll().size();
+		Double score = null;
+
+		for (final Book book : books) {
+			final Double numOpinions = 1.0 * this.opinionService.getNumOpinionsOfBook(book.getId());
+			final Double numLike = 1.0 * this.opinionService.getNumLikesOfBook(book.getId());
+			final Double numFav = 1.0 * this.bookRepository.getNumFavOfBook(book.getId());
+
+			if (numOpinions != 0) {
+				if (numReaders != 0) {
+					score = 10.0 * (numLike / numOpinions) + (numFav / numReaders);
+					if (score > 10.0)
+						score = 10.0;
+				} else
+					score = 10.0 * (numLike / numOpinions);
+
+			} else
+				score = null;
+
+			book.setScore(score);
+
+			this.bookRepository.save(book);
+		}
+
+	}
+
+	public Collection<Book> getBooksCanParticipate(final int idContest) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+		return this.bookRepository.getBooksCanParticipate(writerLogged.getId(), idContest);
+	}
 }

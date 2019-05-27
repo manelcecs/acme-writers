@@ -8,6 +8,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+
+<h2><spring:message code="${title}"/></h2>
+
+
 <jstl:if test="${myList}">
  <acme:button url="book/writer/create.do" type="button" code="book.list.create"/>
 </jstl:if>
@@ -71,6 +75,13 @@
    			 </jstl:if>
    			 </display:column>
    		 	<display:column titleKey="book.list.status"><jstl:out value="${book.status}"/></display:column>
+   		 	
+   		 	<display:column titleKey="book.list.copy">
+   			 <jstl:if test="${book.status == 'REJECTED'}">
+   				 <acme:button url="book/writer/copy.do?idBook=${book.id}" type="button" code="book.list.copy"/>
+   			 </jstl:if>
+   			 </display:column>
+   		 	<display:column titleKey="book.list.status"><jstl:out value="${book.status}"/></display:column>
 		</jstl:when>
 		
 		<jstl:when test="${publisher}">
@@ -78,6 +89,20 @@
    				 <acme:button url="book/publisher/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
    			 <display:column titleKey="book.list.status"><jstl:out value="${book.status}"/></display:column>
+		</jstl:when>
+		
+		<jstl:when test="${favourites}">
+			<display:column titleKey="book.list.favourites">
+			<jstl:if test="${!favouritesBooks.contains(book)}">
+   				 <acme:button url="book/reader/addToList.do?idBook=${book.id}" type="button" code="book.list.addToList"/>
+			</jstl:if>
+			<jstl:if test="${favouritesBooks.contains(book)}">
+   				 <acme:button url="book/reader/removeFromFavourites.do?idBook=${book.id}" type="button" code="book.list.removeFromList"/>
+			</jstl:if>
+   			 </display:column>
+   			 <display:column titleKey="book.list.display">
+   				 <acme:button url="book/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
+   			 </display:column>
 		</jstl:when>
 
 		<jstl:otherwise>

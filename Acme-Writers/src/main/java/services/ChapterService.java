@@ -29,6 +29,7 @@ public class ChapterService {
 	@Autowired
 	private WriterService		writerService;
 
+	//FIXME: Add en las palabras de spam
 	public static final String	REGEXP	= "([\\W\\s]+)";
 
 
@@ -38,6 +39,10 @@ public class ChapterService {
 
 	public void deleteChapters(final Collection<Chapter> chapters) {
 		this.chapterRepository.delete(chapters);
+	}
+
+	public Collection<Integer> getNumbersOfChaptersOfABook(final int idBook) {
+		return this.chapterRepository.getNumbersOfChaptersOfABook(idBook);
 	}
 
 	public Chapter save(final Chapter chapter) {
@@ -51,6 +56,10 @@ public class ChapterService {
 		Assert.isTrue(book.getWriter().equals(writerLogged));
 
 		Assert.isTrue(book.getDraft());
+
+		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getId());
+
+		Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
 
 		Integer numPalabras;
 		if (chapter.getId() != 0) {

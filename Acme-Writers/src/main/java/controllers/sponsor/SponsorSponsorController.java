@@ -57,6 +57,26 @@ public class SponsorSponsorController extends AbstractController {
 
 	}
 
+	@RequestMapping(value = "/sponsor/save", method = RequestMethod.POST)
+	public ModelAndView save(final Sponsor sponsor, final BindingResult binding) {
+
+		ModelAndView res;
+
+		try {
+			final Sponsor sponsorRect = this.sponsorService.reconstruct(sponsor, binding);
+			this.sponsorService.save(sponsorRect);
+			res = new ModelAndView("redirect:/welcome/index.do");
+		} catch (final ValidationException oops) {
+			res = this.createEditModelAndView(sponsor);
+		} catch (final Throwable oops) {
+			res = this.createEditModelAndView(sponsor, "sponsor.edit.commit.error");
+
+		}
+
+		return res;
+
+	}
+
 	protected ModelAndView createEditModelAndView(final SponsorForm sponsorForm, final String... messages) {
 
 		final ModelAndView result;
@@ -70,6 +90,7 @@ public class SponsorSponsorController extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
+		this.setCreditCardMakes(result);
 		this.configValues(result);
 
 		return result;
@@ -88,6 +109,7 @@ public class SponsorSponsorController extends AbstractController {
 			messageCodes.add(s);
 		result.addObject("messages", messageCodes);
 
+		this.setCreditCardMakes(result);
 		this.configValues(result);
 
 		return result;

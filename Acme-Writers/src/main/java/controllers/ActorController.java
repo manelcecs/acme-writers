@@ -72,6 +72,29 @@ public class ActorController extends AbstractController {
 		return result;
 	}
 
+	@RequestMapping(value = "/listWriters", method = RequestMethod.GET)
+	public ModelAndView listWriters() {
+		final ModelAndView result = new ModelAndView("actor/list");
+
+		result.addObject("actors", this.writerService.findAll());
+		result.addObject("rolView", "WRITER");
+
+		this.configValues(result);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/listPublishers", method = RequestMethod.GET)
+	public ModelAndView listPublisher() {
+		final ModelAndView result = new ModelAndView("actor/list");
+
+		result.addObject("actors", this.publisherService.findAll());
+		result.addObject("rolView", "PUBLISHER");
+
+		this.configValues(result);
+		return result;
+	}
+
 	@RequestMapping(value = "/edit", method = RequestMethod.GET)
 	public ModelAndView edit() {
 

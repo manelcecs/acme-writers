@@ -49,7 +49,7 @@ public class PublisherService {
 
 	public Publisher create() throws ParseException {
 		final Publisher res = new Publisher();
-		res.setSpammer(false);
+		res.setSpammer(null);
 		res.setBanned(false);
 		res.setMessageBoxes(this.messageBoxService.initializeNewUserBoxes());
 		return res;
@@ -79,6 +79,10 @@ public class PublisherService {
 
 	public void flush() {
 		this.publisherRepository.flush();
+	}
+
+	public Publisher findOne(final int publisherId) {
+		return this.publisherRepository.findOne(publisherId);
 	}
 
 	public Publisher findByPrincipal(final UserAccount principal) {
@@ -170,10 +174,6 @@ public class PublisherService {
 
 	public Collection<Publisher> findAll() {
 		return this.publisherRepository.findAll();
-	}
-
-	public Publisher findOne(final int idPublisher) {
-		return this.publisherRepository.findOne(idPublisher);
 	}
 
 }

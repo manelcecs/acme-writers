@@ -8,8 +8,10 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<acme:button code="contest.display.back" type="button" url="/contest/publisher/list.do"/>
 
+<acme:button code="contest.display.back" type="button" url="${urlBack}"/>
+
+<acme:text label="contest.display.title" value="${contest.title}"/>
 <acme:text label="contest.display.description" value="${contest.description}"/>
 <acme:text label="contest.display.prize" value="${contest.prize}"/>
 <acme:text label="contest.display.deadline" value="${contest.deadline}"/>
@@ -21,5 +23,11 @@
 		<li><jstl:out value="${rule}"/></li>
 	</jstl:forEach>
 </ul>
+
+<hr>
+
+<div id="sponsor" style="width: 50px;">
+	<a target="_blank" href="${sponsorshipRandom.targetPageURL}" ><img style="width: 200px;" src="${sponsorshipRandom.bannerURL}" alt="${sponsorshipRandom.targetPageURL}"/></a>
+</div>
 
 

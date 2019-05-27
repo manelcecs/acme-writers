@@ -36,10 +36,21 @@
 		<security:intercept-url pattern="/search/display.do" access="permitAll" /> 
 		<security:intercept-url pattern="/contest/list.do" access="permitAll" /> 
 		<security:intercept-url pattern="/contest/display.do" access="permitAll" /> 
+		<security:intercept-url pattern="/participation/writer/**" access="hasRole('WRITER')" />
+		<security:intercept-url pattern="/participation/publisher/**" access="hasRole('PUBLISHER')" />
+		<security:intercept-url pattern="/participation/publisher,writer/**" access="hasRole('PUBLISHER') OR hasRole('WRITER')" />
+		
+		<security:intercept-url pattern="/actor/listWriters.do" access="permitAll" />
+		<security:intercept-url pattern="/actor/listPublishers.do" access="permitAll" />
+		
+		
+		<security:intercept-url pattern="/book/**" access="permitAll" />
+		
 		<security:intercept-url pattern="/finder/reader/edit.do" access="hasRole('READER')" /> 
 		
 		<security:intercept-url pattern="/adminConfig/**" access="hasRole('ADMINISTRATOR')" /> 
 		<security:intercept-url pattern="/genre/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/administrator/**" access="hasRole('ADMINISTRATOR')" /> 
 		
 		<security:intercept-url pattern="/messageBox/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />
@@ -52,27 +63,30 @@
 		<security:intercept-url pattern="/welcome/index.do" access="permitAll" /> 
 
 		<security:intercept-url pattern="/contest/publisher/**" access="hasRole('PUBLISHER')" />
+		
+		<security:intercept-url pattern="/sponsorship/sponsor/**" access="hasRole('SPONSOR')" />
 
 		<security:intercept-url pattern="/administrator/administrator/**" access="hasRole('ADMINISTRATOR')" />
 		
-		<security:intercept-url pattern="/publisher/register.do" access="permitAll" />
-		<security:intercept-url pattern="/publisher/save.do" access="permitAll" />
+		<security:intercept-url pattern="/publisher/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/publisher/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/publisher/publisher/**" access="hasRole('PUBLISHER')" />
+		<security:intercept-url pattern="/publisher/display.do" access="permitAll" />
 		
-		<security:intercept-url pattern="/reader/register.do" access="permitAll" />
-		<security:intercept-url pattern="/reader/save.do" access="permitAll" />
+		<security:intercept-url pattern="/reader/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/reader/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/reader/reader/**" access="hasRole('READER')" />
-		
+				
 		<security:intercept-url pattern="/reader/follow.do" access="hasRole('READER')" />
 		<security:intercept-url pattern="/reader/unfollow.do" access="hasRole('READER')" />
 		
 				
-		<security:intercept-url pattern="/sponsor/register.do" access="permitAll" />
-		<security:intercept-url pattern="/sponsor/save.do" access="permitAll" />
+		<security:intercept-url pattern="/sponsor/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/sponsor/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/sponsor/sponsor/**" access="hasRole('SPONSOR')" />
 		
-		<security:intercept-url pattern="/writer/register.do" access="permitAll" />
-		<security:intercept-url pattern="/writer/save.do" access="permitAll" />
+		<security:intercept-url pattern="/writer/register.do" access="isAnonymous()" />
+		<security:intercept-url pattern="/writer/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/writer/writer/**" access="hasRole('WRITER')" />
 		
 		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />
@@ -91,11 +105,15 @@
 		<security:intercept-url pattern="/chapter/publisher/**" access="hasRole('PUBLISHER')" />
 		
 		<security:intercept-url pattern="/dashboard/administrator/display.do" access="hasRole('ADMINISTRATOR')" /> 
+		<security:intercept-url pattern="/opinion/reader/**" access="hasRole('READER')" />
+		
+		<security:intercept-url pattern="/book/reader/**" access="hasRole('READER')" />
 		
 		<security:intercept-url pattern="/announcement/reader/**" access="hasRole('READER')" />
 	
 		<security:intercept-url pattern="/**" access="hasRole('NONE')" />
-
+		
+		
 		<security:form-login 
 			login-page="/security/login.do"
 			password-parameter="password" 
@@ -106,5 +124,6 @@
 			logout-success-url="/" 
 			invalidate-session="true" />
 	</security:http>
+	
 
 </beans>

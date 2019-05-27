@@ -12,7 +12,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -23,6 +22,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Access(AccessType.PROPERTY)
 public class Contest extends DomainEntity {
 
+	private String				title;
 	private String				description;
 	private String				prize;
 	private Collection<String>	rules;
@@ -30,6 +30,16 @@ public class Contest extends DomainEntity {
 
 	private Publisher			publisher;
 
+
+	@SafeHtml
+	@NotBlank
+	public String getTitle() {
+		return this.title;
+	}
+
+	public void setTitle(final String title) {
+		this.title = title;
+	}
 
 	@SafeHtml
 	@NotBlank
@@ -60,7 +70,6 @@ public class Contest extends DomainEntity {
 		this.rules = rules;
 	}
 
-	@Future
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@NotNull

@@ -9,7 +9,15 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<button onclick="window.location.href=document.referrer"><spring:message code="book.display.back"/></button>
+<jstl:choose>
+
+<jstl:when test="${logged}">
+	<acme:button url="book/writer/list.do" type="button" code="book.display.back"/>
+</jstl:when>
+<jstl:otherwise>
+	<button onclick="window.location.href=document.referrer"><spring:message code="book.display.back"/></button>
+</jstl:otherwise>
+</jstl:choose>
 <br/>
 
 <jstl:if test="${publisher and book.status == 'PENDING'}">
@@ -21,7 +29,15 @@
 <acme:text label="book.display.title" value="${book.title}"/>
 <acme:text label="book.display.description" value="${book.description}"/>
 <acme:text label="book.display.language" value="${book.language}"/>
-<acme:text label="book.display.score" value="${book.score}"/>
+
+<jstl:choose> 
+	<jstl:when test="${book.score == null}">
+		<acme:text label="book.display.score" value="N/A"/>
+	</jstl:when>
+	<jstl:otherwise>
+		<acme:text label="book.display.score" value="${book.score}"/>
+	</jstl:otherwise>
+</jstl:choose>
 <acme:text label="book.display.numWords" value="${book.numWords}"/>
 <jstl:choose>
 	<jstl:when test="${cookie.language.value == 'es'}">
@@ -77,9 +93,18 @@
 <!-- SI ES UN LECTOR Y NO TIENE UNA OPINION A ESTE LIBRO, SE PUEDE PONER UN BOTON -->
 <h4><spring:message code="book.display.opinions"/></h4>
 <display:table pagesize="5" name="opinions" id="opinion" requestURI="${requestURIOpinion}">
-   		 <display:column titleKey="book.display.opinion.reader"><jstl:out value="${opinon.reader.name}"/> <jstl:out value="${opinon.reader.surname}"/></display:column>
-   		 <display:column titleKey="book.display.opinion.moment"><jstl:out value="${opinon.moment}"/></display:column>
-   		 <%-- <display:column titleKey="book.display.opinion.positiveOpinion"><jstl:out value="${opinon.positiveOpinion}"/></display:column> --%>
-   		 <display:column titleKey="book.display.opinion.review"><jstl:out value="${opinon.review}"/></display:column>
+   		 <display:column titleKey="book.display.opinion.reader"><jstl:out value="${opinion.reader.name}"/> <jstl:out value="${opinon.reader.surname}"/></display:column>
+   		 <display:column titleKey="book.display.opinion.moment"><jstl:out value="${opinion.moment}"/></display:column>
+   		 <display:column titleKey="book.display.opinion.positiveOpinion">
+   		 <jstl:choose>
+			<jstl:when test="${opinion.positiveOpinion}">
+				:)
+			</jstl:when>
+			<jstl:otherwise>
+				:(
+			</jstl:otherwise>
+		</jstl:choose>
+   		 </display:column>
+   		 <display:column titleKey="book.display.opinion.review"><jstl:out value="${opinion.review}"/></display:column>
 </display:table>
 

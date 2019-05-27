@@ -29,6 +29,7 @@
 		<value>/views/adminConfig/messages</value>
 		<value>/views/genre/messages</value>
 		<value>/views/contest/messages</value>
+		<value>/views/sponsorship/messages</value>
 		
 		<value>/views/actor/messages</value>
 		<value>/views/administrator/messages</value>
@@ -42,7 +43,9 @@
 
 		<value>/views/book/messages</value>
 		<value>/views/chapter/messages</value>
-		
+		<value>/views/opinion/messages</value>
+		<value>/views/participation/messages</value>
+
 	</util:list>
 
 </beans>

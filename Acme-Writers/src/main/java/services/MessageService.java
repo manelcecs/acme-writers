@@ -22,6 +22,7 @@ import security.Authority;
 import security.LoginService;
 import utiles.AuthorityMethods;
 import domain.Actor;
+import domain.Book;
 import domain.Message;
 import domain.MessageBox;
 
@@ -30,19 +31,22 @@ import domain.MessageBox;
 public class MessageService {
 
 	@Autowired
-	private MessageRepository	messageRepository;
+	private MessageRepository		messageRepository;
 
 	@Autowired
-	private MessageBoxService	messageBoxService;
+	private MessageBoxService		messageBoxService;
 
 	@Autowired
-	private ActorService		actorService;
+	private ActorService			actorService;
 
 	@Autowired
-	private AdminConfigService	adminConfigService;
+	private AdministratorService	administratorService;
 
 	@Autowired
-	private Validator			validator;
+	private AdminConfigService		adminConfigService;
+
+	@Autowired
+	private Validator				validator;
 
 
 	public Message create() {
@@ -186,6 +190,29 @@ public class MessageService {
 				s++;
 		}
 		return s;
+	}
+
+	public Message notifyStatusBook(final Book book) throws ParseException {
+		final Actor sender = book.getPublisher();
+		final Collection<Actor> recipients = new ArrayList<>();
+		recipients.add(book.getWriter());
+
+		final String body = "Le informamos que su libro " + book.getTitle() + " ha sido " + book.getStatus() + " por la editorial " + book.getPublisher().getCommercialName() + " . | We inform you that your book " + book.getTitle() + " has been selected "
+			+ book.getStatus() + " by the publishing house " + book.getPublisher().getCommercialName() + " .";
+
+		final Message message = this.initializeNotification(sender, recipients, body);
+
+		return this.messageRepository.save(message);
+	}
+
+	public Message notifySponsorshipCancelled(final Collection<Actor> recipients) throws ParseException {
+		final Actor sender = this.administratorService.getOne();
+		final String body = "Le informamos que todos sus patrocinios han sido cancelados ya que su tarjeta de cr�dito se encuentra caducada. " + "Cuando usted actualice su tarjeta de cr�dito estos volver�n a estar disponibles. Muchas gracias. | "
+			+ "We inform you that all your sponsorships have been cancelled as your credit card has expired. " + "When you update your credit card they will be available again. Thank you very much.";
+
+		final Message message = this.initializeNotification(sender, recipients, body);
+
+		return this.messageRepository.save(message);
 	}
 
 	//Utilities

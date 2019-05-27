@@ -41,9 +41,8 @@
 		<hr>
 		
 		<display:table pagesize="5" name="sponsorship.contests" id="contest" requestURI="${requestURI}">
-				<%-- <display:column titleKey="sponsorship.display.contestTitle"><jstl:out value="${contest.title}"/></display:column> --%>
-				<display:column titleKey="sponsorship.display.contestTitle"><jstl:out value="${contest.description}"/></display:column>
-	   		 	<display:column titleKey="sponsorship.display.contestDisplay"><acme:button url="contest/display.do?idContest=${contest.id}" type="button" code="sponsorship.display.contestDisplay"/></display:column>
+ 				<display:column titleKey="sponsorship.display.contestTitle"><jstl:out value="${contest.title}"/></display:column>
+	   		 	<display:column titleKey="sponsorship.display.contestDisplay"><acme:button url="contest/display.do?idContest=${contest.id}&urlBack=${requestURI}" type="button" code="sponsorship.display.contestDisplay"/></display:column>
 		</display:table>
 		
 		<hr>

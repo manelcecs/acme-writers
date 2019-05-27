@@ -75,7 +75,7 @@ public class FinderReaderController extends AbstractController {
 			} catch (final Throwable oops) {
 				result = this.createEditModelAndView(finder, "finder.commit.error");
 			}
-		//		this.configValues(result);
+		this.configValues(result);
 		return result;
 	}
 
@@ -89,7 +89,7 @@ public class FinderReaderController extends AbstractController {
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(finder, "finder.commit.error");
 		}
-		//		this.configValues(result);
+		this.configValues(result);
 		return result;
 	}
 
@@ -117,7 +117,7 @@ public class FinderReaderController extends AbstractController {
 
 		result.addObject("message", messageCode);
 
-		//		this.configValues(result);
+		this.configValues(result);
 		return result;
 	}
 }

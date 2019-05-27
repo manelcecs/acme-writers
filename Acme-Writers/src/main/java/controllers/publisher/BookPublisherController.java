@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.BookService;
 import services.ChapterService;
+import services.OpinionService;
 import services.PublisherService;
 import services.WriterService;
 import controllers.AbstractController;
@@ -35,6 +36,9 @@ public class BookPublisherController extends AbstractController {
 	@Autowired
 	PublisherService	publisherService;
 
+	@Autowired
+	OpinionService		opinionService;
+
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
@@ -56,8 +60,12 @@ public class BookPublisherController extends AbstractController {
 			result.addObject("chapters", this.chapterService.getChaptersOfABook(book.getId()));
 
 			//FIXME: ADD THE OPINIONS
+
+			result.addObject("opinions", this.opinionService.getOpinionsOfBook(idBook));
 			result.addObject("requestURIChapters", "book/publisher/display.do?idBook=" + idBook);
 			result.addObject("requestURIOpinions", "book/publisher/display.do?idBook=" + idBook);
+
+			this.configValues(result);
 		} else
 			result = new ModelAndView("redirect:list.do");
 
@@ -88,6 +96,9 @@ public class BookPublisherController extends AbstractController {
 		result.addObject("books", books);
 		result.addObject("message", message);
 		result.addObject("publisher", true);
+		result.addObject("title", "book.title.myBooks");
+
+		this.configValues(result);
 
 		return result;
 	}

@@ -47,7 +47,7 @@ public class AdministratorService {
 
 	public Administrator create() {
 		final Administrator res = new Administrator();
-		res.setSpammer(false);
+		res.setSpammer(null);
 		res.setBanned(false);
 		res.setMessageBoxes(this.messageBoxService.initializeNewUserBoxes());
 		return res;

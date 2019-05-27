@@ -130,7 +130,6 @@ public class SponsorshipSponsorController extends AbstractController {
 			oops.printStackTrace();
 		} catch (final Throwable oops) {
 			result = this.createEditModelAndView(sponsorshipForm, "sponsorship.commit.error");
-			oops.printStackTrace();
 		}
 
 		return result;

@@ -55,6 +55,7 @@ public class AdminConfigService {
 		adminConfig.setWelcomeMessageES(adminConfigForm.getWelcomeMessageES());
 		adminConfig.setFlatRate(adminConfigForm.getFlatRate());
 		adminConfig.setVAT(adminConfigForm.getVAT());
+		adminConfig.setSpammerPercentage(adminConfigForm.getSpammerPercentage());
 
 		this.validator.validate(adminConfig, binding);
 

@@ -44,7 +44,7 @@ public class TickerService {
 		}
 
 		ticker.setIdentifier(identifier);
-		result = this.tickerRepository.save(ticker);
+		result = this.tickerRepository.saveAndFlush(ticker);
 
 		return result;
 	}

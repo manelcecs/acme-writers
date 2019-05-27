@@ -36,12 +36,18 @@ public class AbstractController {
 		result.addObject("exception", oops.getMessage());
 		result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));
 
+		this.configValues(result);
+
 		return result;
 	}
 
 	public void configValues(final ModelAndView model) {
 		model.addObject("banner", this.adminConfigService.getAdminConfig().getBannerURL());
 		model.addObject("systemName", this.adminConfigService.getAdminConfig().getSystemName());
+	}
+
+	public void setCreditCardMakes(final ModelAndView model) {
+		model.addObject("makers", this.adminConfigService.getAdminConfig().getCreditCardMakes());
 	}
 
 }
