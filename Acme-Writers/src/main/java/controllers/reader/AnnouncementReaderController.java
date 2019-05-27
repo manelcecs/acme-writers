@@ -63,8 +63,6 @@ public class AnnouncementReaderController extends AbstractController {
 		ModelAndView res;
 
 		res = this.displayModelAndView(announcementId);
-
-		this.configValues(res);
 		return res;
 	}
 

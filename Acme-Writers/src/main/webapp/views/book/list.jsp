@@ -8,6 +8,10 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+
+<h2><spring:message code="${title}"/></h2>
+
+
 <jstl:if test="${myList}">
  <acme:button url="book/writer/create.do" type="button" code="book.list.create"/>
 </jstl:if>

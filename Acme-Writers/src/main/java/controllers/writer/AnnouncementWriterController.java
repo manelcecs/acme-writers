@@ -45,6 +45,8 @@ public class AnnouncementWriterController extends AbstractController {
 		for (final String s : args)
 			res.addObject("message", s);
 
+		this.configValues(res);
+
 		return res;
 	}
 
@@ -94,6 +96,8 @@ public class AnnouncementWriterController extends AbstractController {
 		final Announcement ann = this.announcementService.findOne(announcementId);
 		res.addObject("announcement", ann);
 		res.addObject("back", true);
+
+		this.configValues(res);
 
 		return res;
 	}

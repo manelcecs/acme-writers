@@ -82,7 +82,6 @@ public class AdministratorController extends AbstractController {
 			result = this.processModelAndView();
 		} catch (final Exception e) {
 			result = this.processModelAndView("administrator.commit.error");
-			e.printStackTrace();
 		}
 		return result;
 
@@ -96,7 +95,6 @@ public class AdministratorController extends AbstractController {
 			result = this.processModelAndView();
 		} catch (final Exception e) {
 			result = this.processModelAndView("administrator.commit.error");
-			e.printStackTrace();
 		}
 		return result;
 

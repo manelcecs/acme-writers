@@ -41,6 +41,10 @@ public class ChapterService {
 		this.chapterRepository.delete(chapters);
 	}
 
+	public Collection<Integer> getNumbersOfChaptersOfABook(final int idBook) {
+		return this.chapterRepository.getNumbersOfChaptersOfABook(idBook);
+	}
+
 	public Chapter save(final Chapter chapter) {
 
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
@@ -52,6 +56,10 @@ public class ChapterService {
 		Assert.isTrue(book.getWriter().equals(writerLogged));
 
 		Assert.isTrue(book.getDraft());
+
+		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getId());
+
+		Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
 
 		Integer numPalabras;
 		if (chapter.getId() != 0) {
