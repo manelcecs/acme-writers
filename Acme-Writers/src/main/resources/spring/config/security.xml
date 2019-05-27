@@ -71,6 +71,7 @@
 		<security:intercept-url pattern="/publisher/register.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/publisher/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/publisher/publisher/**" access="hasRole('PUBLISHER')" />
+		<security:intercept-url pattern="/publisher/display.do" access="permitAll" />
 		
 		<security:intercept-url pattern="/reader/register.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/reader/save.do" access="isAnonymous()" />
