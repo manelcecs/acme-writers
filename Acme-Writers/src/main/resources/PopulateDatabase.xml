@@ -1914,5 +1914,63 @@ Kids will also learn to use contractions which is more natural in spoken English
     	<property name="reader" ref="reader2" />
     </bean>
     
+    <!-- Participations -->
+    
+     <bean class="domain.Participation" id="participation0">
+    	<property name="comment" value="Espero que les guste mi humilde libro" />
+    	<property name="moment" value="05/26/2019" />
+    	<property name="status" value="PENDING" />
+    	<property name="position" value="" />
+ 
+    	<property name="contest" ref="contest0" />
+    	<property name="book" ref="book0" />
+    </bean>
+    
+    <bean class="domain.Participation" id="participation1">
+    	<property name="comment" value="Esta es mi participación. Lo importante es participar" />
+    	<property name="moment" value="05/26/2019" />
+    	<property name="status" value="PENDING" />
+    	<property name="position" value="" />
+ 
+    	<property name="contest" ref="contest0" />
+    	<property name="book" ref="book2" />
+    </bean>
+    
+    <!-- Sponsorships -->
+    
+    <bean id="sponsorship0" class="domain.Sponsorship">
+		<property name="bannerURL" value="https://contents.mediadecathlon.com/s719549/k$fd3f50b8bd18127fbbe9659a4f091c94/s48_CONT_02_encuentra-tu-tienda.jpg?f=650x650" />
+		<property name="targetPageURL" value="https://www.decathlon.es/es/store-locator" />
+		<property name="views" value="15" />
+		<property name="flatRateApplied" value="1.5" />
+		<property name="cancelled" value="false" />
+		
+		<property name="sponsor" ref="sponsor0" />
+		<property name="contests" >
+		<list>
+			<ref bean="contest0"/>
+			<ref bean="contest1"/>
+		</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="sponsorship1" class="domain.Sponsorship">
+		<property name="bannerURL" value="https://www.cocacola.es/content/dam/GO/CokeZone/Spain/highlights/coca-cola-800x654px.jpg" />
+		<property name="targetPageURL" value="https://www.cocacola.es/es/productos-coca-cola/#cocacola/" />
+		<property name="views" value="135" />
+		<property name="flatRateApplied" value="0.75" />
+		
+		<property name="cancelled" value="false" />
+		
+		<property name="sponsor" ref="sponsor1" />
+		<property name="contests" >
+		<list>
+			<ref bean="contest1"/>
+		</list>
+		</property>
+		
+	</bean>
+    
 </beans>
 

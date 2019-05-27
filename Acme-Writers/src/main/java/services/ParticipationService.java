@@ -10,7 +10,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 
-import org.joda.time.LocalDateTime;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -108,9 +108,7 @@ public class ParticipationService {
 		if (participation.getId() == 0) {
 			participationRec = participation;
 			participationRec.setStatus("PENDING");
-			final LocalDateTime DATETIMENOW = LocalDateTime.now();
-			final Date actual = this.FORMAT.parse(DATETIMENOW.getYear() + "/" + DATETIMENOW.getMonthOfYear() + "/" + DATETIMENOW.getDayOfMonth() + " " + DATETIMENOW.getHourOfDay() + ":" + LocalDateTime.now().getMinuteOfHour() + ":"
-				+ DATETIMENOW.getSecondOfMinute());
+			final Date actual = DateTime.now().toDate();
 			participationRec.setMoment(actual);
 		} else {
 			participationRec = this.participationRepository.findOne(participation.getId());
