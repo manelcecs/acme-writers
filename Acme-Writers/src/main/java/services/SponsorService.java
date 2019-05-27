@@ -80,7 +80,8 @@ public class SponsorService {
 		}
 
 		final Sponsor res = this.sponsorRepository.save(sponsor);
-		this.activateSponsorship(res);
+		//FIXME: el que lo haya hecho que mire bien lo que quiere hacer antes de editar y cargarse el metodo
+		//this.activateSponsorship(res);
 		return res;
 	}
 
