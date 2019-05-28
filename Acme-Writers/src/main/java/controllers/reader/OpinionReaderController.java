@@ -53,10 +53,13 @@ public class OpinionReaderController extends AbstractController {
 
 		final Opinion opinion = this.opinionService.findOne(idOpinion);
 
-		result = new ModelAndView("opinion/display");
-		result.addObject("opinion", opinion);
-		result.addObject("requestURI", "opinion/display.do?idOpinion=" + idOpinion);
-
+		if (!opinion.getReader().equals(this.readerService.findByPrincipal(LoginService.getPrincipal())))
+			result = new ModelAndView("redirect:list.do");
+		else {
+			result = new ModelAndView("opinion/display");
+			result.addObject("opinion", opinion);
+			result.addObject("requestURI", "opinion/display.do?idOpinion=" + idOpinion);
+		}
 		this.configValues(result);
 		return result;
 	}
