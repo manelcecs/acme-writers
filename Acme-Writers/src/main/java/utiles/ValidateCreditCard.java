@@ -1,14 +1,21 @@
 
 package utiles;
 
+import java.util.Collection;
 import java.util.GregorianCalendar;
 
 import org.joda.time.LocalDate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 
+import services.AdminConfigService;
 import domain.CreditCard;
 
 public class ValidateCreditCard {
+
+	@Autowired
+	private static AdminConfigService	adminConfigService;
+
 
 	@Deprecated
 	public static void checkFecha(final CreditCard card, final BindingResult binding) {
@@ -67,4 +74,13 @@ public class ValidateCreditCard {
 		return result;
 	}
 
+	public static void checkMakeCreditCard(final CreditCard card, final BindingResult binding) {
+		final String make = card.getMake();
+
+		final Collection<String> makers = ValidateCreditCard.adminConfigService.getAdminConfig().getCreditCardMakes();
+
+		if (!makers.contains(make))
+			binding.rejectValue("creditCard.make", "creditCard.make.error");
+
+	}
 }

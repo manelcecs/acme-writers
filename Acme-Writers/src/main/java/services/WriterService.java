@@ -101,6 +101,7 @@ public class WriterService {
 
 		writerForm.setCreditCard(ValidateCreditCard.checkNumeroAnno(writerForm.getCreditCard()));
 		ValidateCreditCard.checkGregorianDate(writerForm.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(writerForm.getCreditCard(), binding);
 
 		final Writer result;
 		result = this.create();
@@ -135,6 +136,7 @@ public class WriterService {
 
 		writer.setCreditCard(ValidateCreditCard.checkNumeroAnno(writer.getCreditCard()));
 		ValidateCreditCard.checkGregorianDate(writer.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(writer.getCreditCard(), binding);
 
 		final Writer result;
 		result = this.findByPrincipal(LoginService.getPrincipal());
