@@ -31,22 +31,22 @@ import forms.BookForm;
 public class BookWriterController extends AbstractController {
 
 	@Autowired
-	BookService			bookService;
+	private BookService			bookService;
 
 	@Autowired
-	WriterService		writerService;
+	private WriterService		writerService;
 
 	@Autowired
-	ChapterService		chapterService;
+	private ChapterService		chapterService;
 
 	@Autowired
-	PublisherService	publisherService;
+	private PublisherService	publisherService;
 
 	@Autowired
-	GenreService		genreService;
+	private GenreService		genreService;
 
 	@Autowired
-	OpinionService		opionionService;
+	private OpinionService		opionionService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

@@ -9,10 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
-import services.BookService;
 import services.ChapterService;
 import services.PublisherService;
-import services.WriterService;
 import controllers.AbstractController;
 import domain.Chapter;
 import domain.Publisher;
@@ -22,16 +20,10 @@ import domain.Publisher;
 public class ChapterPublisherController extends AbstractController {
 
 	@Autowired
-	BookService			bookService;
+	private ChapterService		chapterService;
 
 	@Autowired
-	ChapterService		chapterService;
-
-	@Autowired
-	WriterService		writerService;
-
-	@Autowired
-	PublisherService	publisherService;
+	private PublisherService	publisherService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)

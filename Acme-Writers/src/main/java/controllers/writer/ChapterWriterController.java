@@ -27,13 +27,13 @@ import domain.Writer;
 public class ChapterWriterController extends AbstractController {
 
 	@Autowired
-	BookService		bookService;
+	private BookService		bookService;
 
 	@Autowired
-	ChapterService	chapterService;
+	private ChapterService	chapterService;
 
 	@Autowired
-	WriterService	writerService;
+	private WriterService	writerService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -44,7 +44,6 @@ public class ChapterWriterController extends AbstractController {
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 
 		if (!chapter.getBook().getWriter().equals(writerLogged))
-			//FIXME: PROBAR ESTE REDIRECT
 			result = new ModelAndView("redirect:/book/writer/list.do");
 		else {
 			result.addObject("chapter", chapter);
@@ -62,7 +61,6 @@ public class ChapterWriterController extends AbstractController {
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 
 		if (!book.getWriter().equals(writerLogged) || !book.getDraft())
-			//FIXME: PROBAR ESTE REDIRECT
 			result = new ModelAndView("redirect:/book/writer/list.do");
 		else {
 			final Chapter chapter = this.chapterService.create(book);
@@ -79,7 +77,6 @@ public class ChapterWriterController extends AbstractController {
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 
 		if (!chapter.getBook().getWriter().equals(writerLogged) || !chapter.getBook().getDraft())
-			//FIXME: PROBAR ESTE REDIRECT
 			result = new ModelAndView("redirect:/book/writer/list.do");
 		else
 			result = this.createEditModelAndView(chapter);
@@ -90,7 +87,7 @@ public class ChapterWriterController extends AbstractController {
 	public ModelAndView save(@Valid final Chapter chapter, final BindingResult bindingResult) {
 		ModelAndView result;
 
-		final Collection<Integer> numbersOfBook = this.chapterService.getNumbersOfChaptersOfABook(chapter.getId());
+		final Collection<Integer> numbersOfBook = this.chapterService.getNumbersOfChaptersOfABook(chapter.getBook().getId());
 
 		if (numbersOfBook.contains(chapter.getNumber()))
 			bindingResult.rejectValue("number", "chapter.constraint.numberChapter");
@@ -132,6 +129,7 @@ public class ChapterWriterController extends AbstractController {
 		result.addObject("chapter", chapter);
 		result.addObject("message", message);
 		result.addObject("idBook", chapter.getBook().getId());
+		result.addObject("numbersOfChapters", this.chapterService.getNumbersOfChaptersOfABook(chapter.getBook().getId()));
 		this.configValues(result);
 
 		return result;

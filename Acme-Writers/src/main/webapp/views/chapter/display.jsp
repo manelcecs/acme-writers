@@ -8,13 +8,18 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
-<jstl:if test="${myChapter}">
- <acme:button url="book/writer/display.do?idBook=${chapter.book.id}" type="button" code="book.display.back"/>
-</jstl:if>
+<jstl:choose>
+<jstl:when test="${myChapter}">
+ 	<acme:button url="book/writer/display.do?idBook=${chapter.book.id}" type="button" code="book.display.back"/>
+</jstl:when>
 
-<jstl:if test="${publisher}">
- <acme:button url="book/publisher/display.do?idBook=${chapter.book.id}" type="button" code="book.display.back"/>
-</jstl:if>
+<jstl:when test="${publisher}">
+ 	<acme:button url="book/publisher/display.do?idBook=${chapter.book.id}" type="button" code="book.display.back"/>
+</jstl:when>
+<jstl:otherwise>
+	<button onclick="window.location.href=document.referrer"><spring:message code="book.display.back"/></button>
+</jstl:otherwise>
+</jstl:choose>
 
 <acme:text label="chapter.display.book" value="${chapter.book.title}"/>
 <acme:text label="chapter.display.number" value="${chapter.number}"/>

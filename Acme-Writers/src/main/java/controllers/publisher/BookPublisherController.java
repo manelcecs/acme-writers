@@ -15,7 +15,6 @@ import services.BookService;
 import services.ChapterService;
 import services.OpinionService;
 import services.PublisherService;
-import services.WriterService;
 import controllers.AbstractController;
 import domain.Book;
 import domain.Publisher;
@@ -25,19 +24,16 @@ import domain.Publisher;
 public class BookPublisherController extends AbstractController {
 
 	@Autowired
-	BookService			bookService;
+	private BookService			bookService;
 
 	@Autowired
-	WriterService		writerService;
+	private ChapterService		chapterService;
 
 	@Autowired
-	ChapterService		chapterService;
+	private PublisherService	publisherService;
 
 	@Autowired
-	PublisherService	publisherService;
-
-	@Autowired
-	OpinionService		opinionService;
+	private OpinionService		opinionService;
 
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

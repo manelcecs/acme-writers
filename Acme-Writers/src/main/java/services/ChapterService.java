@@ -58,7 +58,7 @@ public class ChapterService {
 
 		Assert.isTrue(book.getDraft());
 
-		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getId());
+		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getBook().getId());
 
 		Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
 

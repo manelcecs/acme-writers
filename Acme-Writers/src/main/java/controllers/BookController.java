@@ -13,11 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import security.LoginService;
 import services.BookService;
 import services.ChapterService;
-import services.GenreService;
 import services.OpinionService;
-import services.PublisherService;
 import services.ReaderService;
-import services.WriterService;
 import domain.Book;
 import domain.Reader;
 
@@ -26,25 +23,16 @@ import domain.Reader;
 public class BookController extends AbstractController {
 
 	@Autowired
-	BookService			bookService;
+	private BookService		bookService;
 
 	@Autowired
-	WriterService		writerService;
+	private ChapterService	chapterService;
 
 	@Autowired
-	ChapterService		chapterService;
+	private ReaderService	readerService;
 
 	@Autowired
-	PublisherService	publisherService;
-
-	@Autowired
-	GenreService		genreService;
-
-	@Autowired
-	ReaderService		readerService;
-
-	@Autowired
-	OpinionService		opinionService;
+	private OpinionService	opinionService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
@@ -82,13 +70,19 @@ public class BookController extends AbstractController {
 		final Collection<Book> books = this.bookService.getAllVisibleBooksOfWriter(idWriter);
 		return this.listModelAndView(books, "book/listByWriter.do", "book.title.listByWriters");
 	}
+
 	@RequestMapping(value = "/listByPublisher", method = RequestMethod.GET)
 	public ModelAndView listByPublisher(@RequestParam final int idPublisher) {
 		final Collection<Book> books = this.bookService.getAllVisibleBooksOfPublisher(idPublisher);
 		return this.listModelAndView(books, "book/listByPublisher.do", "book.title.listByPublishers");
 	}
 
-	//FIXME ESTO QUE ES?
+	@RequestMapping(value = "/listRecommended", method = RequestMethod.GET)
+	public ModelAndView listByScore() {
+		final Collection<Book> books = this.bookService.getBooksOrderedByScore();
+		return this.listModelAndView(books, "book/listRecommended.do", "book.title.listRecommended");
+	}
+
 	protected ModelAndView listModelAndView(final Collection<Book> books, final String requestURI, final String title) {
 		final ModelAndView result = new ModelAndView("book/list");
 		result.addObject("books", books);

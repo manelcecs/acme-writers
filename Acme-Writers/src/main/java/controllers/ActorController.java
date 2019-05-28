@@ -14,9 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
-import security.UserAccountRepository;
 import services.ActorService;
-import services.AdminConfigService;
 import services.AdministratorService;
 import services.AnnouncementService;
 import services.BookService;
@@ -92,12 +90,6 @@ public class ActorController extends AbstractController {
 
 	@Autowired
 	private SponsorshipService		sponsorshipService;
-
-	@Autowired
-	private AdminConfigService		adminConfigService;
-
-	@Autowired
-	private UserAccountRepository	userAccountRepository;
 
 	@Autowired
 	private ParticipationService	participationService;

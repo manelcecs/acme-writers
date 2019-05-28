@@ -26,6 +26,16 @@
    	 <p>
    		 <acme:textbox code="chapter.edit.title" path="title"/>
    	 </p>
+   	 
+   	 <jstl:if test="${numbersOfChapters.size() != 0}">
+   	 
+   	 <p> <spring:message code="chapter.edit.numbers"/> 
+   	 <jstl:forEach items="${numbersOfChapters}" var="number">
+   	 	<jstl:out value="${number}"/>
+   	 </jstl:forEach>
+   	 </p>
+   	 </jstl:if>
+   	 
    	 <p>
    		 <acme:inputNumber code="chapter.edit.number" path="number"/>
    	 </p>

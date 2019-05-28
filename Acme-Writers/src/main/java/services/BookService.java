@@ -383,4 +383,9 @@ public class BookService {
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 		return this.bookRepository.getBooksCanParticipate(writerLogged.getId(), idContest);
 	}
+
+	public Collection<Book> getBooksOrderedByScore() {
+		return this.bookRepository.getBooksOrderedByScore();
+	}
+
 }

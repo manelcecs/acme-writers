@@ -109,6 +109,7 @@
 			<display:column titleKey="book.list.display">
    				 <acme:button url="book/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
+   			 <display:column titleKey="book.list.score"><jstl:out value="${book.score}"/></display:column>
 
 		</jstl:otherwise>
 		</jstl:choose>

@@ -10,11 +10,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.BookService;
-import services.ChapterService;
-import services.GenreService;
-import services.PublisherService;
 import services.ReaderService;
-import services.WriterService;
 import controllers.AbstractController;
 import domain.Reader;
 
@@ -23,22 +19,10 @@ import domain.Reader;
 public class BookReaderController extends AbstractController {
 
 	@Autowired
-	BookService			bookService;
+	private BookService		bookService;
 
 	@Autowired
-	WriterService		writerService;
-
-	@Autowired
-	ChapterService		chapterService;
-
-	@Autowired
-	PublisherService	publisherService;
-
-	@Autowired
-	GenreService		genreService;
-
-	@Autowired
-	ReaderService		readerService;
+	private ReaderService	readerService;
 
 
 	@RequestMapping(value = "/listFavourites", method = RequestMethod.GET)

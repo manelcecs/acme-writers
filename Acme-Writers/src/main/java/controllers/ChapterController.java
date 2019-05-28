@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import services.BookService;
 import services.ChapterService;
-import services.WriterService;
 import domain.Chapter;
 
 @Controller
@@ -18,13 +16,7 @@ import domain.Chapter;
 public class ChapterController extends AbstractController {
 
 	@Autowired
-	BookService		bookService;
-
-	@Autowired
-	ChapterService	chapterService;
-
-	@Autowired
-	WriterService	writerService;
+	private ChapterService	chapterService;
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
