@@ -98,6 +98,23 @@ public class MessageController extends AbstractController {
 
 		return result;
 	}
+
+	@RequestMapping(value = "/moveTo", method = RequestMethod.POST)
+	public ModelAndView moveTo(@ModelAttribute("Message") Message message, final BindingResult binding) throws ParseException {
+		ModelAndView result;
+
+		try {
+			message = this.messageService.moveTo(message, binding);
+			this.messageService.save(message);
+			result = new ModelAndView("redirect:../messageBox/list.do");
+		} catch (final ValidationException oops) {
+			result = this.displayModelAndView(this.messageService.findOne(message.getId()), "messageBox.error.notMyBox");
+		} catch (final Throwable oops) {
+			result = this.displayModelAndView(message, "message.commit.error");
+		}
+
+		return result;
+	}
 	@RequestMapping(value = "/removeFrom", method = RequestMethod.GET)
 	public ModelAndView removeFrom(@RequestParam final int idMessageBox, final int idMessage) {
 		ModelAndView result;

@@ -9,6 +9,8 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<acme:cancel url="sponsorship/sponsor/list.do" code="sponsorship.display.back" />
+
 <section id="main">
 
 	<section id="displaySponsorship">
@@ -46,8 +48,6 @@
 		</display:table>
 		
 		<hr>
-		
-		<div class="botones" ><acme:cancel url="sponsorship/sponsor/list.do" code="sponsorship.display.back" /></div>	
 	
 	</section>
 	

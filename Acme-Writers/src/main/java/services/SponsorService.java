@@ -77,10 +77,10 @@ public class SponsorService {
 			Assert.isTrue(AuthorityMethods.checkIsSomeoneLogged());
 			Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.SPONSOR));
 			Assert.isTrue(!sponsor.getBanned());
+			this.activateSponsorship(sponsor);
 		}
 
 		final Sponsor res = this.sponsorRepository.save(sponsor);
-		//this.activateSponsorship(res);
 		return res;
 	}
 
