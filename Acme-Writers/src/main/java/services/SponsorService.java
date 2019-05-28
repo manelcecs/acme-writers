@@ -77,10 +77,10 @@ public class SponsorService {
 			Assert.isTrue(AuthorityMethods.checkIsSomeoneLogged());
 			Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.SPONSOR));
 			Assert.isTrue(!sponsor.getBanned());
-			this.activateSponsorship(res);
 		}
 
 		final Sponsor res = this.sponsorRepository.save(sponsor);
+		//this.activateSponsorship(res);
 		return res;
 	}
 
@@ -122,6 +122,7 @@ public class SponsorService {
 
 		sponsorForm.setCreditCard(ValidateCreditCard.checkNumeroAnno(sponsorForm.getCreditCard()));
 		ValidateCreditCard.checkGregorianDate(sponsorForm.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(sponsorForm.getCreditCard(), binding);
 
 		final Sponsor result;
 		result = this.create();
@@ -158,6 +159,7 @@ public class SponsorService {
 
 		sponsor.setCreditCard(ValidateCreditCard.checkNumeroAnno(sponsor.getCreditCard()));
 		ValidateCreditCard.checkGregorianDate(sponsor.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(sponsor.getCreditCard(), binding);
 
 		final Sponsor result;
 		result = this.findByPrincipal(LoginService.getPrincipal());
