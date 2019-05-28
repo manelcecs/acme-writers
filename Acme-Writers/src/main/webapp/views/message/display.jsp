@@ -66,7 +66,7 @@
 				</p>
 			</jstl:forEach>
 			
-		<acme:cancel url="messageBox/list.do" code="message.display.cancel" />
+		
 
 	</section>
 
