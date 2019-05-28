@@ -16,20 +16,119 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
 	
-	<!-- User accounts -->
+	    <!-- adminConfig -->
 
-	<bean id="userAccount1" class="security.UserAccount">
-		<property name="username" value="admin" />
-		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="ADMINISTRATOR" />
-				</bean>
-			</list>
-		</property>
-	</bean>
+    <bean id="adminConfig" class="domain.AdminConfig">
+        <property name="systemName" value="Acme Writer" />
+        <property name="bannerURL" value="https://i.imgur.com/JzlW7mn.jpg" />
+        <property name="countryCode" value="+34" />
+        <property name="finderResults" value="10" />
+        <property name="finderCacheTime" value="1" />
+        <property name="welcomeMessageEN" value="Welcome to Acme Writers, the site to create and share your books!" />
+        <property name="welcomeMessageES" value="¡Bienvenidos a Acme Writers! Tu sitio para crear y compartir tus libros" />
+        <property name="spamWords">
+            <list>
+                <value>sex</value>
+                <value>viagra</value>
+                <value>cialis</value>
+                <value>one million</value>
+                <value>you've been selected</value>
+                <value>nigeria</value>
+                <value>sexo</value>
+                <value>un millón</value>
+                <value>ha sido seleccionado</value>
+            </list>
+            </property>
+            <property name="creditCardMakes">
+                <list>
+                    <value>MCARD</value>
+                    <value>VISA</value>
+                    <value>AMEX</value>
+                    <value>DINNERS</value>
+                    <value>FLY</value>
+                </list>
+            </property>
+            <property name="flatRate" value="0.5" />
+            <property name="VAT" value="21.0" />
+            <property name="spammerPercentage" value="10.0" />
+    </bean>
+    
+    <!-- User accounts (admin) -->
+    <bean id="userAccount0" class="security.UserAccount">
+        <property name="username" value="admin" />
+        <property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+        <property name="authorities">
+            <list>
+                <bean class="security.Authority">
+                    <property name="authority" value="ADMINISTRATOR" />
+                </bean>
+            </list>
+        </property>
+    </bean>
 	
-	<!-- Other domain beans come here -->	
-	
+	<!-- MessageBox (admin)-->    
+    
+    <bean id="messageBox0" class="domain.MessageBox">
+        <property name="name" value="In Box" />
+        <property name="deleteable" value="false" />
+        <property name="messages">
+            <list></list>
+        </property>
+    </bean>
+    
+    <bean id="messageBox1" class="domain.MessageBox">
+        <property name="name" value="Out Box" />
+        <property name="deleteable" value="false" />
+        <property name="messages">
+            <list></list>
+        </property>
+    </bean>
+    
+    <bean id="messageBox2" class="domain.MessageBox">
+        <property name="name" value="Spam Box" />
+        <property name="deleteable" value="false" />
+        <property name="messages">
+            <list></list>
+        </property>
+    </bean>
+    
+    <bean id="messageBox3" class="domain.MessageBox">
+        <property name="name" value="Trash Box" />
+        <property name="deleteable" value="false" />
+        <property name="messages">
+            <list></list>
+        </property>
+    </bean>
+    
+    <bean id="messageBox4" class="domain.MessageBox">
+        <property name="name" value="Notification Box" />
+        <property name="deleteable" value="false" />
+        <property name="messages">
+            <list></list>
+        </property>
+    </bean>
+    
+     <!-- Admin -->    
+    
+    <bean class="domain.Administrator" id="admin">
+        <property value="Christian" name="name" />
+        <property value="Galves" name="surname"/>
+        <property value="https://photo0.com" name="photoURL" />
+        <property value="Street 0" name="address" />
+        <property value="admin@" name="email" />
+        <property value="+00 000-0000000" name="phoneNumber" />
+        <property value="false" name="spammer" />
+        <property value="false" name="banned" />
+        <property name="messageBoxes">
+            <list>
+                <ref bean="messageBox0" />
+                <ref bean="messageBox1" />
+                <ref bean="messageBox2" />
+                <ref bean="messageBox3" />
+                <ref bean="messageBox4" />
+            </list>
+        </property>
+        <property name="userAccount" ref="userAccount0" />
+    </bean>
+    
 </beans>
