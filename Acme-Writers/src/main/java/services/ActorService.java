@@ -31,6 +31,8 @@ import domain.Chapter;
 import domain.Contest;
 import domain.CreditCard;
 import domain.Message;
+import domain.Opinion;
+import domain.Participation;
 import domain.Publisher;
 import domain.Reader;
 import domain.SocialProfile;
@@ -86,6 +88,12 @@ public class ActorService {
 
 	@Autowired
 	private UserAccountRepository	userAccountRepository;
+
+	@Autowired
+	private ParticipationService	participationService;
+
+	@Autowired
+	private OpinionService			opinionService;
 
 
 	public Actor save(final Actor actor) {
@@ -241,7 +249,9 @@ public class ActorService {
 					json.append(mapper.writeValueAsString(chapter));
 			}
 
-			//Collection<Participation> participations = this.participationService.
+			final Collection<Participation> participations = this.participationService.getParticipationsOfWriter(writer.getId());
+			for (final Participation p : participations)
+				json.append(mapper.writeValueAsString(p));
 
 			final Collection<Announcement> announcements = this.announcementService.findAllWriter(writer.getId());
 			for (final Announcement ann : announcements)
@@ -252,6 +262,10 @@ public class ActorService {
 
 			final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
 			json.append(mapper.writeValueAsString(reader));
+			final Collection<Opinion> opinions = this.opinionService.findOpinionsByReader(reader.getId());
+			for (final Opinion o : opinions)
+				json.append(mapper.writeValueAsString(o));
+
 			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(reader.getId());
 			json.append(mapper.writeValueAsString(socialProfiles));
 
@@ -276,6 +290,15 @@ public class ActorService {
 			final Collection<Contest> contests = this.contestService.getContestsOfPublisher(publisher.getId());
 			for (final Contest c : contests)
 				json.append(mapper.writeValueAsString(c));
+
+			final Collection<Book> booksPublisher = this.bookService.getAllVisibleBooksOfPublisher(publisher.getId());
+			for (final Book book : booksPublisher) {
+				json.append(mapper.writeValueAsString(book));
+
+				final Collection<Chapter> chapters = this.chapterService.getChaptersOfABook(book.getId());
+				for (final Chapter chapter : chapters)
+					json.append(mapper.writeValueAsString(chapter));
+			}
 
 			json.append(mapper.writeValueAsString(socialProfiles));
 
