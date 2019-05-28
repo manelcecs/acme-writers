@@ -289,11 +289,14 @@ public class ActorController extends AbstractController {
 
 			final Collection<Announcement> announcements = this.announcementService.findAllWriter(writer.getId());
 
+			result.addObject("writer", writer);
+
 			result.addObject("books", books);
 			result.addObject("chapters", chapters);
 			result.addObject("participations", participations);
 			result.addObject("announcements", announcements);
 
+			break;
 		case "READER":
 
 			final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
@@ -302,6 +305,7 @@ public class ActorController extends AbstractController {
 			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(reader.getId());
 
 			result.addObject("opinions", opinions);
+			result.addObject("reader", reader);
 			break;
 		case "SPONSOR":
 			final Sponsor sponsor = this.sponsorService.findByPrincipal(LoginService.getPrincipal());
@@ -310,6 +314,7 @@ public class ActorController extends AbstractController {
 			messages = (List<Message>) this.messageService.findAllByActor(sponsor.getId());
 			final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAllBySponsor(sponsor.getId());
 
+			result.addObject("sponsor", sponsor);
 			result.addObject("sponsorships", sponsorships);
 
 			break;
@@ -325,6 +330,8 @@ public class ActorController extends AbstractController {
 			result.addObject("contests", contests);
 			result.addObject("books", booksPublisher);
 			result.addObject("chapters", chaptersPublisher);
+
+			result.addObject("publisher", publisher);
 
 			break;
 		}

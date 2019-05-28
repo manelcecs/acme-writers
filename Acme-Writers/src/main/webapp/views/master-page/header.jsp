@@ -96,7 +96,7 @@
 			</li>
 			
 			<li>
-				<a class="fNIv"><spring:message code="master.page.register" /></a>
+				<a class="fNiv"><spring:message code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="writer/register.do"><spring:message code="master.page.register.wiriter" /></a></li>
@@ -128,6 +128,13 @@
 			
 			<li>
 				<a class="fNiv" href="messageBox/list.do"><spring:message code="master.page.boxes" /></a>
+			</li>
+			<li><a class="fNiv"><spring:message code="actor.settings" /></a>
+				<ul>
+					<li>
+						<a href="actor/displayData.do"><spring:message code="master.page.displayData" /></a>
+					</li>
+				</ul>
 			</li>
 		</security:authorize>
 		

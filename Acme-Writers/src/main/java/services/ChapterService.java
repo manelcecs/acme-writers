@@ -107,7 +107,7 @@ public class ChapterService {
 	}
 
 	public Collection<Chapter> getAllChaptersOfWriter(final int writerId) {
-		return this.getAllChaptersOfWriter(writerId);
+		return this.chapterRepository.getChaptersOfWriter(writerId);
 	}
 
 	public Collection<Chapter> getAllChaptersOfPublisher(final Collection<Book> booksPublisher) {
