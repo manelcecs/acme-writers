@@ -80,8 +80,9 @@ public class AdministratorController extends AbstractController {
 		try {
 			this.bookService.computeScore();
 			result = this.processModelAndView();
-		} catch (final Exception e) {
+		} catch (final Throwable e) {
 			result = this.processModelAndView("administrator.commit.error");
+			e.printStackTrace();
 		}
 		return result;
 

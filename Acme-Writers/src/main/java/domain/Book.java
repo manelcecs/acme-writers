@@ -137,8 +137,9 @@ public class Book extends DomainEntity {
 		this.numWords = numWords;
 	}
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	@Valid
+	@NotNull
 	public Genre getGenre() {
 		return this.genre;
 	}

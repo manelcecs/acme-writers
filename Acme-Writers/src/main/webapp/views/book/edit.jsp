@@ -40,11 +40,11 @@
    	 
    	<jstl:choose>
 	<jstl:when test="${cookie.language.value == 'es'}">
-		<acme:select items="${genres}" itemLabel="nameES" code="book.edit.genre" path="genre"/>
+		<acme:select items="${genres}" itemLabel="nameES" code="book.edit.genre" path="genre" optional="false"/>
 	</jstl:when>
 	
 	<jstl:otherwise>
-		<acme:select items="${genres}" itemLabel="nameEN" code="book.edit.genre" path="genre"/>
+		<acme:select items="${genres}" itemLabel="nameEN" code="book.edit.genre" path="genre" optional="false"/>
 	</jstl:otherwise>
 	</jstl:choose>
    	  	 

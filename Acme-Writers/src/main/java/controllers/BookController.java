@@ -80,12 +80,12 @@ public class BookController extends AbstractController {
 	@RequestMapping(value = "/listByWriter", method = RequestMethod.GET)
 	public ModelAndView listByWriter(@RequestParam final int idWriter) {
 		final Collection<Book> books = this.bookService.getAllVisibleBooksOfWriter(idWriter);
-		return this.listModelAndView(books, "book/listByWriter.do", "book.title.listByWriter");
+		return this.listModelAndView(books, "book/listByWriter.do", "book.title.listByWriters");
 	}
 	@RequestMapping(value = "/listByPublisher", method = RequestMethod.GET)
 	public ModelAndView listByPublisher(@RequestParam final int idPublisher) {
 		final Collection<Book> books = this.bookService.getAllVisibleBooksOfPublisher(idPublisher);
-		return this.listModelAndView(books, "book/listByPublisher.do", "book.title.listByPublisher");
+		return this.listModelAndView(books, "book/listByPublisher.do", "book.title.listByPublishers");
 	}
 
 	//FIXME ESTO QUE ES?

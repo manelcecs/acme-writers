@@ -8,6 +8,7 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags" %>
 
+<acme:cancel url="opinion/reader/list.do" code="opinion.display.back"/>
 
 <acme:text label="opinion.display.book" value="${opinion.book.title}"/>
 <acme:text label="opinion.display.moment" value="${opinion.moment}"/>
@@ -23,5 +24,4 @@
 	</jstl:otherwise>
 </jstl:choose>
 
-<acme:cancel url="opinion/reader/list.do" code="opinion.display.back"/>
 

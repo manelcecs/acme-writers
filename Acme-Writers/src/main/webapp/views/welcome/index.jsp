@@ -25,9 +25,9 @@
 
 <security:authorize access="not(hasRole('BAN'))">
 	<p>
-		
+		<spring:message code="lng" var="lng"/>
 		<jstl:choose>
-			<jstl:when test="${cookie.language.value == 'es'}">
+			<jstl:when test="${lng == 'es'}">
 				<jstl:out value="${welcomeMsgEs}"/> 
 			</jstl:when>
 			
@@ -39,7 +39,7 @@
 	</p>
 	
 	
-	<p><spring:message code="welcome.greeting.prefix" /><jstl:out value="${name}"/></p>
+	<p><spring:message code="welcome.greeting.prefix" /><jstl:out value="${name}"/><spring:message code="welcome.greeting.suffix" /></p>
 
 	<acme:text value="${moment}" label="welcome.greeting.current.time"/>
 

@@ -55,7 +55,7 @@
    			 
    			 <display:column titleKey="book.list.cancel">
    			 <jstl:choose>
-   			 <jstl:when test="${!book.draft and book.status == 'ACCEPTED'}">
+   			 <jstl:when test="${!book.draft and (book.status == 'ACCEPTED' || book.status == 'INDEPENDENT')}">
    			 	<jstl:if test="${book.cancelled}">
    				 <acme:button url="book/writer/cancel.do?idBook=${book.id}" type="button" code="book.list.revokeCancel"/>
    			 	</jstl:if>

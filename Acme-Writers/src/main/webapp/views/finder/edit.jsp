@@ -28,8 +28,8 @@
 				</jstl:forEach>
 			</form:select>
 			<form:errors path="language" cssClass="error" />			
-			<acme:textbox code="finder.edit.minNumWords" path="minNumWords" />
-			<acme:textbox code="finder.edit.maxNumWords" path="maxNumWords" />
+			<acme:inputNumber code="finder.edit.minNumWords" path="minNumWords" />
+			<acme:inputNumber code="finder.edit.maxNumWords" path="maxNumWords" />
 			
 			<jstl:choose>
 				<jstl:when test="${cookie.language.value == 'es'}">

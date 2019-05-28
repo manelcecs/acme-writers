@@ -17,7 +17,7 @@
 <tiles-definitions>
 
 	<definition name="finder/edit" extends="master.page">	
-		<put-attribute name="title" value="Search of positions" />
+		<put-attribute name="title" value="Search of books" />
 		<put-attribute name="body" value="/views/finder/edit.jsp" />
 	</definition>
 	

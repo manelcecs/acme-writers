@@ -22,7 +22,7 @@ public interface ContestRepository extends JpaRepository<Contest, Integer> {
 
 	//--------------------------------------------------------------------------------
 
-	@Query("select c from Contest c where (1*(Select count(sp) from Sponsorship sp join sp.contests c where c.id = c.id) = (select max(1*(select count(spo) from Sponsorship spo join spo.contests co where co.id = co.id)) from Contest co))")
+	@Query("select c from Contest c where (1*(Select count(sp) from Sponsorship sp join sp.contests con where con.id = c.id) = (select max(1*(select count(spo) from Sponsorship spo join spo.contests cont where cont.id = co.id)) from Contest co))")
 	Collection<Contest> getContestsWithMoreSponsorships();
 
 	@Query("select c from Contest c where (select count(*) from Participation p where p.contest.id = c and p.book.writer.id = ?1) != (select count(*) from Book b where b.draft = false and (b.status = 'INDEPENDENT' or b.status = 'ACCEPTED') and b.cancelled = false and b.writer.id = ?1)")
