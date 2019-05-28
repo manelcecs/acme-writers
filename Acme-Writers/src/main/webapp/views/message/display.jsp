@@ -9,7 +9,11 @@
 <%@taglib prefix="display" uri="http://displaytag.sf.net"%>
 <%@taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
+<acme:cancel url="messageBox/list.do" code="message.display.back" />
 <section id="main">
+
+			
+
 
 	<section id="displayMessage">
 
@@ -61,6 +65,8 @@
 					<jstl:out value="${recipient.userAccount.username}"></jstl:out>
 				</p>
 			</jstl:forEach>
+			
+		<acme:cancel url="messageBox/list.do" code="message.display.cancel" />
 
 	</section>
 
@@ -73,13 +79,29 @@
 	
 			<div class="botones">		
 				<acme:submit name="save" code="message.display.confirm" />
-				<acme:cancel url="messageBox/list.do" code="message.display.cancel" />
+			</div>
+
+		</form:form>
+
+	</section>
+	
+	<section id="moveTo">
+
+		<form:form action="message/moveTo.do" modelAttribute="Message">
+
+			<acme:hidden path="id" />
+			<acme:select optional="false" items="${boxesToMove}" itemLabel="name" code="message.display.moveTo" path="messageBoxes" />
+	
+			<div class="botones">		
+				<acme:submit name="save" code="message.display.confirm" />
 			</div>
 
 		</form:form>
 
 
 	</section>
+	
+	
 
 <hr>
 </section>
@@ -117,6 +139,14 @@
 }
 
 #addto {
+	float: left;
+	padding: 20px 50px;
+	margin: 20px;
+	width: 30%;
+	border: 1px solid black;
+}
+
+#moveTo {
 	float: left;
 	padding: 20px 50px;
 	margin: 20px;

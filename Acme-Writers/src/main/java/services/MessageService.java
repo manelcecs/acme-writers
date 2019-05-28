@@ -282,4 +282,33 @@ public class MessageService {
 		this.messageRepository.flush();
 	}
 
+	public Message moveTo(final Message message, final BindingResult binding) {
+		final Actor principal = this.actorService.findByUserAccount(LoginService.getPrincipal());
+		final Message result = this.messageRepository.findOne(message.getId());
+		Assert.notNull(result);
+
+		if (message.getMessageBoxes() != null)
+			for (final MessageBox box : message.getMessageBoxes()) {
+				final Actor owner = this.actorService.getByMessageBox(box.getId());
+				if (!owner.equals(principal))
+					binding.rejectValue("messageBoxes", "messageBox.error.notMyBox");
+			}
+
+		final Collection<MessageBox> totalBoxes = result.getMessageBoxes();
+		final Collection<MessageBox> boxesPrincipal = this.messageBoxService.findAllMessageBoxByActorContainsAMessage(principal.getId(), message.getId());
+		final Collection<MessageBox> boxToMove = message.getMessageBoxes();
+
+		totalBoxes.removeAll(boxesPrincipal);
+		totalBoxes.addAll(boxToMove);
+
+		result.setMessageBoxes(totalBoxes);
+
+		this.validator.validate(result, binding);
+
+		if (binding.hasErrors())
+			throw new ValidationException();
+
+		return result;
+	}
+
 }
