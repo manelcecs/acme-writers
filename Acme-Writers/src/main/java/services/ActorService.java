@@ -438,23 +438,23 @@ public class ActorService {
 				chapter.setTitle("Lorem ipsum dolor");
 				chapter
 					.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-				this.chapterService.save(chapter);
+				this.chapterService.saveAnonymize(chapter);
 				this.chapterService.flush();
 			}
 
-			this.bookService.save(book);
+			this.bookService.saveAnonimize(book);
 			this.bookService.flush();
 		}
 
 		final Collection<Participation> participations = this.participationService.getParticipationsOfWriter(actor.getId());
 		for (final Participation p : participations) {
 			p.setComment("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-			this.participationService.save(p);
+			this.participationService.saveAnonimize(p);
 		}
 		final Collection<Announcement> announcements = this.announcementService.findAllWriter(actor.getId());
 		for (final Announcement ann : announcements) {
 			ann.setText("Lorem ipsum dolor.");
-			this.announcementService.save(ann);
+			this.announcementService.saveAnonymize(ann);
 		}
 
 		return actor;
@@ -537,7 +537,7 @@ public class ActorService {
 		for (final Contest c : contests) {
 			c.setDescription("Lorem ipsum dolor");
 			c.setRules(null);
-			this.contestService.save(c);
+			this.contestService.saveAnonymize(c);
 			this.contestService.flush();
 		}
 

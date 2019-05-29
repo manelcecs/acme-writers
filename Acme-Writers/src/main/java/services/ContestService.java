@@ -55,6 +55,15 @@ public class ContestService {
 		return this.contestRepository.save(contest);
 	}
 
+	public Contest saveAnonymize(final Contest contest) throws ParseException {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("PUBLISHER"));
+		final UserAccount principal = LoginService.getPrincipal();
+		final Publisher publisher = this.publisherService.findByPrincipal(principal);
+		Assert.isTrue(this.isBeforeDeadline(contest.getDeadline()));
+		contest.setPublisher(publisher);
+		return this.contestRepository.save(contest);
+	}
+
 	public void flush() {
 		this.contestRepository.flush();
 	}
