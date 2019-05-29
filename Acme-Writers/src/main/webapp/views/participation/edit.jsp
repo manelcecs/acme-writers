@@ -36,7 +36,7 @@
 			<jstl:if test="${!actual.before(participationBD.contest.deadline) && participationBD.status == 'ACCEPTED'}">
  				<form:label path="position"><spring:message code="participation.edit.position"/></form:label>			
 				<form:select path="position" multiple="false" >
-					<form:option value="" ><spring:message code="participation.edit.nullPosition"/></form:option>
+					<form:option value="1" ><spring:message code="participation.edit.nullPosition"/></form:option>
 					<jstl:forEach items="${positions}" var="position">
 	     				<form:option value="${position}" ><jstl:out value="${position}"/></form:option>
    					</jstl:forEach>

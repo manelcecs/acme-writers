@@ -31,7 +31,7 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
 	@Query("select count(r) from Reader r join r.books b where b.id = ?1")
 	Integer getNumFavOfBook(int id);
 
-	@Query("select b from Book b where b.draft = false and (b.status = 'INDEPENDENT' or b.status = 'ACCEPTED') and b.cancelled = false")
+	@Query("select b from Book b where b.draft = false and (b.status = 'INDEPENDENT' or b.status = 'ACCEPTED')")
 	Collection<Book> getAllVisibleBooks();
 
 	@Query("select b from Book b where b.writer.id = ?1 and b.draft = false and (b.status = 'INDEPENDENT' or b.status = 'ACCEPTED') and b.cancelled = false")

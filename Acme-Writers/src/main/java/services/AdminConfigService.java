@@ -57,7 +57,7 @@ public class AdminConfigService {
 		adminConfig.setWelcomeMessageES(adminConfigForm.getWelcomeMessageES());
 		adminConfig.setFlatRate(adminConfigForm.getFlatRate());
 		adminConfig.setVAT(adminConfigForm.getVAT());
-		adminConfig.setSpammerPercentage(adminConfigForm.getSpammerPercentage());
+		
 
 		this.validator.validate(adminConfig, binding);
 
@@ -72,7 +72,7 @@ public class AdminConfigService {
 		final Collection<String> spamWords = this.getAdminConfig().getSpamWords();
 		for (final String spamWord : spamWords) {
 			final Integer spam = this.messageService.existsSpamWordInMessage(message.getId(), spamWord);
-			if (spam != null) {
+			if (spam == null) {
 				exist = true;
 				break;
 			}

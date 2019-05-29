@@ -85,7 +85,6 @@ public class ChapterService {
 	}
 
 	public void delete(final int idChapter) {
-
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
 		final Chapter chapter = this.findOne(idChapter);
 
@@ -97,13 +96,9 @@ public class ChapterService {
 
 		Assert.isTrue(book.getDraft());
 
-		final Integer numPalabras = chapter.getText().split(ChapterService.REGEXP).length;
-
-		book.setNumWords(book.getNumWords() - numPalabras);
 		this.bookService.save(book);
 
 		this.chapterRepository.delete(chapter);
-
 	}
 
 	public Collection<Chapter> getAllChaptersOfWriter(final int writerId) {

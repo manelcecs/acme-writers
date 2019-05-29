@@ -59,7 +59,7 @@ public class GenreAdministratorController extends AbstractController {
 		else
 			try {
 				this.genreService.save(genre);
-				result = new ModelAndView("redirect:list.do");
+				result = this.listModelAndView();
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(genre, "genre.save.error");
 			}
