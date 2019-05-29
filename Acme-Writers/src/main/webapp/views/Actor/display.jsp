@@ -17,7 +17,7 @@
 
 </jstl:if>
 <jstl:if test="${back}">
-	<acme:button url="writer/list.do" type="button" code="actor.back" />
+	<button onclick="window.location.href=document.referrer"><spring:message code="book.display.back"/></button>
 	<br />
 </jstl:if>
 

@@ -16,11 +16,13 @@
    		<display:column titleKey="actor.list.viewBooks">
    			<acme:button url="book/listByWriter.do?idWriter=${actor.id}" type="button" code="actor.list.viewBooks"/>
 		</display:column>
+   		<display:column titleKey="writer.list.seeMore"><acme:button code="writer.list.seeMore" type="button" url="/writer/display.do?writerId=${actor.id}"/></display:column>
 		</jstl:if>
 		<jstl:if test="${rolView == 'PUBLISHER'}">
    		<display:column titleKey="actor.list.publisher"><jstl:out value="${actor.commercialName}"/></display:column>
    		<display:column titleKey="actor.list.viewBooks">
    			<acme:button url="book/listByPublisher.do?idPublisher=${actor.id}" type="button" code="actor.list.viewBooks"/>
 		</display:column>
+		<display:column titleKey="writer.list.seeMore"><acme:button code="writer.list.seeMore" type="button" url="publisher/display.do?publisherId=${actor.id}"/></display:column>
 		</jstl:if>
 </display:table>
