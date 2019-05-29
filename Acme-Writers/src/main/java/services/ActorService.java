@@ -398,6 +398,7 @@ public class ActorService {
 		actor.setAddress("---");
 		actor.setBanned(false);
 		actor.setSpammer(null);
+		actor.setSurname(".....");
 
 		actor.setUserAccount(this.anonymizeUserAccount(actor.getUserAccount()));
 
@@ -407,7 +408,7 @@ public class ActorService {
 		return actor;
 	}
 
-	private Writer anonymizeWriter(final Writer actor) {
+	private Writer anonymizeWriter(final Writer actor) throws ParseException {
 		//TODO: a�adir los objetos que falten
 
 		actor.setName("anonymous");
@@ -417,6 +418,7 @@ public class ActorService {
 		actor.setAddress("---");
 		actor.setBanned(false);
 		actor.setSpammer(null);
+		actor.setSurname(".....");
 
 		actor.setUserAccount(this.anonymizeUserAccount(actor.getUserAccount()));
 
@@ -433,22 +435,26 @@ public class ActorService {
 
 			final Collection<Chapter> chapters = this.chapterService.getChaptersOfABook(book.getId());
 			for (final Chapter chapter : chapters) {
-				chapter.setTitle("Lorem ipsu, dolor");
-				chapter.setText("");
-				this.chapterService.save(chapter);
+				chapter.setTitle("Lorem ipsum dolor");
+				chapter
+					.setText("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+				this.chapterService.saveAnonymize(chapter);
 				this.chapterService.flush();
 			}
 
-			this.bookService.save(book);
+			this.bookService.saveAnonimize(book);
 			this.bookService.flush();
 		}
 
-		//Collection<Participation> participations = this.participationService.
-
+		final Collection<Participation> participations = this.participationService.getParticipationsOfWriter(actor.getId());
+		for (final Participation p : participations) {
+			p.setComment("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+			this.participationService.saveAnonimize(p);
+		}
 		final Collection<Announcement> announcements = this.announcementService.findAllWriter(actor.getId());
 		for (final Announcement ann : announcements) {
 			ann.setText("Lorem ipsum dolor.");
-			this.announcementService.save(ann);
+			this.announcementService.saveAnonymize(ann);
 		}
 
 		return actor;
@@ -463,13 +469,18 @@ public class ActorService {
 		actor.setAddress("---");
 		actor.setBanned(false);
 		actor.setSpammer(null);
+		actor.setSurname(".....");
 
 		actor.setUserAccount(this.anonymizeUserAccount(actor.getUserAccount()));
 
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
 
-		//Collection<Opinion> opinions  = this.opinionService.
+		final Collection<Opinion> opinions = this.opinionService.findOpinionsByReader(actor.getId());
+		for (final Opinion o : opinions) {
+			o.setReview("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
+			this.opinionService.save(o);
+		}
 
 		return actor;
 	}
@@ -485,6 +496,9 @@ public class ActorService {
 		actor.setBanned(false);
 		actor.setSpammer(null);
 
+		actor.setCompanyName("noCompany");
+		actor.setSurname(".....");
+
 		actor.setUserAccount(this.anonymizeUserAccount(actor.getUserAccount()));
 
 		this.anonymizeCreditCard(actor.getCreditCard());
@@ -494,11 +508,8 @@ public class ActorService {
 
 		final Collection<Sponsorship> sponsorships = this.sponsorshipService.findAllBySponsor(actor.getId());
 		for (final Sponsorship s : sponsorships) {
-			s.setBannerURL("http://www.adrbook.com/db/galeri/304.jpg");
-			s.setTargetPageURL("http://www.adrbook.com/db/galeri/304.jpg");
-			s.setCancelled(true);
-			this.sponsorshipService.save(s);
-			this.sponsorshipService.flush();
+			this.sponsorshipService.delete(s);
+			this.socialProfileService.flush();
 		}
 
 		return actor;
@@ -526,7 +537,7 @@ public class ActorService {
 		for (final Contest c : contests) {
 			c.setDescription("Lorem ipsum dolor");
 			c.setRules(null);
-			this.contestService.save(c);
+			this.contestService.saveAnonymize(c);
 			this.contestService.flush();
 		}
 

@@ -58,7 +58,17 @@ public class AnnouncementService {
 
 		announcement.setMoment(new Date());
 
-		final Announcement res = this.announcementRepository.saveAndFlush(announcement);
+		final Announcement res = this.announcementRepository.save(announcement);
+
+		return res;
+	}
+
+	public Announcement saveAnonymize(final Announcement announcement) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.WRITER));
+
+		Assert.isTrue(announcement.getWriter().getId() == this.actorService.findByUserAccount(LoginService.getPrincipal()).getId());
+
+		final Announcement res = this.announcementRepository.save(announcement);
 
 		return res;
 	}

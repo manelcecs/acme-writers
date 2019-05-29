@@ -152,6 +152,16 @@ public class BookService {
 		return this.bookRepository.save(book);
 	}
 
+	public Book saveAnonimize(final Book book) {
+
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
+
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		Assert.isTrue(book.getWriter().equals(writerLogged));
+
+		return this.bookRepository.save(book);
+	}
 	public void flush() {
 		this.bookRepository.flush();
 	}
@@ -383,9 +393,4 @@ public class BookService {
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 		return this.bookRepository.getBooksCanParticipate(writerLogged.getId(), idContest);
 	}
-
-	public Collection<Book> getBooksOrderedByScore() {
-		return this.bookRepository.getBooksOrderedByScore();
-	}
-
 }

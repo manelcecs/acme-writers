@@ -37,7 +37,7 @@ public class SocialProfileService {
 		SocialProfile res;
 		if (socialProfile.getId() == 0)
 			Assert.isTrue(socialProfile.getActor().getId() == this.actorService.findByUserAccount(LoginService.getPrincipal()).getId());
-		res = this.socialProfileRepository.saveAndFlush(socialProfile);
+		res = this.socialProfileRepository.save(socialProfile);
 		return res;
 
 	}

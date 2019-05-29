@@ -58,7 +58,7 @@ public class ChapterService {
 
 		Assert.isTrue(book.getDraft());
 
-		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getBook().getId());
+		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getId());
 
 		Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
 
@@ -75,6 +75,38 @@ public class ChapterService {
 
 		book.setNumWords(book.getNumWords() + numPalabras);
 		this.bookService.save(book);
+
+		return this.chapterRepository.save(chapter);
+
+	}
+
+	public Chapter saveAnonymize(final Chapter chapter) {
+
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
+
+		final Book book = chapter.getBook();
+
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		Assert.isTrue(book.getWriter().equals(writerLogged));
+
+		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getId());
+
+		Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
+
+		Integer numPalabras;
+		if (chapter.getId() != 0) {
+			final Chapter chapterOld = this.findOne(chapter.getId());
+			final Integer numPalabrasOld = chapterOld.getText().split(ChapterService.REGEXP).length;
+
+			final Integer numPalabrasNuevo = chapter.getText().split(ChapterService.REGEXP).length;
+			numPalabras = numPalabrasNuevo - numPalabrasOld;
+
+		} else
+			numPalabras = chapter.getText().split(ChapterService.REGEXP).length;
+
+		book.setNumWords(book.getNumWords() + numPalabras);
+		this.bookService.saveAnonimize(book);
 
 		return this.chapterRepository.save(chapter);
 
