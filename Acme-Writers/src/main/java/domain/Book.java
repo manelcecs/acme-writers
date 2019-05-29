@@ -5,9 +5,11 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -21,6 +23,10 @@ import forms.BookForm;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "draft, writer"), @Index(columnList = "status, draft"), @Index(columnList = "status"), @Index(columnList = "draft"), @Index(columnList = "status, draft, cancelled"), @Index(columnList = "genre"),
+	@Index(columnList = "publisher, draft, cancelled"), @Index(columnList = "publisher"), @Index(columnList = "writer")
+})
 public class Book extends DomainEntity {
 
 	private String		title;
