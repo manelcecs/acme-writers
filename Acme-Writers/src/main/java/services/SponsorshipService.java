@@ -157,7 +157,8 @@ public class SponsorshipService {
 			}
 		}
 
-		this.messageService.notifySponsorshipCancelled(recipients);
+		if (recipients.size() != 0)
+			this.messageService.notifySponsorshipCancelled(recipients);
 	}
 
 	public Collection<Sponsorship> save(final Collection<Sponsorship> sponsorships) {

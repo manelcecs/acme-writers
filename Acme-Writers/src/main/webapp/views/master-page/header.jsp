@@ -34,6 +34,9 @@
 				<li>
 					<a href="book/listAll.do"><spring:message code="master.page.book.system" /></a>
 				</li>
+				<li>
+					<a href="book/listRecommended.do"><spring:message code="master.page.book.recommended" /></a>
+				</li>
 				<security:authorize access="hasRole('WRITER')">
 					<li>
 						<a href="book/writer/list.do"><spring:message code="master.page.list.books" /></a>

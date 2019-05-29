@@ -1971,6 +1971,44 @@ Kids will also learn to use contractions which is more natural in spoken English
 		</property>
 		
 	</bean>
+	
+	<bean id="sponsorship2" class="domain.Sponsorship">
+		<property name="bannerURL" value="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRljQ0TijYagRpoMeC2qtdh-fh68FV7kkyLAWrFKjhudZEd7bnXug" />
+		<property name="targetPageURL" value="http://sponsorshipcaducado.com" />
+		<property name="views" value="20" />
+		<property name="flatRateApplied" value="0.5" />
+		
+		<property name="cancelled" value="false" />
+		
+		<property name="sponsor" ref="sponsor2" />
+		<property name="contests" >
+		<list>
+			<ref bean="contest1"/>
+		</list>
+		</property>
+		
+	</bean>
+	
+	<bean id="message0" class="domain.Message">
+		<property name="moment" value="05/20/2018" />
+		<property name="subject" value="ABRE ESTE MENSAJE Y PASARA ESTO" />
+		<property name="body" value="oferta de viagra" />
+		<property name="priority" value="HIGH" />
+		
+		<property name="sender" ref="reader0" />
+		<property name="recipients" >
+		<list>
+			<ref bean="reader1"/>
+		</list>
+		</property>
+		<property name="messageBoxes" >
+		<list>
+			<ref bean="messageBox51"/>
+			<ref bean="messageBox55"/>
+		</list>
+		</property>
+		
+	</bean>
     
 </beans>
 
