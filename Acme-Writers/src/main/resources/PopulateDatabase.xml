@@ -1431,7 +1431,7 @@
                 <value>El libro no puede estar publicado por ninguna editorial</value>
             </list>
         </property>    
-        <property name="deadline" value="8/30/2019" />
+        <property name="deadline" value="8/30/2018" />
         <property name="publisher" ref="publisher1" />
     </bean>
     
@@ -1928,11 +1928,11 @@ Kids will also learn to use contractions which is more natural in spoken English
     
     <bean class="domain.Participation" id="participation1">
     	<property name="comment" value="Esta es mi participación. Lo importante es participar" />
-    	<property name="moment" value="05/26/2019" />
-    	<property name="status" value="PENDING" />
+    	<property name="moment" value="05/26/2018" />
+    	<property name="status" value="ACCEPTED" />
     	<property name="position" value="" />
  
-    	<property name="contest" ref="contest0" />
+    	<property name="contest" ref="contest1" />
     	<property name="book" ref="book2" />
     </bean>
     
