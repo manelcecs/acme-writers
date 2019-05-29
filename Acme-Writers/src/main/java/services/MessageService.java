@@ -55,12 +55,18 @@ public class MessageService {
 	}
 
 	public Message save(final Message message) throws ParseException {
-		Assert.isTrue(AuthorityMethods.checkIsSomeoneLogged() && !AuthorityMethods.chechAuthorityLogged("BAN"));
+		Assert.isTrue(AuthorityMethods.checkIsSomeoneLogged());
 		if (message.getId() == 0) {
 			Assert.isTrue(this.actorService.findByUserAccount(LoginService.getPrincipal()).equals(message.getSender()));
 			this.messageToBoxByDefault(message);
 		}
-		return this.messageRepository.save(message);
+
+		Message messageBD = this.messageRepository.save(message);
+
+		messageBD = this.spamMessageDetector(messageBD);
+
+		return messageBD;
+
 	}
 
 	public Message findOne(final int id) {
@@ -77,13 +83,8 @@ public class MessageService {
 		if (this.isABroadCastMessage(message))
 			boxName = "Notification Box";
 
-		final String text = this.allTextFromAMessage(message);
-
 		for (final Actor recipient : message.getRecipients())
-			if (this.adminConfigService.existSpamWord(text))
-				boxes.add(this.messageBoxService.findOriginalBox(recipient.getId(), "Spam Box"));
-			else
-				boxes.add(this.messageBoxService.findOriginalBox(recipient.getId(), boxName));
+			boxes.add(this.messageBoxService.findOriginalBox(recipient.getId(), boxName));
 
 		message.setMessageBoxes(boxes);
 	}
@@ -181,15 +182,14 @@ public class MessageService {
 
 	public Integer getSpamMessages(final Collection<Message> allMessages) {
 		Integer s = 0;
-		String text = "";
-		for (final Message m : allMessages) {
-			text = m.getBody() + " " + m.getSubject();
-			for (final String tag : m.getTags())
-				text = text + " " + tag;
-			if (this.adminConfigService.existSpamWord(text))
+		for (final Message m : allMessages)
+			if (this.adminConfigService.existSpamWord(m))
 				s++;
-		}
 		return s;
+	}
+
+	public Integer existsSpamWordInMessage(final int idMessage, final String word) {
+		return this.messageRepository.existsSpamWordInMessage(idMessage, word);
 	}
 
 	public Message notifyStatusBook(final Book book) throws ParseException {
@@ -238,14 +238,6 @@ public class MessageService {
 		return notification;
 	}
 
-	private String allTextFromAMessage(final Message message) {
-		String text = message.getBody() + " " + message.getSubject();
-		if (message.getTags() != null)
-			for (final String tag : message.getTags())
-				text = text + " " + tag;
-		return text;
-	}
-
 	private boolean isABroadCastMessage(final Message message) {
 		boolean res = false;
 
@@ -270,6 +262,17 @@ public class MessageService {
 		final Date actual = format.parse(datetimenow.getYear() + "/" + month + "/" + day + " " + hour + ":" + minute + ":" + second);
 
 		return actual;
+	}
+
+	private Message spamMessageDetector(final Message messageBD) {
+		final Collection<MessageBox> boxes = messageBD.getMessageBoxes();
+		if (this.adminConfigService.existSpamWord(messageBD))
+			for (final Actor recipient : messageBD.getRecipients()) {
+				boxes.remove(this.messageBoxService.findOriginalBox(recipient.getId(), "In Box"));
+				boxes.add(this.messageBoxService.findOriginalBox(recipient.getId(), "Spam Box"));
+			}
+		messageBD.setMessageBoxes(boxes);
+		return messageBD;
 	}
 
 	public boolean checkMessagePermissions(final Message message) {
