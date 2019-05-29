@@ -59,7 +59,7 @@ public class GenreAdministratorController extends AbstractController {
 		else
 			try {
 				this.genreService.save(genre);
-				result = this.listModelAndView();
+				result = new ModelAndView("redirect:list.do");
 			} catch (final Throwable oops) {
 				result = this.createModelAndView(genre, "genre.save.error");
 			}
@@ -74,7 +74,7 @@ public class GenreAdministratorController extends AbstractController {
 
 		try {
 			this.genreService.delete(genre);
-			result = this.listModelAndView();
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
 			result = this.listModelAndView("genre.save.error");
 			oops.printStackTrace();
@@ -127,10 +127,10 @@ public class GenreAdministratorController extends AbstractController {
 			namesES.remove(this.genreService.findOne(genre.getId()).getNameES());
 		}
 
-		if (genre.getNameEN().toUpperCase().trim().equals("GENRE") || genre.getNameEN().toUpperCase().trim().equals("GÉNERO") || genre.getNameES().toUpperCase().trim().equals("GENERO"))
+		if (genre.getNameEN().toUpperCase().trim().equals("GENRE") || genre.getNameEN().toUpperCase().trim().equals("Gï¿½NERO") || genre.getNameES().toUpperCase().trim().equals("GENERO"))
 			binding.rejectValue("nameEN", "genre.error.namelikeGenre");
 
-		if (genre.getNameES().toUpperCase().trim().equals("GÉNERO") || genre.getNameES().toUpperCase().trim().equals("GENERO") || genre.getNameES().toUpperCase().trim().equals("GENRE"))
+		if (genre.getNameES().toUpperCase().trim().equals("Gï¿½NERO") || genre.getNameES().toUpperCase().trim().equals("GENERO") || genre.getNameES().toUpperCase().trim().equals("GENRE"))
 			binding.rejectValue("nameES", "genre.error.namelikeGenre");
 
 		if (namesEN.contains(genre.getNameEN().trim().toLowerCase()))
