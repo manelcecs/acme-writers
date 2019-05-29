@@ -46,6 +46,16 @@
 			<acme:text value="${writer.phoneNumber}"
 				label="actor.displayData.phoneNumber" />
 
+			<br />
+			<acme:text value="${writer.creditCard.holder }" label="actor.creditCard.holder" />
+			<acme:text value="${writer.creditCard.make }" label="actor.creditCard.make" />
+			<acme:text value="${writer.creditCard.number }" label="actor.creditCard.number" />
+			<acme:text value="${writer.creditCard.expirationMonth }" label="actor.creditCard.expirationMonth" />
+			<acme:text value="${writer.creditCard.expirationYear }" label="actor.creditCard.expirationYear" />
+			<acme:text value="${writer.creditCard.cvv }" label="actor.creditCard.cvv" />
+			<br /> 
+ 
+ 
 			<b><spring:message code="writer.books" /></b>
 			<display:table name="books" id="book">
 				<display:column titleKey="book.ticker">
@@ -357,6 +367,13 @@
 				label="actor.displayData.phoneNumber" />
 
 			<br />
+			<acme:text value="${publisher.creditCard.holder }" label="actor.creditCard.holder" />
+			<acme:text value="${publisher.creditCard.make }" label="actor.creditCard.make" />
+			<acme:text value="${publisher.creditCard.number }" label="actor.creditCard.number" />
+			<acme:text value="${publisher.creditCard.expirationMonth }" label="actor.creditCard.expirationMonth" />
+			<acme:text value="${publisher.creditCard.expirationYear }" label="actor.creditCard.expirationYear" />
+			<acme:text value="${publisher.creditCard.cvv }" label="actor.creditCard.cvv" />
+			<br /> 
 
 			<b><spring:message code="publisher.books" /></b>
 			<display:table name="books" id="book">
@@ -469,8 +486,18 @@
 				label="actor.displayData.address" />
 			<acme:text value="${sponsor.phoneNumber}"
 				label="actor.displayData.phoneNumber" />
+			<acme:text value="${sponsor.companyName}"
+				label="actor.displayData.companyName" />
+				
 
 			<br />
+			<acme:text value="${sponsor.creditCard.holder }" label="actor.creditCard.holder" />
+			<acme:text value="${sponsor.creditCard.make }" label="actor.creditCard.make" />
+			<acme:text value="${sponsor.creditCard.number }" label="actor.creditCard.number" />
+			<acme:text value="${sponsor.creditCard.expirationMonth }" label="actor.creditCard.expirationMonth" />
+			<acme:text value="${sponsor.creditCard.expirationYear }" label="actor.creditCard.expirationYear" />
+			<acme:text value="${sponsor.creditCard.cvv }" label="actor.creditCard.cvv" />
+			<br /> 
 			<b><spring:message code="sponsor.displayData.sponsorships" /></b>
 			<display:table name="sponsorships" id="sponsorship">
 
