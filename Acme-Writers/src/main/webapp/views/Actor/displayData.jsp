@@ -210,7 +210,7 @@
 				</display:column>
 
 				<display:column titleKey="opinion.positive">
-					<jstl:out value="${opinion.positive}" />
+					<jstl:out value="${opinion.positiveOpinion}" />
 				</display:column>
 
 				<display:column titleKey="opinion.review">
@@ -474,16 +474,12 @@
 			<b><spring:message code="sponsor.displayData.sponsorships" /></b>
 			<display:table name="sponsorships" id="sponsorship">
 
-				<display:column titleKey="sponsorship.contest">
-					<jstl:out value="${sponsorship.contest.title}" />
-				</display:column>
-
 				<display:column titleKey="sponsorship.banner">
 					<jstl:out value="${sponsorship.bannerURL}" />
 				</display:column>
 
 				<display:column titleKey="sponsorship.target">
-					<jstl:out value="${sponsorship.targetURL}" />
+					<jstl:out value="${sponsorship.targetPageURL}" />
 				</display:column>
 
 				<display:column titleKey="sponsorship.flatRate">

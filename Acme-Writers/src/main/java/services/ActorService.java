@@ -22,6 +22,7 @@ import utiles.AuthorityMethods;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 
 import domain.Actor;
 import domain.Administrator;
@@ -214,6 +215,7 @@ public class ActorService {
 
 		final StringBuilder json = new StringBuilder();
 
+		mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 		final UserAccount principal = LoginService.getPrincipal();
 		String authority = AuthorityMethods.getLoggedAuthority().getAuthority();
 
@@ -258,6 +260,7 @@ public class ActorService {
 				json.append(mapper.writeValueAsString(ann));
 			json.append(mapper.writeValueAsString(socialProfiles));
 
+			break;
 		case "READER":
 
 			final Reader reader = this.readerService.findByPrincipal(LoginService.getPrincipal());
@@ -420,6 +423,8 @@ public class ActorService {
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
 
+		this.anonymizeCreditCard(actor.getCreditCard());
+
 		final Collection<Book> books = this.bookService.getAllVisibleBooksOfWriter(actor.getId());
 		for (final Book book : books) {
 			book.setCover("http://www.adrbook.com/db/galeri/304.jpg");
@@ -482,6 +487,8 @@ public class ActorService {
 
 		actor.setUserAccount(this.anonymizeUserAccount(actor.getUserAccount()));
 
+		this.anonymizeCreditCard(actor.getCreditCard());
+
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
 
@@ -509,6 +516,8 @@ public class ActorService {
 		actor.setSpammer(null);
 
 		actor.setUserAccount(this.anonymizeUserAccount(actor.getUserAccount()));
+
+		this.anonymizeCreditCard(actor.getCreditCard());
 
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);

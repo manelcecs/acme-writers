@@ -267,6 +267,8 @@ public class ActorController extends AbstractController {
 			messages = (List<Message>) this.messageService.findAllByActor(administrator.getId());
 			socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles(administrator.getId());
 
+			result.addObject("administrator", administrator);
+
 			break;
 
 		case "WRITER":
