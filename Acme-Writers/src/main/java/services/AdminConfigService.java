@@ -1,9 +1,7 @@
 
 package services;
 
-import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import javax.validation.ValidationException;
 
@@ -17,6 +15,7 @@ import org.springframework.validation.Validator;
 import repositories.AdminConfigRepository;
 import utiles.AuthorityMethods;
 import domain.AdminConfig;
+import domain.Message;
 import forms.AdminConfigForm;
 import forms.CreditCardMakeForm;
 import forms.SpamWordForm;
@@ -27,6 +26,9 @@ public class AdminConfigService {
 
 	@Autowired
 	private AdminConfigRepository	adminConfigRepository;
+
+	@Autowired
+	private MessageService			messageService;
 
 	@Autowired
 	private Validator				validator;
@@ -64,17 +66,17 @@ public class AdminConfigService {
 
 		return adminConfig;
 	}
-	public boolean existSpamWord(final String s) {
-		final String palabras[] = s.split("[.,:;()¿?" + " " + "\t!¡]");
-		final List<String> listaPalabras = Arrays.asList(palabras);
+
+	public boolean existSpamWord(final Message message) {
 		boolean exist = false;
-		final AdminConfig administratorConfig = this.getAdminConfig();
-		final Collection<String> spamWord = administratorConfig.getSpamWords();
-		for (final String palabraLista : listaPalabras)
-			if (spamWord.contains(palabraLista.toLowerCase().trim())) {
+		final Collection<String> spamWords = this.getAdminConfig().getSpamWords();
+		for (final String spamWord : spamWords) {
+			final Integer spam = this.messageService.existsSpamWordInMessage(message.getId(), spamWord);
+			if (spam != null) {
 				exist = true;
 				break;
 			}
+		}
 		return exist;
 	}
 
