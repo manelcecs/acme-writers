@@ -50,7 +50,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 
 	//---------------------------------------------------------------------------------
 
-	@Query("select 1.0 * count(b) / (select count(bo) from Book bo where b.status = 'ACCEPTED') from Book b where b.status = 'REJECTED'")
+	@Query("select 1.0 * count(b) / (select count(bo) from Book bo where bo.status = 'REJECTED') from Book b where b.status = 'ACCEPTED'")
 	Double getRatioOfBooksAcceptedVsBooksRejected();
 
 	//---------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ public interface AdministratorRepository extends JpaRepository<Administrator, In
 
 	//--------------------------------------------------------------------------------
 
-	@Query("select count(b),g from Book b join b.genre g where(b.draft = false) group by g")
+	@Query("select count(b),g from Book b join b.genre g where(b.draft = false and b.cancelled = false and (b.status = 'ACCEPTED' or b.status = 'INDEPENDENT')) group by g")
 	List<Object[]> getHistogramData();
 
 	//---------------------------------------------------------------------------------
