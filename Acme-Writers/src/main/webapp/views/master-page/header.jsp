@@ -42,6 +42,11 @@
 						<a href="book/writer/list.do"><spring:message code="master.page.list.books" /></a>
 					</li>
 				</security:authorize>
+				<security:authorize access="hasRole('PUBLISHER')">
+					<li>
+						<a href="book/publisher/list.do"><spring:message code="master.page.list.books" /></a>
+					</li>
+				</security:authorize>
 				<security:authorize access="hasRole('READER')">
 					<li>
 						<a href="book/reader/listFavourites.do"><spring:message code="master.page.list.booksFavourites" /></a>
@@ -137,8 +142,6 @@
 				</li> 
 			</ul>
 		</li>
-		</security:authorize>
-		<security:authorize access="hasRole('PUBLISHER')">
 			<li>
 				<a class="fNiv" href="participation/publisher/list.do"><spring:message code="master.page.myParticipations" /></a>
 			</li>
@@ -156,6 +159,12 @@
 			<li>
 				<a class="fNiv" href="messageBox/list.do"><spring:message code="master.page.boxes" /></a>
 			</li>
+			
+		</security:authorize>
+		
+		<!-- My profile and logout -->
+		<security:authorize access="isAuthenticated()">
+			<li><a class="fNiv" href="actor/display.do"><spring:message code="master.page.profile" />(<security:authentication property="principal.username" />)</a></li>
 			<li><a class="fNiv"><spring:message code="actor.settings" /></a>
 				<ul>
 					<li>
@@ -163,13 +172,9 @@
 					</li>
 				</ul>
 			</li>
-		</security:authorize>
-		
-		<!-- My profile and logout -->
-		<security:authorize access="isAuthenticated()">
-			<li><a class="fNiv" href="actor/display.do"><spring:message code="master.page.profile" />(<security:authentication property="principal.username" />)</a></li>
-			<li><a class="fNiv" href="j_spring_security_logout"><spring:message
-						code="master.page.logout" /> </a></li>
+			<li>
+				<a class="fNiv" href="j_spring_security_logout"><spring:message code="master.page.logout" /> </a>
+			</li>
 		</security:authorize>
 		
 		

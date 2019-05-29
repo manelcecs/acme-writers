@@ -212,7 +212,7 @@
 			<display:table name="opinions" id="opinion">
 
 				<display:column titleKey="opinion.book">
-					<jstl:out value="${opinion.book}" />
+					<jstl:out value="${opinion.book.title}" />
 				</display:column>
 
 				<display:column titleKey="opinion.moment">

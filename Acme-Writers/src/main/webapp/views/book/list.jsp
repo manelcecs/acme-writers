@@ -81,7 +81,16 @@
    				 <acme:button url="book/writer/copy.do?idBook=${book.id}" type="button" code="book.list.copy"/>
    			 </jstl:if>
    			 </display:column>
-   		 	<display:column titleKey="book.list.status"><jstl:out value="${book.status}"/></display:column>
+   		 	<display:column titleKey="book.list.score">
+   		 	<jstl:choose> 
+				<jstl:when test="${book.score == null}">
+					<jstl:out value="N/A"/>
+				</jstl:when>
+				<jstl:otherwise>
+					<jstl:out value="${book.score}"/>
+				</jstl:otherwise>
+			</jstl:choose>
+   		 	</display:column>
 		</jstl:when>
 		
 		<jstl:when test="${publisher}">
@@ -109,7 +118,16 @@
 			<display:column titleKey="book.list.display">
    				 <acme:button url="book/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
-   			 <display:column titleKey="book.list.score"><jstl:out value="${book.score}"/></display:column>
+   			 <display:column titleKey="book.list.score">
+   			 <jstl:choose> 
+				<jstl:when test="${book.score == null}">
+					<jstl:out value="N/A"/>
+				</jstl:when>
+				<jstl:otherwise>
+					<jstl:out value="${book.score}"/>
+				</jstl:otherwise>
+			</jstl:choose>
+   			 </display:column>
 
 		</jstl:otherwise>
 		</jstl:choose>

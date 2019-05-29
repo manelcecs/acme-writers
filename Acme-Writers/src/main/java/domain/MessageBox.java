@@ -15,6 +15,8 @@ import javax.validation.Valid;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Access(AccessType.PROPERTY)
 @Table(indexes = {
@@ -23,9 +25,9 @@ import org.hibernate.validator.constraints.SafeHtml;
 public class MessageBox extends DomainEntity {
 
 	private String				name;
-	//@JsonIgnore
+	@JsonIgnore
 	private boolean				deleteable;
-	//@JsonIgnore
+	@JsonIgnore
 	private Collection<Message>	messages;
 	private MessageBox			parent;
 
