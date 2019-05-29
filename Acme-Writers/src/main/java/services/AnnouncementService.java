@@ -11,6 +11,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 import javax.validation.ValidationException;
 
+import org.joda.time.LocalDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
@@ -56,7 +57,8 @@ public class AnnouncementService {
 
 		Assert.isTrue(announcement.getWriter().getId() == this.actorService.findByUserAccount(LoginService.getPrincipal()).getId());
 
-		announcement.setMoment(new Date());
+		final LocalDate date = new LocalDate(2019, 02, 02);
+		announcement.setMoment(date.toDate());
 
 		final Announcement res = this.announcementRepository.saveAndFlush(announcement);
 

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -63,7 +64,11 @@ public class WriterService {
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
 			final String pass = encoder.encodePassword(userAccount.getPassword(), null);
 			userAccount.setPassword(pass);
-
+			final Collection<Authority> authorities = new ArrayList<>();
+			final Authority auth = new Authority();
+			auth.setAuthority("PUBLISHER");
+			authorities.add(auth);
+			userAccount.setAuthorities(authorities);
 			final UserAccount finalAccount = this.accountRepository.save(userAccount);
 
 			writer.setUserAccount(finalAccount);
@@ -75,7 +80,6 @@ public class WriterService {
 		return res;
 
 	}
-
 	public void flush() {
 		this.writerRepository.flush();
 	}
