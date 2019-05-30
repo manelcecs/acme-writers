@@ -123,4 +123,8 @@ public class GenreService {
 		}
 		return acum;
 	}
+
+	public void flush() {
+		this.genreRepository.flush();
+	}
 }

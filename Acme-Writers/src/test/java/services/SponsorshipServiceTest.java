@@ -35,7 +35,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 
 
 	/*
-	 * This test reefer to requeriment XX
+	 * This test reefer to requeriment 24
 	 * An actor who is authenticated as a sponsor must be able to:
 	 * Manage his or her sponsorships, which includes LISTING, showing,
 	 * creating, updating and deleting them.
@@ -89,7 +89,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * This test reefer to requeriment XX
+	 * This test reefer to requeriment 24
 	 * An actor who is authenticated as a sponsor must be able to:
 	 * Manage his or her sponsorships, which includes listing, SHOWING,
 	 * creating, updating and deleting them.
@@ -141,7 +141,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * This test reefer to requeriment XX
+	 * This test reefer to requeriment 24
 	 * An actor who is authenticated as a sponsor must be able to:
 	 * Manage his or her sponsorships, which includes listing, showing,
 	 * CREATING, updating and deleting them.
@@ -218,7 +218,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 	/*
-	 * This test reefer to requeriment XX
+	 * This test reefer to requeriment 24
 	 * An actor who is authenticated as a sponsor must be able to:
 	 * Manage his or her sponsorships, which includes listing, showing,
 	 * creating, UPDATING and deleting them.
@@ -357,7 +357,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	}
 
 	/*
-	 * This test reefer to requeriment 13.1
+	 * This test reefer to requeriment 24
 	 * An actor who is authenticated as a sponsor must be able to:
 	 * Manage his or her sponsorships, which includes listing, showing,
 	 * creating, updating and DELETING them.
