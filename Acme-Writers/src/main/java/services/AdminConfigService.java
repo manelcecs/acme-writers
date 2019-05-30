@@ -70,13 +70,16 @@ public class AdminConfigService {
 	public boolean existSpamWord(final Message message) {
 		boolean exist = false;
 		final Collection<String> spamWords = this.getAdminConfig().getSpamWords();
+		final Boolean tagIsEmpty = message.getTags() == null ? true : false;
+
 		for (final String spamWord : spamWords) {
-			final Integer spam = this.messageService.existsSpamWordInMessage(message.getId(), spamWord);
+			final Integer spam = this.messageService.existsSpamWordInMessage(message.getId(), spamWord, tagIsEmpty);
 			if (spam != null) {
 				exist = true;
 				break;
 			}
 		}
+
 		return exist;
 	}
 

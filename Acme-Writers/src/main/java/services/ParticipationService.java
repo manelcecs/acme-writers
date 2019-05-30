@@ -2,7 +2,6 @@
 package services;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -47,8 +46,6 @@ public class ParticipationService {
 
 	@Autowired
 	private Validator				validator;
-
-	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
 	public Participation create(final int idContest) throws ParseException {

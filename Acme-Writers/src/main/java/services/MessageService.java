@@ -65,7 +65,7 @@ public class MessageService {
 
 		messageBD = this.spamMessageDetector(messageBD);
 
-		return messageBD;
+		return this.messageRepository.save(messageBD);
 
 	}
 
@@ -188,10 +188,16 @@ public class MessageService {
 		return s;
 	}
 
-	public Integer existsSpamWordInMessage(final int idMessage, final String word) {
-		return this.messageRepository.existsSpamWordInMessage(idMessage, word);
-	}
+	public Integer existsSpamWordInMessage(final int idMessage, final String word, final Boolean tagIsEmpty) {
+		final Integer res = 0;
 
+		if (tagIsEmpty)
+			this.messageRepository.existsSpamWordInMessageWithoutTag(idMessage, word);
+		else
+			this.messageRepository.existsSpamWordInMessage(idMessage, word);
+
+		return res;
+	}
 	public Message notifyStatusBook(final Book book) throws ParseException {
 		final Actor sender = book.getPublisher();
 		final Collection<Actor> recipients = new ArrayList<>();
