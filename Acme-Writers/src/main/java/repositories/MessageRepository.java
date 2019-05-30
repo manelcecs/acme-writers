@@ -22,4 +22,7 @@ public interface MessageRepository extends JpaRepository<Message, Integer> {
 	@Query("select distinct(m.id) from Message m join m.tags t where (m.subject LIKE %?2% or m.body LIKE %?2% or t LIKE %?2%) and m.id = ?1")
 	Integer existsSpamWordInMessage(int idMessage, String spamWord);
 
+	@Query("select distinct(m.id) from Message m join m.tags t where (m.subject LIKE %?2% or m.body LIKE %?2%) and m.id = ?1")
+	Integer existsSpamWordInMessageWithoutTag(int idMessage, String spamWord);
+
 }
