@@ -30,6 +30,13 @@
 		<acme:checkbox code="opinion.edit.like" path="positiveOpinion"/>	
 		
 		<acme:submit name="save" code="opinion.edit.save"/>
-		<acme:cancel url="opinion/reader/list.do" code="opinion.edit.back"/>
+		<jstl:choose>
+			<jstl:when test="${opinion.id == 0}">
+				<acme:cancel url="${urlBack}" code="opinion.edit.back"/>
+			</jstl:when>
+			<jstl:otherwise>
+				<acme:cancel url="opinion/reader/list.do" code="opinion.edit.back"/>
+			</jstl:otherwise>
+		</jstl:choose>
 	</form:form>
 	
