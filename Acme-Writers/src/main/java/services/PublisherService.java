@@ -103,7 +103,7 @@ public class PublisherService {
 		publisherForm.setCreditCard(ValidateCreditCard.checkNumeroAnno(publisherForm.getCreditCard()));
 
 		ValidateCreditCard.checkGregorianDate(publisherForm.getCreditCard(), binding);
-		ValidateCreditCard.checkMakeCreditCard(publisherForm.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(publisherForm.getCreditCard(), this.adminConfigService.getAdminConfig().getCreditCardMakes(), binding);
 
 		final Publisher result;
 		result = this.create();
@@ -140,7 +140,7 @@ public class PublisherService {
 
 		publisher.setCreditCard(ValidateCreditCard.checkNumeroAnno(publisher.getCreditCard()));
 		ValidateCreditCard.checkGregorianDate(publisher.getCreditCard(), binding);
-		ValidateCreditCard.checkMakeCreditCard(publisher.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(publisher.getCreditCard(), this.adminConfigService.getAdminConfig().getCreditCardMakes(), binding);
 
 		final Publisher result;
 		result = this.findByPrincipal(LoginService.getPrincipal());

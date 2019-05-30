@@ -122,7 +122,7 @@ public class SponsorService {
 
 		sponsorForm.setCreditCard(ValidateCreditCard.checkNumeroAnno(sponsorForm.getCreditCard()));
 		ValidateCreditCard.checkGregorianDate(sponsorForm.getCreditCard(), binding);
-		ValidateCreditCard.checkMakeCreditCard(sponsorForm.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(sponsorForm.getCreditCard(), this.adminConfigService.getAdminConfig().getCreditCardMakes(), binding);
 
 		final Sponsor result;
 		result = this.create();
@@ -159,7 +159,7 @@ public class SponsorService {
 
 		sponsor.setCreditCard(ValidateCreditCard.checkNumeroAnno(sponsor.getCreditCard()));
 		ValidateCreditCard.checkGregorianDate(sponsor.getCreditCard(), binding);
-		ValidateCreditCard.checkMakeCreditCard(sponsor.getCreditCard(), binding);
+		ValidateCreditCard.checkMakeCreditCard(sponsor.getCreditCard(), this.adminConfigService.getAdminConfig().getCreditCardMakes(), binding);
 
 		final Sponsor result;
 		result = this.findByPrincipal(LoginService.getPrincipal());

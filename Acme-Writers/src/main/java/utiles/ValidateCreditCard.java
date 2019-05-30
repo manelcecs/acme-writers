@@ -13,9 +13,6 @@ import domain.CreditCard;
 
 public class ValidateCreditCard {
 
-	@Autowired
-	private static AdminConfigService	adminConfigService;
-
 
 	@Deprecated
 	public static void checkFecha(final CreditCard card, final BindingResult binding) {
@@ -74,10 +71,10 @@ public class ValidateCreditCard {
 		return result;
 	}
 
-	public static void checkMakeCreditCard(final CreditCard card, final BindingResult binding) {
+	public static void checkMakeCreditCard(final CreditCard card, Collection<String> makes, final BindingResult binding) {
 		final String make = card.getMake();
 
-		final Collection<String> makers = ValidateCreditCard.adminConfigService.getAdminConfig().getCreditCardMakes();
+		final Collection<String> makers = makes;
 
 		if (!makers.contains(make))
 			binding.rejectValue("creditCard.make", "creditCard.make.error");
