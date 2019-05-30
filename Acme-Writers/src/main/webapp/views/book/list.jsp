@@ -112,6 +112,9 @@
    			 <display:column titleKey="book.list.display">
    				 <acme:button url="book/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
+   			 <display:column titleKey="book.list.opinion">
+   				 <acme:button url="opinion/reader/create.do?idBook=${book.id}&urlBack=${requestURI}" type="button" code="book.list.opinion"/>
+   			 </display:column>
 		</jstl:when>
 
 		<jstl:otherwise>

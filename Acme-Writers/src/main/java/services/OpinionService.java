@@ -39,6 +39,11 @@ public class OpinionService {
 	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 
 
+	public Opinion save(final Opinion opinion, final BindingResult bindingResult) throws ParseException {
+		final Opinion opinionRec = this.reconstruct(opinion, bindingResult);
+		return this.save(opinionRec);
+	}
+
 	public Opinion save(final Opinion opinion) {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("READER"));
 		Assert.isTrue(opinion.getReader().equals(this.readerService.findByPrincipal(LoginService.getPrincipal())));
