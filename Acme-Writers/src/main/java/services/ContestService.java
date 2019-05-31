@@ -20,6 +20,7 @@ import utiles.AuthorityMethods;
 import domain.Contest;
 import domain.Participation;
 import domain.Publisher;
+import domain.Sponsorship;
 import domain.Writer;
 
 @Service
@@ -34,6 +35,9 @@ public class ContestService {
 
 	@Autowired
 	private ParticipationService	participationService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
 
 	@Autowired
 	private WriterService			writerService;
@@ -78,6 +82,9 @@ public class ContestService {
 		final Collection<Participation> participations = this.participationService.getParticipationsOfContest(contest.getId());
 
 		this.participationService.deleteCollectionOfParticipations(participations);
+
+		this.removeSponsorshipOfAContest(contest);
+
 		this.contestRepository.delete(contest);
 
 	}
@@ -111,6 +118,18 @@ public class ContestService {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 		return this.contestRepository.getContestCanParticipate(writerLogged.getId());
+	}
+
+	private void removeSponsorshipOfAContest(final Contest contest) {
+		final Collection<Sponsorship> sponsorships = this.sponsorshipService.getSponsorshipsOfContest(contest.getId());
+
+		for (final Sponsorship sponsorship : sponsorships) {
+			final Collection<Contest> contestsSponsored = sponsorship.getContests();
+			contestsSponsored.remove(contest);
+			sponsorship.setContests(contestsSponsored);
+		}
+
+		this.sponsorshipService.save(sponsorships);
 	}
 
 }

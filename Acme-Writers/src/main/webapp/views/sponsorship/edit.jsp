@@ -23,7 +23,7 @@
 		<acme:textbox code="sponsorship.edit.bannerURL" path="bannerURL"/>
 		
 	
-		<acme:select items="${posibleContests}" optional="false" itemLabel="description" code="sponsorship.edit.contests" path="contests"/>
+		<acme:select items="${posibleContests}" itemLabel="description" code="sponsorship.edit.contests" path="contests"/>
 		
 
 		
