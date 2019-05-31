@@ -90,7 +90,6 @@ public class Sponsorship extends DomainEntity {
 
 	@Valid
 	@ManyToMany
-	@NotNull
 	public Collection<Contest> getContests() {
 		return this.contests;
 	}

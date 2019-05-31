@@ -19,4 +19,7 @@ public interface SponsorshipRepository extends JpaRepository<Sponsorship, Intege
 	@Query("select sp from Sponsorship sp join sp.contests p where p.id = ?1 and sp.cancelled = false")
 	List<Sponsorship> findAllByContest(int idContest);
 
+	@Query("select distinct(sp) from Sponsorship sp join sp.contests c where c.id = ?1")
+	Collection<Sponsorship> getSponsorshipsOfContest(int idContest);
+
 }

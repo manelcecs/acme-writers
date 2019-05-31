@@ -164,4 +164,8 @@ public class SponsorshipService {
 	public Collection<Sponsorship> save(final Collection<Sponsorship> sponsorships) {
 		return this.sponsorshipRepository.save(sponsorships);
 	}
+
+	public Collection<Sponsorship> getSponsorshipsOfContest(final int idContest) {
+		return this.sponsorshipRepository.getSponsorshipsOfContest(idContest);
+	}
 }
