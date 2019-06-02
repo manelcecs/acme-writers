@@ -108,6 +108,10 @@ public class ParticipationService {
 		this.participationRepository.delete(participations);
 	}
 
+	public void flush() {
+		this.participationRepository.flush();
+	}
+
 	public Participation reconstruct(final Participation participation, final BindingResult binding) throws ParseException {
 		Participation participationRec;
 		if (participation.getId() == 0) {
