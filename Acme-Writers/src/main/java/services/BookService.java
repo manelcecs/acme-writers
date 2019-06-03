@@ -1,6 +1,8 @@
 
 package services;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Collection;
 
@@ -17,6 +19,14 @@ import repositories.BookRepository;
 import security.LoginService;
 import utiles.AuthorityMethods;
 import utiles.IntermediaryBetweenTransactions;
+
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.pdf.BaseFont;
+import com.itextpdf.text.pdf.PdfWriter;
+
 import domain.Book;
 import domain.Chapter;
 import domain.Publisher;
@@ -135,7 +145,6 @@ public class BookService {
 		return this.save(book);
 	}
 
-	//FIXME: CONTROLAR QUE EL IDIOMA ESTE EN LA LISTA DE IDIOMAS
 	public Book save(final Book book) {
 
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
@@ -396,5 +405,23 @@ public class BookService {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("WRITER"));
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 		return this.bookRepository.getBooksCanParticipate(writerLogged.getId(), idContest);
+	}
+
+	//FIXME: añadir asserts
+	public Document generatePDF(final int idBook) throws DocumentException, IOException {
+		final Document doc = new Document();
+		final Book book = this.findOne(idBook);
+
+		PdfWriter.getInstance(doc, new FileOutputStream(book.getTitle() + ".pdf"));
+
+		doc.open();
+		final BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.EMBEDDED);
+		final Font font = new Font(helvetica, 12, Font.NORMAL);
+		final Chunk chunk = new Chunk("Esto es una prueba cojones", font);
+
+		doc.add(chunk);
+		doc.close();
+
+		return doc;
 	}
 }

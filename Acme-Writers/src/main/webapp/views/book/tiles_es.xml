@@ -30,6 +30,12 @@
 		<put-attribute name="title" value="Ver libro" />
 		<put-attribute name="body" value="/views/book/display.jsp" />
 	</definition>
+		
+	<definition name="book/download" extends="master.page">	
+		<put-attribute name="title" value="Descargar libro" />
+		<put-attribute name="body" value="/views/book/download.jsp" />
+	</definition>
+	
 	
 	
 </tiles-definitions>

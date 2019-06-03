@@ -110,4 +110,8 @@
    		 </display:column>
    		 <display:column titleKey="book.display.opinion.review"><jstl:out value="${opinion.review}"/></display:column>
 </display:table>
+<hr/>
+
+<a target="_blank" href="book/reader/downloadBook.do?idBook=${book.id}">Download here!!!</a>
+
 

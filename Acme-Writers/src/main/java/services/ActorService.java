@@ -547,4 +547,8 @@ public class ActorService {
 		return actor;
 	}
 
+	public void flush() {
+		this.actorRepository.flush();
+	}
+
 }
