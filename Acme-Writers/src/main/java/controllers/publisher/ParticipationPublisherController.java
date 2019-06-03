@@ -2,7 +2,6 @@
 package controllers.publisher;
 
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -52,14 +51,7 @@ public class ParticipationPublisherController extends AbstractController {
 				result = this.listModelAndView("participation.cannot.edit");
 			else {
 				final Date actual = new Date();
-				final Integer numOfPositions = this.participationService.getNumberOfParticipationsInAContest(participation.getContest().getId());
-				int i = 1;
-				final List<Integer> positions = new ArrayList<Integer>();
-				while (i <= numOfPositions) {
-					positions.add(i);
-					i++;
-				}
-				positions.removeAll(this.participationService.getAvailablePositions(participation.getContest().getId()));
+				final List<Integer> positions = this.participationService.getAvailablePositionsInAContest(participation.getContest().getId());
 				result = this.createEditModelAndView(participation);
 				result.addObject("actual", actual);
 				result.addObject("positions", positions);
