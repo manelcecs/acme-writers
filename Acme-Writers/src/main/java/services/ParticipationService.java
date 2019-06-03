@@ -2,6 +2,7 @@
 package services;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -127,8 +128,12 @@ public class ParticipationService {
 				Assert.isTrue(participationRec.getStatus().equals("PENDING"));
 				Assert.isTrue(participation.getStatus().equals("ACCEPTED") || participation.getStatus().equals("REJECTED"));
 				participationRec.setStatus(participation.getStatus());
-			} else if (participationRec.getStatus().equals("ACCEPTED"))
+			} else if (participationRec.getStatus().equals("ACCEPTED")) {
+				final List<Integer> positions = this.getAvailablePositionsInAContest(participationRec.getContest().getId());
+				if (!(positions.contains(participation.getPosition()) || participation.getPosition() == null))
+					binding.rejectValue("position", "participation.edit.position.error");
 				participationRec.setPosition(participation.getPosition());
+			}
 		}
 
 		this.validator.validate(participationRec, binding);
@@ -143,11 +148,20 @@ public class ParticipationService {
 		return this.participationRepository.getParticipationsOfContest(idContest);
 	}
 
-	public Integer getNumberOfParticipationsInAContest(final int idContest) {
-		return this.participationRepository.getNumberOfParticipations(idContest);
+	public List<Integer> getAvailablePositionsInAContest(final int idContest) {
+		final Integer numOfPositions = this.participationRepository.getNumberOfParticipations(idContest);
+		int i = 1;
+		final List<Integer> positions = new ArrayList<Integer>();
+		while (i <= numOfPositions) {
+			positions.add(i);
+			i++;
+		}
+		positions.removeAll(this.getAvailablePositions(idContest));
+		return positions;
 	}
 
 	public List<Integer> getAvailablePositions(final int idContest) {
 		return this.participationRepository.getAvailablePositions(idContest);
 	}
+
 }

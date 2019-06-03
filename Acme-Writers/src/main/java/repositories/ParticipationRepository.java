@@ -22,7 +22,7 @@ public interface ParticipationRepository extends JpaRepository<Participation, In
 	@Query("select p from Participation p join p.contest c join c.publisher pu where pu.id = ?1")
 	Collection<Participation> getParticipationsOfPublisher(int idPublisher);
 
-	@Query("select count(p) from Participation p join p.contest c where c.id = ?1")
+	@Query("select count(p) from Participation p join p.contest c where c.id = ?1 and p.status = 'ACCEPTED'")
 	Integer getNumberOfParticipations(int idContest);
 
 	@Query("select p.position from Participation p join p.contest c where c.id = ?1")

@@ -40,7 +40,9 @@
 					<jstl:forEach items="${positions}" var="position">
 	     				<form:option value="${position}" ><jstl:out value="${position}"/></form:option>
    					</jstl:forEach>
-   				</form:select>		    
+   				</form:select>
+   				<form:errors path="position" cssClass="error" />			
+   						    
    			<br/>
 			</jstl:if>
 		<acme:submit name="save" code="participation.edit.save" />
