@@ -116,7 +116,7 @@ public class Message extends DomainEntity {
 		this.messageBoxes = messageBoxes;
 	}
 
-	@Pattern(regexp = "^(HIGH|MEDIUM|LOW)$")
+	@Pattern(regexp = "^(HIGH|NEUTRAL|LOW)$")
 	@NotBlank
 	@SafeHtml
 	public String getPriority() {

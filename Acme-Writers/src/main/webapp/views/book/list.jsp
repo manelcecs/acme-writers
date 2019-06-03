@@ -32,6 +32,8 @@
 		</display:column>
    		<display:column titleKey="book.list.numWords"><jstl:out value="${book.numWords}"/></display:column>
    		<display:column titleKey="book.list.publisher"><jstl:out value="${book.publisher.commercialName}"/></display:column>
+   		<display:column titleKey="book.list.writer"><jstl:out value="${book.writer.name}"/></display:column>
+   		<display:column titleKey="book.list.seeWriter"><acme:button url="writer/display.do?writerId=${book.writer.id}" type="button" code="book.list.display"/></display:column>
 		<jstl:choose>
 		
 		
@@ -111,6 +113,9 @@
    			 </display:column>
    			 <display:column titleKey="book.list.display">
    				 <acme:button url="book/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
+   			 </display:column>
+   			 <display:column titleKey="book.list.opinion">
+   				 <acme:button url="opinion/reader/create.do?idBook=${book.id}&urlBack=${requestURI}" type="button" code="book.list.opinion"/>
    			 </display:column>
 		</jstl:when>
 

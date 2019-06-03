@@ -45,6 +45,11 @@ public class OpinionService {
 		return this.opinionRepository.save(opinion);
 	}
 
+	public Opinion save(final Opinion opinion, final BindingResult bindingResult) throws ParseException {
+		final Opinion opinionRec = this.reconstruct(opinion, bindingResult);
+		return this.save(opinionRec);
+	}
+
 	public void delete(final int idOpinion) {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("READER"));
 		final Opinion opinion = this.findOne(idOpinion);

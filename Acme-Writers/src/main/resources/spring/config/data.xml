@@ -31,6 +31,9 @@
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/Acme-Writers" />
 		<property name="user" value="acme-user" />
 		<property name="password" value="ACME-Us3r-P@ssw0rd" />
+		<!-- <property name="jdbcUrl" value="jdbc:mysql://bgzulhee4bvznneggrbg-mysql.services.clever-cloud.com:3306/bgzulhee4bvznneggrbg" />
+		<property name="user" value="uiyardlxqfk7vcfy" />
+		<property name="password" value="tWfTkOS0eXyW7dNI2LrQ" /> -->
 		<property name="minPoolSize" value="1" />
 		<property name="maxPoolSize" value="5" />
 	</bean>

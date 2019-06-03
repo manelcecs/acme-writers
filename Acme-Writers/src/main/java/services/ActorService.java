@@ -429,7 +429,8 @@ public class ActorService {
 
 		final Collection<Book> books = this.bookService.getAllVisibleBooksOfWriter(actor.getId());
 		for (final Book book : books) {
-			book.setCover("http://www.adrbook.com/db/galeri/304.jpg");
+			book.setTitle("Anonymous Book");
+			book.setCover(null);
 			book.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
 			book.setCancelled(true);
 
@@ -452,10 +453,8 @@ public class ActorService {
 			this.participationService.saveAnonimize(p);
 		}
 		final Collection<Announcement> announcements = this.announcementService.findAllWriter(actor.getId());
-		for (final Announcement ann : announcements) {
-			ann.setText("Lorem ipsum dolor.");
-			this.announcementService.saveAnonymize(ann);
-		}
+		for (final Announcement ann : announcements)
+			this.announcementService.delete(ann);
 
 		return actor;
 	}
@@ -526,6 +525,8 @@ public class ActorService {
 		actor.setBanned(false);
 		actor.setSpammer(null);
 
+		actor.setCommercialName("anonymousCompany");
+
 		actor.setUserAccount(this.anonymizeUserAccount(actor.getUserAccount()));
 
 		this.anonymizeCreditCard(actor.getCreditCard());
@@ -535,6 +536,8 @@ public class ActorService {
 
 		final Collection<Contest> contests = this.contestService.getContestsOfPublisher(actor.getId());
 		for (final Contest c : contests) {
+			c.setTitle("NONE");
+			c.setPrize("LOREM IPSUM DOLOR");
 			c.setDescription("Lorem ipsum dolor");
 			c.setRules(null);
 			this.contestService.saveAnonymize(c);

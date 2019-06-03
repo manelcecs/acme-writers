@@ -48,11 +48,13 @@ public class MessageBoxService {
 
 	public MessageBox save(final MessageBox messageBox) {
 		Assert.isTrue(this.notLikeOriginalName(messageBox.getName()));
-
+		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		if (messageBox.getParent() != null) {
 			Assert.isTrue(messageBox.getId() != messageBox.getParent().getId());
 			final Collection<MessageBox> childrens = this.allChildren(messageBox);
 			Assert.isTrue(!childrens.contains(messageBox.getParent()));
+			Assert.isTrue(this.actorService.getByMessageBox(messageBox.getParent().getId()).getId() == actor.getId());
+			Assert.isTrue(messageBox.getParent().getDeleteable());
 		}
 
 		if (messageBox.getId() != 0) {
@@ -61,7 +63,6 @@ public class MessageBoxService {
 			Assert.isTrue(messageBox.getDeleteable());
 		}
 
-		final Actor actor = this.actorService.findByUserAccount(LoginService.getPrincipal());
 		final MessageBox boxSave = this.messageBoxRepository.save(messageBox);
 
 		if (messageBox.getId() == 0) {

@@ -71,7 +71,7 @@ public class ReaderReaderControler extends AbstractController {
 		try {
 			final Reader readerRect = this.readerService.reconstruct(reader, binding);
 			this.readerService.save(readerRect);
-			res = new ModelAndView("redirect:/welcome/index.do");
+			res = new ModelAndView("redirect:/actor/display.do");
 		} catch (final ValidationException oops) {
 			res = this.createEditModelAndView(reader);
 		} catch (final Throwable oops) {

@@ -39,6 +39,7 @@ public class AnnouncementReaderController extends AbstractController {
 		res.addObject("announcements", announcements);
 
 		res.addObject("writer", false);
+		res.addObject("requestURI", "/announcement/reader/list.do");
 		this.configValues(res);
 
 		return res;
@@ -53,6 +54,7 @@ public class AnnouncementReaderController extends AbstractController {
 		res.addObject("announcements", announcements);
 
 		res.addObject("writer", false);
+		res.addObject("requestURI", "/announcement/reader/listAllMyWriters.do");
 		this.configValues(res);
 
 		return res;

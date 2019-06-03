@@ -75,6 +75,7 @@ public class AnnouncementWriterController extends AbstractController {
 		final Collection<Announcement> announcements = this.announcementService.findAllWriter(this.actorService.findByUserAccount(LoginService.getPrincipal()).getId());
 		res.addObject("announcements", announcements);
 		res.addObject("writer", true);
+		res.addObject("requestURI", "/announcement/writer/list.do");
 		this.configValues(res);
 
 		return res;

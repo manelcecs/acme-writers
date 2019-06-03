@@ -25,7 +25,10 @@
  <acme:button url="book/publisher/changeStatus.do?idBook=${book.id}&status=REJECTED" type="button" code="book.list.reject"/>
 </jstl:if><br/>
 
-<img src="<jstl:out value="${book.cover}"/>" alt="<jstl:out value="${book.cover}"/>" height="250" width="250">
+<jstl:if test="${book.cover != null}">
+	<img src="<jstl:out value="${book.cover}"/>" alt="<jstl:out value="${book.cover}"/>" height="250" width="250">
+</jstl:if>
+
 <acme:text label="book.display.title" value="${book.title}"/>
 <acme:text label="book.display.description" value="${book.description}"/>
 <acme:text label="book.display.language" value="${book.language}"/>

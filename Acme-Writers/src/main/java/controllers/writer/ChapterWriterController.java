@@ -89,8 +89,9 @@ public class ChapterWriterController extends AbstractController {
 
 		final Collection<Integer> numbersOfBook = this.chapterService.getNumbersOfChaptersOfABook(chapter.getBook().getId());
 
-		if (numbersOfBook.contains(chapter.getNumber()))
-			bindingResult.rejectValue("number", "chapter.constraint.numberChapter");
+		if (chapter.getNumber() != this.chapterService.findOne(chapter.getId()).getNumber())
+			if (numbersOfBook.contains(chapter.getNumber()))
+				bindingResult.rejectValue("number", "chapter.constraint.numberChapter");
 
 		if (bindingResult.hasErrors())
 			result = this.createEditModelAndView(chapter);

@@ -1224,38 +1224,38 @@
     </bean>
     
     <bean class="domain.Genre" id="genre1">
-        <property value="aventuras" name="nameES" />
-        <property value="adventures" name="nameEN" />    
+        <property value="Lejano Oeste" name="nameES" />
+        <property value="Westerns" name="nameEN" />    
         <property name="parent" ref="genre0" />        
     </bean>
     
     <bean class="domain.Genre" id="genre2">
-        <property value="terror" name="nameES" />
-        <property value="terror" name="nameEN" />    
+        <property value="Romance" name="nameES" />
+        <property value="Romance" name="nameEN" />    
         <property name="parent" ref="genre0" />        
     </bean>
     
     <bean class="domain.Genre" id="genre3">
-        <property value="comedia" name="nameES" />
-        <property value="comedy" name="nameEN" />
+        <property value="Suspense" name="nameES" />
+        <property value="Threaller" name="nameEN" />
         <property name="parent" ref="genre0" />            
     </bean>
     
     <bean class="domain.Genre" id="genre4">
-        <property value="comedia infantil" name="nameES" />
-        <property value="children's comedy" name="nameEN" />    
+        <property value="Fantasia" name="nameES" />
+        <property value="Fantasy" name="nameEN" />    
         <property name="parent" ref="genre3" />        
     </bean>
     
 	<bean class="domain.Genre" id="genre5">
         <property value="Ciencia Ficción" name="nameES" />
-        <property value="Sci-fy" name="nameEN" />
+        <property value="Science Fiction" name="nameEN" />
         <property name="parent" ref="genre0" />            
     </bean>
     
     <bean class="domain.Genre" id="genre6">
-        <property value="Extraterrestes" name="nameES" />
-        <property value="Aliens" name="nameEN" />
+        <property value="Misterio" name="nameES" />
+        <property value="Mystery" name="nameEN" />
         <property name="parent" ref="genre5" />            
     </bean>
     

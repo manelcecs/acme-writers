@@ -70,7 +70,7 @@ public class PublisherPublisherController extends AbstractController {
 		try {
 			final Publisher publisherRect = this.publisherService.reconstruct(publisher, binding);
 			this.publisherService.save(publisherRect);
-			res = new ModelAndView("redirect:/welcome/index.do");
+			res = new ModelAndView("redirect:/actor/display.do");
 		} catch (final ValidationException oops) {
 			res = this.createEditModelAndView(publisher);
 		} catch (final Throwable oops) {

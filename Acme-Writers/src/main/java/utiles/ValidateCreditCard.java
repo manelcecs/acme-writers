@@ -5,14 +5,11 @@ import java.util.Collection;
 import java.util.GregorianCalendar;
 
 import org.joda.time.LocalDate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 
-import services.AdminConfigService;
 import domain.CreditCard;
 
 public class ValidateCreditCard {
-
 
 	@Deprecated
 	public static void checkFecha(final CreditCard card, final BindingResult binding) {
@@ -71,7 +68,7 @@ public class ValidateCreditCard {
 		return result;
 	}
 
-	public static void checkMakeCreditCard(final CreditCard card, Collection<String> makes, final BindingResult binding) {
+	public static void checkMakeCreditCard(final CreditCard card, final Collection<String> makes, final BindingResult binding) {
 		final String make = card.getMake();
 
 		final Collection<String> makers = makes;

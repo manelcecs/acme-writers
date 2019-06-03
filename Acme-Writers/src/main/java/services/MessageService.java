@@ -56,6 +56,8 @@ public class MessageService {
 
 	public Message save(final Message message) throws ParseException {
 		Assert.isTrue(AuthorityMethods.checkIsSomeoneLogged());
+
+		Assert.isTrue(!message.getRecipients().contains(message.getSender()));
 		if (message.getId() == 0) {
 			Assert.isTrue(this.actorService.findByUserAccount(LoginService.getPrincipal()).equals(message.getSender()));
 			this.messageToBoxByDefault(message);

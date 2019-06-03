@@ -65,7 +65,7 @@ public class SponsorSponsorController extends AbstractController {
 		try {
 			final Sponsor sponsorRect = this.sponsorService.reconstruct(sponsor, binding);
 			this.sponsorService.save(sponsorRect);
-			res = new ModelAndView("redirect:/welcome/index.do");
+			res = new ModelAndView("redirect:/actor/display.do");
 		} catch (final ValidationException oops) {
 			res = this.createEditModelAndView(sponsor);
 		} catch (final Throwable oops) {

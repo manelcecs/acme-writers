@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import security.LoginService;
 import services.BookService;
+import services.ContestService;
 import services.ParticipationService;
 import services.WriterService;
 import controllers.AbstractController;
@@ -35,13 +36,16 @@ public class ParticipationWriterController extends AbstractController {
 	private WriterService			writerService;
 
 	@Autowired
+	private ContestService			contestService;
+
+	@Autowired
 	private BookService				bookService;
 
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
 	public ModelAndView create(@RequestParam final int idContest) throws ParseException {
 		ModelAndView result;
-		if (this.bookService.getBooksCanParticipate(idContest).size() > 0) {
+		if (this.bookService.getBooksCanParticipate(idContest).size() > 0 || this.contestService.isBeforeDeadline(this.contestService.findOne(idContest).getDeadline())) {
 			final Participation participation = this.participationService.create(idContest);
 			result = this.createEditModelAndView(participation);
 		} else
@@ -49,7 +53,6 @@ public class ParticipationWriterController extends AbstractController {
 		return result;
 
 	}
-
 	@RequestMapping(value = "/create", method = RequestMethod.POST, params = "save")
 	public ModelAndView save(final Participation participation, final BindingResult binding) {
 		ModelAndView result;

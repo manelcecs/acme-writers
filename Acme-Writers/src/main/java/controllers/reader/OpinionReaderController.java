@@ -1,6 +1,7 @@
 
 package controllers.reader;
 
+import java.text.ParseException;
 import java.util.Collection;
 
 import javax.validation.ValidationException;
@@ -37,6 +38,10 @@ public class OpinionReaderController extends AbstractController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
+		return this.listModelAndView(null);
+	}
+
+	protected ModelAndView listModelAndView(final String message) {
 		final ModelAndView result = new ModelAndView("opinion/list");
 		final Collection<Opinion> opinions = this.opinionService.findOpinionsByReader(this.readerService.findByPrincipal(LoginService.getPrincipal()).getId());
 
@@ -44,6 +49,7 @@ public class OpinionReaderController extends AbstractController {
 		result.addObject("requestURI", "opinion/list.do");
 
 		this.configValues(result);
+		result.addObject("message", message);
 		return result;
 	}
 
@@ -65,11 +71,12 @@ public class OpinionReaderController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public ModelAndView create(@RequestParam(required = true) final int idBook) {
+	public ModelAndView create(@RequestParam(required = true) final int idBook, @RequestParam(required = true) final String urlBack) {
 		ModelAndView result;
 		final Book book = this.bookService.findOne(idBook);
 		final Opinion opinion = this.opinionService.create(book);
 		result = this.createEditModelAndView(opinion);
+		result.addObject("urlBack", urlBack);
 		return result;
 	}
 
@@ -87,21 +94,16 @@ public class OpinionReaderController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/edit", method = RequestMethod.POST, params = "save")
-	public ModelAndView save(final Opinion opinion, final BindingResult binding) {
+	public ModelAndView save(final Opinion opinion, final BindingResult binding) throws ParseException {
 		ModelAndView result;
 		try {
-			final Opinion opinionRect = this.opinionService.reconstruct(opinion, binding);
-			this.opinionService.save(opinionRect);
+			this.opinionService.save(opinion, binding);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final ValidationException oops) {
 			result = this.createEditModelAndView(opinion);
-		} catch (final Throwable oops) {
-			result = this.createEditModelAndView(opinion, "opinion.edit.commit.error");
-
 		}
 		return result;
 	}
-
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
 	public ModelAndView delete(@RequestParam(required = true) final int idOpinion) {
 		ModelAndView result;
@@ -109,7 +111,7 @@ public class OpinionReaderController extends AbstractController {
 			this.opinionService.delete(idOpinion);
 			result = new ModelAndView("redirect:list.do");
 		} catch (final Throwable oops) {
-			result = new ModelAndView("redirect:list.do");
+			result = this.listModelAndView("opinion.cannot.delete");
 		}
 		return result;
 	}

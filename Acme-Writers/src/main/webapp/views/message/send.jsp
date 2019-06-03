@@ -20,7 +20,7 @@
    		<form:label path="priority"><spring:message code="message.send.priority"/></form:label>
      		<form:select path="priority" multiple="false" >
      			<form:option value="HIGH" ><jstl:out value="HIGH"/></form:option>
-     			<form:option value="MEDIUM" ><jstl:out value="MEDIUM"/></form:option>
+     			<form:option value="NEUTRAL" ><jstl:out value="NEUTRAL"/></form:option>
      			<form:option value="LOW" ><jstl:out value="LOW"/></form:option>
    		</form:select>
    	

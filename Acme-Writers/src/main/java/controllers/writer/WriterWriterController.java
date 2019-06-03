@@ -78,7 +78,7 @@ public class WriterWriterController extends AbstractController {
 		try {
 			final Writer writerRect = this.writerService.reconstruct(writer, binding);
 			this.writerService.save(writerRect);
-			res = new ModelAndView("redirect:/welcome/index.do");
+			res = new ModelAndView("redirect:/actor/display.do");
 		} catch (final ValidationException oops) {
 			res = this.createEditModelAndView(writer);
 		} catch (final Throwable oops) {
