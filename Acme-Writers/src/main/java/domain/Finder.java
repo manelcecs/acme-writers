@@ -31,7 +31,7 @@ public class Finder extends DomainEntity {
 	private String				keyWord;
 	private Integer				minNumWords;
 	private Integer				maxNumWords;
-	private String				language;
+	private String				lang;
 	private Date				lastUpdate;
 
 	//Relationship
@@ -67,12 +67,12 @@ public class Finder extends DomainEntity {
 		this.maxNumWords = maxNumWords;
 	}
 
-	public String getLanguage() {
-		return this.language;
+	public String getLang() {
+		return this.lang;
 	}
 
-	public void setLanguage(final String language) {
-		this.language = language;
+	public void setLang(final String lang) {
+		this.lang = lang;
 	}
 
 	@Temporal(TemporalType.TIMESTAMP)

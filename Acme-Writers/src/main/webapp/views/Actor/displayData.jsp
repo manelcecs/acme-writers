@@ -67,8 +67,8 @@
 				<display:column titleKey="book.description">
 					<jstl:out value="${book.description }" />
 				</display:column>
-				<display:column titleKey="book.language">
-					<jstl:out value="${book.language }" />
+				<display:column titleKey="book.lang">
+					<jstl:out value="${book.lang }" />
 				</display:column>
 				<display:column titleKey="book.numWords">
 					<jstl:out value="${book.numWords }" />

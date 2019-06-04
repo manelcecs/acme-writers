@@ -77,15 +77,14 @@ public class FinderServiceTest extends AbstractTest {
 			this.saveFinderTemplate((String) testingData[i][0], (String) testingData[i][1], (Finder) testingData[i][2], (String) testingData[i][3], (Genre) testingData[i][4], (Integer) testingData[i][5], (Integer) testingData[i][6],
 				(Collection<Book>) testingData[i][7], (Class<?>) testingData[i][8]);
 	}
-	protected void saveFinderTemplate(final String beanName, final String keyword, Finder finder, final String language, final Genre genre, final Integer minNumWords, final Integer maxNumWords, final Collection<Book> resultsExpected,
-		final Class<?> expected) {
+	protected void saveFinderTemplate(final String beanName, final String keyword, Finder finder, final String lang, final Genre genre, final Integer minNumWords, final Integer maxNumWords, final Collection<Book> resultsExpected, final Class<?> expected) {
 		Class<?> caught;
 		caught = null;
 
 		try {
 			super.authenticate(beanName);
 			finder.setKeyWord(keyword);
-			finder.setLanguage(language);
+			finder.setLang(lang);
 			finder.setGenre(genre);
 			finder.setMinNumWords(minNumWords);
 			finder.setMaxNumWords(maxNumWords);

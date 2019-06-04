@@ -18,16 +18,16 @@
 			modelAttribute="finder" method="post">
 
 			<acme:textbox code="finder.edit.keyword" path="keyWord" />
-			<form:label path="language">
-				<spring:message code="finder.edit.language" />
+			<form:label path="lang">
+				<spring:message code="finder.edit.lang" />
 			</form:label>	
-			<form:select path="language">
+			<form:select path="lang">
 				<form:option value="" ><jstl:out value="----"/></form:option>
 				<jstl:forEach items="${languages}" var="language">
 					<form:option value="${language}" ><jstl:out value="${language}"/></form:option>
 				</jstl:forEach>
 			</form:select>
-			<form:errors path="language" cssClass="error" />			
+			<form:errors path="lang" cssClass="error" />			
 			<acme:inputNumber code="finder.edit.minNumWords" path="minNumWords" />
 			<acme:inputNumber code="finder.edit.maxNumWords" path="maxNumWords" />
 			
@@ -60,7 +60,7 @@
 			<display:column titleKey="finder.edit.book.writer"><jstl:out value="${book.writer.name} ${book.writer.surname}"/></display:column>			
 			<display:column titleKey="finder.edit.book.publisher"><jstl:out value="${book.publisher.name} ${book.publisher.surname}"/></display:column>			
 			<display:column titleKey="finder.edit.book.description"><jstl:out value="${book.description}"/></display:column>
-			<display:column titleKey="finder.edit.book.language"><jstl:out value="${book.language}"/></display:column>
+			<display:column titleKey="finder.edit.book.lang"><jstl:out value="${book.lang}"/></display:column>
 			
 			<jstl:choose>
 				<jstl:when test="${cookie.language.value == 'es'}">

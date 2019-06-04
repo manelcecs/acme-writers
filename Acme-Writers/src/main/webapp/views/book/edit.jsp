@@ -21,13 +21,13 @@
    		 <acme:textarea code="book.edit.description" path="description"/>
    	</p>
    	<p>
-		<spring:message code="book.edit.language"/>: <select name="language">
-	  <option value="OTHER" <jstl:if test="${bookForm.language == 'OTHER'}"><jstl:out value="selected"/></jstl:if>>OTHER</option>
-	  <option value="EN" <jstl:if test="${bookForm.language == 'EN'}"><jstl:out value="selected"/></jstl:if>>EN</option>
-	  <option value="ES" <jstl:if test="${bookForm.language == 'ES'}"><jstl:out value="selected"/></jstl:if>>ES</option>
-	  <option value="IT" <jstl:if test="${bookForm.language == 'IT'}"><jstl:out value="selected"/></jstl:if>>IT</option>
-	  <option value="FR" <jstl:if test="${bookForm.language == 'FR'}"><jstl:out value="selected"/></jstl:if>>FR</option>
-	  <option value="DE" <jstl:if test="${bookForm.language == 'DE'}"><jstl:out value="selected"/></jstl:if>>DE</option>
+		<spring:message code="book.edit.lang"/>: <select name="lang">
+	  <option value="OTHER" <jstl:if test="${bookForm.lang == 'OTHER'}"><jstl:out value="selected"/></jstl:if>>OTHER</option>
+	  <option value="EN" <jstl:if test="${bookForm.lang == 'EN'}"><jstl:out value="selected"/></jstl:if>>EN</option>
+	  <option value="ES" <jstl:if test="${bookForm.lang == 'ES'}"><jstl:out value="selected"/></jstl:if>>ES</option>
+	  <option value="IT" <jstl:if test="${bookForm.lang == 'IT'}"><jstl:out value="selected"/></jstl:if>>IT</option>
+	  <option value="FR" <jstl:if test="${bookForm.lang == 'FR'}"><jstl:out value="selected"/></jstl:if>>FR</option>
+	  <option value="DE" <jstl:if test="${bookForm.lang == 'DE'}"><jstl:out value="selected"/></jstl:if>>DE</option>
 	</select>
    	</p>
    	<p>

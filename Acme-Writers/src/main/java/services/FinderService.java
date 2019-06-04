@@ -59,7 +59,7 @@ public class FinderService {
 		String keyWord = finder.getKeyWord();
 		Integer minNumWords = finder.getMinNumWords();
 		Integer maxNumWords = finder.getMaxNumWords();
-		String language = finder.getLanguage();
+		String lang = finder.getLang();
 		int minGenre;
 		int maxGenre;
 		final Genre genre = finder.getGenre();
@@ -70,8 +70,8 @@ public class FinderService {
 			minNumWords = 0;
 		if (maxNumWords == null)
 			maxNumWords = 2147483647;
-		if (language == null)
-			language = "";
+		if (lang == null)
+			lang = "";
 		if (genre == null) {
 			minGenre = 0;
 			maxGenre = 2147483647;
@@ -80,7 +80,7 @@ public class FinderService {
 			maxGenre = genre.getId();
 		}
 
-		final Collection<Book> results = this.bookService.getFilterBooksByFinder(keyWord, minNumWords, maxNumWords, language, minGenre, maxGenre);
+		final Collection<Book> results = this.bookService.getFilterBooksByFinder(keyWord, minNumWords, maxNumWords, lang, minGenre, maxGenre);
 
 		List<Book> returnResults = new ArrayList<Book>();
 		returnResults.addAll(results);
@@ -99,7 +99,7 @@ public class FinderService {
 		finder.setKeyWord(null);
 		finder.setMinNumWords(null);
 		finder.setMaxNumWords(null);
-		finder.setLanguage(null);
+		finder.setLang(null);
 		finder.setGenre(null);
 
 		return this.save(finder);
@@ -139,13 +139,13 @@ public class FinderService {
 		if (finderA.getMaxNumWords() != null && finderB.getMaxNumWords() != null)
 			maxNumWords = finderA.getMaxNumWords() - finderB.getMaxNumWords() == 0;
 
-		Boolean language = true;
-		if (finderA.getLanguage() != null && finderB.getLanguage() == null)
-			language = finderA.getLanguage().isEmpty();
-		if (finderA.getLanguage() == null && finderB.getLanguage() != null)
-			language = finderB.getLanguage().isEmpty();
-		if (finderA.getLanguage() != null && finderB.getLanguage() != null)
-			language = finderA.getLanguage().equals(finderB.getLanguage());
+		Boolean lang = true;
+		if (finderA.getLang() != null && finderB.getLang() == null)
+			lang = finderA.getLang().isEmpty();
+		if (finderA.getLang() == null && finderB.getLang() != null)
+			lang = finderB.getLang().isEmpty();
+		if (finderA.getLang() != null && finderB.getLang() != null)
+			lang = finderA.getLang().equals(finderB.getLang());
 
 		Boolean genre = false;
 		if (finderA.getGenre() == null && finderB.getGenre() == null)
@@ -153,7 +153,7 @@ public class FinderService {
 		if (finderA.getGenre() != null && finderB.getGenre() != null)
 			genre = finderB.getGenre().getId() == finderA.getGenre().getId();
 
-		result = keyWord && minNumWords && maxNumWords && actual.before(expirationDate) && language && genre;
+		result = keyWord && minNumWords && maxNumWords && actual.before(expirationDate) && lang && genre;
 		return result;
 	}
 	public Finder reconstruct(final Finder finder, final BindingResult binding) {
