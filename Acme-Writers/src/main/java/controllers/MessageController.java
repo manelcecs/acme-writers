@@ -71,7 +71,8 @@ public class MessageController extends AbstractController {
 
 		try {
 			message = this.messageService.reconstruct(message, binding);
-			this.messageService.save(message);
+			final Message messageBD = this.messageService.save(message);
+			this.messageService.spamMessageDetector(messageBD);
 			result = new ModelAndView("redirect:../messageBox/list.do");
 		} catch (final ValidationException opss) {
 			result = this.createEditModelAndView(message);
