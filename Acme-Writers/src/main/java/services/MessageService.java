@@ -63,11 +63,7 @@ public class MessageService {
 			this.messageToBoxByDefault(message);
 		}
 
-		Message messageBD = this.messageRepository.save(message);
-
-		messageBD = this.spamMessageDetector(messageBD);
-
-		return this.messageRepository.save(messageBD);
+		return this.messageRepository.save(message);
 
 	}
 
@@ -191,12 +187,12 @@ public class MessageService {
 	}
 
 	public Integer existsSpamWordInMessage(final int idMessage, final String word, final Boolean tagIsEmpty) {
-		final Integer res = 0;
+		Integer res = null;
 
 		if (tagIsEmpty)
-			this.messageRepository.existsSpamWordInMessageWithoutTag(idMessage, word);
+			res = this.messageRepository.existsSpamWordInMessageWithoutTag(word, idMessage);
 		else
-			this.messageRepository.existsSpamWordInMessage(idMessage, word);
+			res = this.messageRepository.existsSpamWordInMessage(word, idMessage);
 
 		return res;
 	}
@@ -272,15 +268,16 @@ public class MessageService {
 		return actual;
 	}
 
-	private Message spamMessageDetector(final Message messageBD) {
+	public Message spamMessageDetector(final Message messageBD) {
 		final Collection<MessageBox> boxes = messageBD.getMessageBoxes();
-		if (this.adminConfigService.existSpamWord(messageBD))
+		if (this.adminConfigService.existSpamWord(messageBD)) {
 			for (final Actor recipient : messageBD.getRecipients()) {
 				boxes.remove(this.messageBoxService.findOriginalBox(recipient.getId(), "In Box"));
 				boxes.add(this.messageBoxService.findOriginalBox(recipient.getId(), "Spam Box"));
 			}
-		messageBD.setMessageBoxes(boxes);
-		return messageBD;
+			messageBD.setMessageBoxes(boxes);
+		}
+		return this.messageRepository.save(messageBD);
 	}
 
 	public boolean checkMessagePermissions(final Message message) {
