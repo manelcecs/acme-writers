@@ -32,8 +32,6 @@
 		</display:column>
    		<display:column titleKey="book.list.numWords"><jstl:out value="${book.numWords}"/></display:column>
    		<display:column titleKey="book.list.publisher"><jstl:out value="${book.publisher.commercialName}"/></display:column>
-   		<display:column titleKey="book.list.writer"><jstl:out value="${book.writer.name}"/></display:column>
-   		<display:column titleKey="book.list.seeWriter"><acme:button url="writer/display.do?writerId=${book.writer.id}" type="button" code="book.list.display"/></display:column>
 		<jstl:choose>
 		
 		
@@ -96,6 +94,8 @@
 		</jstl:when>
 		
 		<jstl:when test="${publisher}">
+		<display:column titleKey="book.list.writer"><jstl:out value="${book.writer.name}"/></display:column>
+   		<display:column titleKey="book.list.seeWriter"><acme:button url="writer/display.do?writerId=${book.writer.id}" type="button" code="book.list.display"/></display:column>
 			<display:column titleKey="book.list.display">
    				 <acme:button url="book/publisher/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
@@ -103,6 +103,8 @@
 		</jstl:when>
 		
 		<jstl:when test="${favourites}">
+		<display:column titleKey="book.list.writer"><jstl:out value="${book.writer.name}"/></display:column>
+   		<display:column titleKey="book.list.seeWriter"><acme:button url="writer/display.do?writerId=${book.writer.id}" type="button" code="book.list.display"/></display:column>
 			<display:column titleKey="book.list.favourites">
 			<jstl:if test="${!favouritesBooks.contains(book)}">
    				 <acme:button url="book/reader/addToList.do?idBook=${book.id}" type="button" code="book.list.addToList"/>
@@ -120,6 +122,8 @@
 		</jstl:when>
 
 		<jstl:otherwise>
+		<display:column titleKey="book.list.writer"><jstl:out value="${book.writer.name}"/></display:column>
+   		<display:column titleKey="book.list.seeWriter"><acme:button url="writer/display.do?writerId=${book.writer.id}" type="button" code="book.list.display"/></display:column>
 			<display:column titleKey="book.list.display">
    				 <acme:button url="book/display.do?idBook=${book.id}" type="button" code="book.list.display"/>
    			 </display:column>
