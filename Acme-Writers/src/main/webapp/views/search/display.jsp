@@ -27,7 +27,7 @@
 			</display:column>
 			<display:column titleKey="search.book.writer"><jstl:out value="${book.writer.name} ${book.writer.surname}"/></display:column>			
 			<display:column titleKey="search.book.description"><jstl:out value="${book.description}"/></display:column>
-			<display:column titleKey="search.book.language"><jstl:out value="${book.language}"/></display:column>
+			<display:column titleKey="search.book.lang"><jstl:out value="${book.lang}"/></display:column>
 			
 			<jstl:choose>
 				<jstl:when test="${cookie.language.value == 'es'}">

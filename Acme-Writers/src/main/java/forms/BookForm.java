@@ -17,7 +17,7 @@ public class BookForm extends DomainEntity {
 
 	private String		title;
 	private String		description;
-	private String		language;
+	private String		lang;
 	private String		cover;
 	private Genre		genre;
 
@@ -47,12 +47,12 @@ public class BookForm extends DomainEntity {
 	@SafeHtml
 	@NotBlank
 	@Pattern(regexp = "^EN|ES|IT|FR|DE|OTHER$")
-	public String getLanguage() {
-		return this.language;
+	public String getLang() {
+		return this.lang;
 	}
 
-	public void setLanguage(final String language) {
-		this.language = language;
+	public void setLang(final String lang) {
+		this.lang = lang;
 	}
 
 	@SafeHtml

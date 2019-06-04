@@ -18,7 +18,7 @@
 
 <display:table pagesize="5" name="books" id="book" requestURI="${requestURI}">
    		 <display:column titleKey="book.list.title"><jstl:out value="${book.title}"/></display:column>
-   		 <display:column titleKey="book.list.language"><jstl:out value="${book.language}"/></display:column>
+   		 <display:column titleKey="book.list.lang"><jstl:out value="${book.lang}"/></display:column>
    		 <display:column titleKey="book.list.genre">
    		 	<jstl:choose>
 				<jstl:when test="${cookie.language.value == 'es'}">

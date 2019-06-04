@@ -851,7 +851,7 @@
         <property name="keyWord" value="System" />
         <property name="minNumWords" value="1" />
         <property name="maxNumWords" value="1000" />
-        <property name="language" value="es" />
+        <property name="lang" value="es" />
         <property name="lastUpdate" value="06/01/2018" />        
     </bean>
     
@@ -861,7 +861,7 @@
         <property name="keyWord" value="System" />
         <property name="minNumWords" value="1" />
         <property name="maxNumWords" value="1000" />
-        <property name="language" value="es" />
+        <property name="lang" value="es" />
         <property name="lastUpdate" value="06/01/2018" />
     </bean>
     
@@ -871,7 +871,7 @@
         <property name="keyWord" value="System" />
         <property name="minNumWords" value="1" />
         <property name="maxNumWords" value="1000" />
-        <property name="language" value="es" />
+        <property name="lang" value="es" />
         <property name="lastUpdate" value="06/01/2018" />
     </bean>    
     
@@ -1818,7 +1818,7 @@ Kids will also learn to use contractions which is more natural in spoken English
     <bean class="domain.Book" id="book0">
         <property value="Juego Mortal" name="title" />
         <property value="«La sirena de la ambulancia rompió el silencio de la noche de Haro, mientras las luces de emergencia destellaban en la oscuridad. Dentro del área de tratamiento, un médico y un enfermero se afanaban en detener la hemorragia del paciente que yacía sobre la camilla. Sofía se esforzaba en contener las lágrimas, mientras contemplaba el rostro cada vez más pálido de Salazar . El gotero, puesto a chorro, alimentaba las venas del herido, en un intento de mantenerlo con vida…» Durante la celebración de la Semana Santa en Haro, lo que en un principio parecía un hecho puntual, el suicidio de un adolescente, se convierte en una pesadilla para el inspector jefe Salazar y sus compañeros, cuando comienza a suceder repetidamente entre jóvenes que no mostraban ningún indicio que hiciera sospechar esa tendencia. Mientras Salazar se concentra en hallar la respuesta para que no sigan muriendo chicos inocentes, la subinspectora Garay se embarca en una investigación para detener a un asesino profesional que ha jurado que Néstor Salazar será su próxima víctima" name="description"/>
-        <property value="ES" name="language" />
+        <property value="ES" name="lang" />
         <property value="https://images-na.ssl-images-amazon.com/images/I/41i02GXgi4L.jpg" name="cover" />
         <property value="false" name="cancelled" />
         <property value="INDEPENDENT" name="status" />
@@ -1832,7 +1832,7 @@ Kids will also learn to use contractions which is more natural in spoken English
     <bean class="domain.Book" id="book1">
         <property value="No es lo que parece" name="title" />
         <property value="Un político muere en forma repentina durante un mitin en Haro, La Rioja. El inspector Néstor Salazar y su nueva compañera, la subinspectora Sofía Garay, son los llamados a determinar si se trató de un homicidio, pero la situación se hace más compleja cuando la investigación comienza a revelar que las apariencias resultan muy alejadas de la realidad. Nuevas muertes complican el caso, mientras la subinspectora comprende que el propio inspector tampoco es lo que parece.Un comisario que ha pedido traslado desde Tenerife lleva a cabo una investigación paralela sobre una tragedia ocurrida en su familia veinte años atrás, algo que no dejará indiferente al inspector." name="description"/>
-        <property value="ES"  name="language" />
+        <property value="ES"  name="lang" />
         <property value="https://images-na.ssl-images-amazon.com/images/I/41wbyRiUbvL.jpg" name="cover" />
         <property value="false" name="cancelled" />
         <property value="PENDING" name="status" />
@@ -1847,7 +1847,7 @@ Kids will also learn to use contractions which is more natural in spoken English
     <bean class="domain.Book" id="book2">
         <property value="First book" name="title" />
         <property value="This is a book in English" name="description"/>
-        <property value="EN" name="language" />
+        <property value="EN" name="lang" />
         <property value="https://book2.com" name="cover" />
         <property value="false" name="cancelled" />
         <property value="ACCEPTED" name="status" />

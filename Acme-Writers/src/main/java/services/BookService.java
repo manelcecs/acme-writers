@@ -75,9 +75,9 @@ public class BookService {
 		return this.bookRepository.getFilterBooksByKeyword(keyword);
 	}
 
-	public Collection<Book> getFilterBooksByFinder(final String keyWord, final Integer minNumWords, final Integer maxNumWords, final String language, final int minGenre, final int maxGenre) {
+	public Collection<Book> getFilterBooksByFinder(final String keyWord, final Integer minNumWords, final Integer maxNumWords, final String lang, final int minGenre, final int maxGenre) {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("READER"));
-		return this.bookRepository.getFilterBooksByFinder(keyWord, minNumWords, maxNumWords, language, minGenre, maxGenre);
+		return this.bookRepository.getFilterBooksByFinder(keyWord, minNumWords, maxNumWords, lang, minGenre, maxGenre);
 	}
 
 	public Collection<Book> getBooksByFinder(final int idFinder) {
@@ -113,7 +113,7 @@ public class BookService {
 		}
 		book.setTitle(bookForm.getTitle());
 		book.setDescription(bookForm.getDescription());
-		book.setLanguage(bookForm.getLanguage());
+		book.setLang(bookForm.getLang());
 		book.setCover(bookForm.getCover());
 		book.setGenre(bookForm.getGenre());
 		book.setPublisher(bookForm.getPublisher());
@@ -272,7 +272,7 @@ public class BookService {
 		bookClone.setCover(book.getCover());
 		bookClone.setDescription(book.getDescription());
 		bookClone.setGenre(book.getGenre());
-		bookClone.setLanguage(book.getLanguage());
+		bookClone.setLang(book.getLang());
 		bookClone.setNumWords(0);
 		bookClone.setScore(0.0);
 		bookClone.setTitle(book.getTitle());

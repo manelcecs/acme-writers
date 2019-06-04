@@ -196,7 +196,7 @@ public class BookServiceTest extends AbstractTest {
 			book.setWriter(writer);
 			book.setTitle(title);
 			book.setDescription(desc);
-			book.setLanguage(idioma);
+			book.setLang(idioma);
 			book.setCover(url);
 			if (genre != null)
 				book.setGenre(this.genreService.findOne(this.getEntityId(genre)));
@@ -302,7 +302,7 @@ public class BookServiceTest extends AbstractTest {
 
 			bookDB.setTitle(title);
 			bookDB.setDescription(desc);
-			bookDB.setLanguage(idioma);
+			bookDB.setLang(idioma);
 			bookDB.setCover(url);
 			bookDB.setScore(score);
 			bookDB.setNumWords(numWords);

@@ -31,7 +31,7 @@
 
 <acme:text label="book.display.title" value="${book.title}"/>
 <acme:text label="book.display.description" value="${book.description}"/>
-<acme:text label="book.display.language" value="${book.language}"/>
+<acme:text label="book.display.lang" value="${book.lang}"/>
 
 <jstl:choose> 
 	<jstl:when test="${book.score == null}">
@@ -110,8 +110,55 @@
    		 </display:column>
    		 <display:column titleKey="book.display.opinion.review"><jstl:out value="${opinion.review}"/></display:column>
 </display:table>
-<hr/>
 
-<a target="_blank" href="book/reader/downloadBook.do?idBook=${book.id}">Download here!!!</a>
+<security:authorize access="hasRole('READER')">
+	<jstl:if test="${!book.draft and !book.cancelled}">
+		<hr/>
+		<a type="button" href="book/downloadBook.do?idBook=${book.id}" target="_blank" class="button"><spring:message code="book.display.download" /></a>
+	</jstl:if>
+</security:authorize>
 
+<jstl:if test="${logged}">
+	<hr/>
+	<a type="button" href="book/downloadBook.do?idBook=${book.id}" target="_blank" class="button"><spring:message code="book.display.download" /></a>
+</jstl:if>
+
+<style>
+
+    .button {
+    -moz-box-shadow:inset 0 1px 0 0 #fff;
+    -webkit-box-shadow:inset 0 1px 0 0 #fff;
+    box-shadow:inset 0 1px 0 0 #fff;
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ffffff), color-stop(1, #d1d1d1) );
+    background:-moz-linear-gradient( center top, #ffffff 5%, #d1d1d1 100% );
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#d1d1d1');
+    background-color:#fff;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    border:1px solid #dcdcdc;
+    display:inline-block;
+    color:#777;
+    font-family:Helvetica;
+    font-size:15px;
+    font-weight:700;
+    padding:6px 24px;
+    text-decoration:none;
+    text-shadow:1px 1px 0 #fff
+}
+
+
+
+  .button:hover {
+    background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #d1d1d1), color-stop(1, #ffffff) );
+    background:-moz-linear-gradient( center top, #d1d1d1 5%, #ffffff 100% );
+ filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#d1d1d1', endColorstr='#ffffff');
+    background-color:#d1d1d1
+}
+.button:active {
+    position:relative;
+    top:1px
+}
+
+</style>
 

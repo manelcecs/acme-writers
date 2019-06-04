@@ -31,7 +31,7 @@ public class Book extends DomainEntity {
 
 	private String		title;
 	private String		description;
-	private String		language;
+	private String		lang;
 	private String		cover;
 	private boolean		cancelled;
 	private String		status;
@@ -69,12 +69,12 @@ public class Book extends DomainEntity {
 	@SafeHtml
 	@NotBlank
 	@Pattern(regexp = "^EN|ES|IT|FR|DE|OTHER$")
-	public String getLanguage() {
-		return this.language;
+	public String getLang() {
+		return this.lang;
 	}
 
-	public void setLanguage(final String language) {
-		this.language = language;
+	public void setLang(final String lang) {
+		this.lang = lang;
 	}
 
 	@Valid
@@ -181,7 +181,7 @@ public class Book extends DomainEntity {
 		bookForm.setDescription(this.getDescription());
 		bookForm.setGenre(this.getGenre());
 		bookForm.setId(this.getId());
-		bookForm.setLanguage(this.getLanguage());
+		bookForm.setLang(this.getLang());
 		bookForm.setPublisher(this.getPublisher());
 		bookForm.setTitle(this.getTitle());
 		bookForm.setVersion(this.getVersion());
