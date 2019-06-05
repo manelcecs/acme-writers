@@ -55,8 +55,9 @@ public class AnnouncementService {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.WRITER));
 
 		Assert.isTrue(announcement.getWriter().getId() == this.actorService.findByUserAccount(LoginService.getPrincipal()).getId());
+		Date date = new Date();
 
-		announcement.setMoment(new Date());
+		announcement.setMoment(date);
 
 		final Announcement res = this.announcementRepository.save(announcement);
 
