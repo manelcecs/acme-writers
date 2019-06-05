@@ -24,11 +24,12 @@
 				<display:column titleKey="opinion.list.seeMore">
 					<acme:button url="opinion/reader/display.do?idOpinion=${opinion.id}" type="button" code="opinion.list.seeMore"/>
 				</display:column>
-
+				
 				<display:column titleKey="opinion.list.edit">
+					<jstl:if test="${!opinion.book.cancelled && !opinion.book.draft && (opinion.book.status == 'ACCEPTED' || opinion.book.status == 'INDEPENDENT')}">
 						<acme:button url="opinion/reader/edit.do?idOpinion=${opinion.id}" type="button" code="opinion.list.edit"/>
+					</jstl:if>
 				</display:column>
-
 				<display:column titleKey="opinion.list.delete">
 						<acme:button url="opinion/reader/delete.do?idOpinion=${opinion.id}" type="button" code="opinion.list.delete"/>
 				</display:column>
