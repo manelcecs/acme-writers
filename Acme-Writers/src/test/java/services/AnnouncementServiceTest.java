@@ -26,12 +26,6 @@ public class AnnouncementServiceTest extends AbstractTest {
 	@Autowired
 	private AnnouncementService	annService;
 
-	@Autowired
-	private WriterService		writerService;
-
-	@Autowired
-	private ReaderService		readerService;
-
 
 	@Override
 	@Before
