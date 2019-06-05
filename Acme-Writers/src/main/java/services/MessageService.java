@@ -60,6 +60,7 @@ public class MessageService {
 		Assert.isTrue(!message.getRecipients().contains(message.getSender()));
 		if (message.getId() == 0) {
 			Assert.isTrue(this.actorService.findByUserAccount(LoginService.getPrincipal()).equals(message.getSender()));
+			Assert.isTrue(this.actorService.findNonEliminatedActors().containsAll(message.getRecipients()));
 			this.messageToBoxByDefault(message);
 		}
 

@@ -42,6 +42,9 @@ public class SponsorshipService {
 	private MessageService			messageService;
 
 	@Autowired
+	private ContestService			contestService;
+
+	@Autowired
 	private Validator				validator;
 
 
@@ -51,12 +54,15 @@ public class SponsorshipService {
 
 	public void save(final Sponsorship sponsorship) {
 		Assert.isTrue(LoginService.getPrincipal().equals(sponsorship.getSponsor().getUserAccount()));
+
+		if (!(sponsorship.getContests().contains(null))) //Esto es porque el contest de la vista se lo trae como un [null]
+			Assert.isTrue(this.contestService.getAllContestMinusAnonymous().containsAll(sponsorship.getContests()));
+
 		if (sponsorship.getId() == 0)
 			Assert.isTrue(!ValidateCreditCard.isCaducate(sponsorship.getSponsor().getCreditCard()));
 
 		this.sponsorshipRepository.save(sponsorship);
 	}
-
 	public Collection<Sponsorship> findAllBySponsor(final int idSponsor) {
 		Assert.isTrue(this.sponsorService.findOne(idSponsor).getUserAccount().equals(LoginService.getPrincipal()));
 		return this.sponsorshipRepository.findAllBySponsor(idSponsor);
