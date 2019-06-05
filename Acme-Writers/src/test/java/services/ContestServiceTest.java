@@ -42,7 +42,7 @@ public class ContestServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * This test reefer to use case 10.1(Acme-Writers)
+	 * This test reefer to use case 22.a(Acme-Writers)
 	 * here we're going to test the create of contests
 	 * One positive
 	 * One negative
@@ -61,16 +61,16 @@ public class ContestServiceTest extends AbstractTest {
 			//Correct create
 			{
 				/**
-				 * a) 10.1(Acme-Writers): Publishers can manage their contests, which includes listing, showing, creating, updating, and deleting them
+				 * a) 22.a(Acme-Writers): Publishers can manage his contests
 				 * b) Positive
 				 * c) 100%
-				 * d)
+				 * d)50%
 				 * 
 				 */
 				"publisher0", new Contest(), "title", "description", "prize", rules, deadline, null
 			}, {
 				/**
-				 * a) 10.1(Acme-Rookie): Publishers can manage his or her catalogue of items, which includes listing, showing, creating, updating, and deleting them
+				 * a) 22.a(Acme-Writers): Publishers can manage his contests
 				 * b) Must be a publisher(administrator)
 				 * c) 33.33%
 				 * d)
@@ -107,7 +107,7 @@ public class ContestServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * This test reefer to use case 10.1(Acme-Writers)
+	 * This test reefer to use case 22.a(Acme-Writers)
 	 * here we're going to test the delete of contests
 	 * One positive
 	 * One negative
@@ -121,7 +121,7 @@ public class ContestServiceTest extends AbstractTest {
 			//Correct delete
 			{
 				/**
-				 * a) 10.1(Acme-Writers): Publishers can manage their contests, which includes listing, showing, creating, updating, and deleting them
+				 * a) 22.a(Acme-Writers): Publishers can manage his contests
 				 * b) Positive
 				 * c) 100%
 				 * d)
@@ -130,7 +130,7 @@ public class ContestServiceTest extends AbstractTest {
 				"publisher0", this.contestService.findOne(this.getEntityId("contest0")), null
 			}, {
 				/**
-				 * a) 10.1(Acme-Rookie): Publishers can manage his or her catalogue of items, which includes listing, showing, creating, updating, and deleting them
+				 * a) 22.a(Acme-Writers): Publishers can manage his contests
 				 * b) Must be a publisher(administrator)
 				 * c) 33.33%
 				 * d)

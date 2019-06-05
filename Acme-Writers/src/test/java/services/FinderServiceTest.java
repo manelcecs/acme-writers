@@ -36,10 +36,10 @@ public class FinderServiceTest extends AbstractTest {
 
 
 	/**
-	 * This test reefer to use case 17.2
-	 * here we're going to test the rookies's finder
-	 * Four positives
-	 * Six negatives
+	 * This test reefer to use case 11
+	 * here we're going to test the writers's finder
+	 * One positive
+	 * One negative
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -54,7 +54,7 @@ public class FinderServiceTest extends AbstractTest {
 			//Correct
 			{
 				/**
-				 * a) 17.2: rookies have finders
+				 * a) 11: writers have finders
 				 * b) Positive
 				 * c) 100%
 				 * d) 50%
@@ -63,7 +63,7 @@ public class FinderServiceTest extends AbstractTest {
 				"reader0", "", this.finderService.findOne(this.getEntityId("finder0")), "ES", this.genreService.findOne(this.getEntityId("genre1")), 1, 10000000, books, null
 			}, {
 				/**
-				 * a) 17.2: rookies have finders
+				 * a) 11: writers have finders
 				 * b) Positive
 				 * c) 100%
 				 * d) 50%
@@ -101,10 +101,10 @@ public class FinderServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 	/**
-	 * This test reefer to use case 17.2
+	 * This test reefer to use case 11
 	 * Let's test the cleanliness of the finders
-	 * Four positives
-	 * Six negatives
+	 * One positive
+	 * One negative
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -119,7 +119,7 @@ public class FinderServiceTest extends AbstractTest {
 			//Correct
 			{
 				/**
-				 * a) 17.2: rookies have finders
+				 * a) 11: writers have finders
 				 * b) Positive
 				 * c) 100%
 				 * d)
@@ -131,8 +131,8 @@ public class FinderServiceTest extends AbstractTest {
 			//Incorrect user
 			{
 				/**
-				 * a) 17.2: rookies have finders
-				 * b) Rookie can't using the finder of another rookie
+				 * a) 11: writers have finders
+				 * b) Must be a writer(null)
 				 * c) 43.47%
 				 * d)
 				 * 
