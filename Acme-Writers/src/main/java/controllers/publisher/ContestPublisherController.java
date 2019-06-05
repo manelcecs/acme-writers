@@ -91,6 +91,7 @@ public class ContestPublisherController extends AbstractController {
 		result.addObject("actual", actual);
 		result.addObject("requestURI", "contest/publisher/list.do");
 		result.addObject("message", message);
+		result.addObject("targetURL", "/contest/publisher/list.do");
 		this.configValues(result);
 		return result;
 	}
