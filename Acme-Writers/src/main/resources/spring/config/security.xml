@@ -89,9 +89,11 @@
 		<security:intercept-url pattern="/writer/save.do" access="isAnonymous()" />
 		<security:intercept-url pattern="/writer/writer/**" access="hasRole('WRITER')" />
 		
-		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/socialProfile/edit.do" access="isAuthenticated() and not hasRole('BAN')" />
+		<security:intercept-url pattern="/socialProfile/save.do" access="isAuthenticated() and not hasRole('BAN')" />
+		<security:intercept-url pattern="/socialProfile/create.do" access="isAuthenticated() and not hasRole('BAN')" />
 		
-		<security:intercept-url pattern="/actor/**" access="isAuthenticated()" />
+		<security:intercept-url pattern="/actor/**" access="isAuthenticated() and not hasRole('BAN')" />
 		<security:intercept-url pattern="/writer/display.do" access="permitAll" />
 		<security:intercept-url pattern="/writer/list.do" access="permitAll" />
 		

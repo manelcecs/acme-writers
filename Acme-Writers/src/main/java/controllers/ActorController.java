@@ -102,7 +102,10 @@ public class ActorController extends AbstractController {
 	public ModelAndView display() {
 		ModelAndView result;
 
-		result = this.createModelAndViewDisplay();
+		if (AuthorityMethods.chechAuthorityLogged("BAN"))
+			result = new ModelAndView("/");
+		else
+			result = this.createModelAndViewDisplay();
 
 		return result;
 	}

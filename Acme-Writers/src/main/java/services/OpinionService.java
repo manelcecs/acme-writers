@@ -45,6 +45,10 @@ public class OpinionService {
 		return this.opinionRepository.save(opinion);
 	}
 
+	public void flush() {
+		this.opinionRepository.flush();
+	}
+
 	public Opinion save(final Opinion opinion, final BindingResult bindingResult) throws ParseException {
 		final Opinion opinionRec = this.reconstruct(opinion, bindingResult);
 		return this.save(opinionRec);

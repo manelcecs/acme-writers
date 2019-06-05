@@ -16,11 +16,18 @@
 	<br />
 
 </jstl:if>
-<jstl:if test="${back}">
-	<acme:button url="writer/list.do" type="button" code="actor.back" />
-	<br />
-</jstl:if>
+<jstl:choose>
 
+	<jstl:when test="${writer != null }" >
+		<acme:button url="/actor/listWriters.do" type="button" code="actor.back"/>
+	</jstl:when>
+		
+	<jstl:when test="${writer == null}" >
+		<acme:button url="/actor/listPublishers.do" type="button" code="actor.back"/>
+	</jstl:when>
+</jstl:choose>
+
+<br/>
 
 <jstl:choose>
 	<jstl:when test="${authority == 'WRITER'}">
