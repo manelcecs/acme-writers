@@ -80,6 +80,10 @@ public class ReaderService {
 		return this.readerRepository.saveAndFlush(reader);
 	}
 
+	public void flush() {
+		this.readerRepository.flush();
+	}
+
 	public Reader reconstruct(final ReaderForm readerForm, final BindingResult binding) throws ParseException {
 
 		if (!EmailValidator.validateEmail(readerForm.getEmail(), Authority.READER))

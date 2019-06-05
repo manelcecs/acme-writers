@@ -43,6 +43,8 @@ public class AnnouncementService {
 
 	public Announcement create() {
 		final Announcement res = new Announcement();
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.WRITER));
+
 		final Writer writer = this.writerService.findByPrincipal(LoginService.getPrincipal());
 
 		res.setMoment(new Date());
@@ -62,6 +64,10 @@ public class AnnouncementService {
 		final Announcement res = this.announcementRepository.save(announcement);
 
 		return res;
+	}
+
+	public void flush() {
+		this.announcementRepository.flush();
 	}
 
 	public Announcement saveAnonymize(final Announcement announcement) {

@@ -64,6 +64,7 @@ public class SponsorService {
 		Assert.isTrue(sponsor != null);
 
 		if (sponsor.getId() == 0) {
+			Assert.isTrue(!AuthorityMethods.checkIsSomeoneLogged());
 			final UserAccount userAccount = sponsor.getUserAccount();
 
 			final Md5PasswordEncoder encoder = new Md5PasswordEncoder();
