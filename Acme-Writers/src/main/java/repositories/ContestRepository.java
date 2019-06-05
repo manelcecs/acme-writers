@@ -28,4 +28,7 @@ public interface ContestRepository extends JpaRepository<Contest, Integer> {
 	@Query("select c from Contest c where (select count(*) from Participation p where p.contest.id = c and p.book.writer.id = ?1) != (select count(*) from Book b where b.draft = false and (b.status = 'INDEPENDENT' or b.status = 'ACCEPTED') and b.cancelled = false and b.writer.id = ?1)")
 	Collection<Contest> getContestCanParticipate(int id);
 
+	@Query("select c from Contest c join c.publisher.userAccount.authorities auth where auth.authority != 'ANONYMOUS'")
+	Collection<Contest> getAllContestMinusAnonymous();
+
 }

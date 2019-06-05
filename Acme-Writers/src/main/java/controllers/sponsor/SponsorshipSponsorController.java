@@ -163,7 +163,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		result = new ModelAndView("sponsorship/edit");
 
-		final Collection<Contest> posibleContests = this.contestService.findAll(); //TODO Alguna restriccion?
+		final Collection<Contest> posibleContests = this.contestService.getAllContestMinusAnonymous(); //TODO Alguna restriccion?
 
 		final AdminConfig adminConfig = this.adminConfigService.getAdminConfig();
 

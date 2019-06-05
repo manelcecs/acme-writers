@@ -131,4 +131,8 @@ public class ContestService {
 		this.sponsorshipService.save(sponsorships);
 	}
 
+	public Collection<Contest> getAllContestMinusAnonymous() {
+		return this.contestRepository.getAllContestMinusAnonymous();
+	}
+
 }

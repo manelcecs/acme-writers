@@ -18,13 +18,13 @@ public interface ActorRepository extends JpaRepository<Actor, Integer> {
 	@Query("select a from Actor a join a.messageBoxes mb where mb.id = ?1")
 	Actor getByMessageBox(int idBox);
 
-	@Query("select a from Actor a where a.userAccount.authorities.size > 0")
+	@Query("select a from Actor a join a.userAccount.authorities auth where auth.authority != 'ANONYMOUS'")
 	Collection<Actor> findNonEliminatedActors();
 
 	// Workaround for the problem of hibernate with inheritances
 	@Query("select a from Actor a where a.id = ?1")
 	Actor getActor(int idActor);
 
-	@Query("select a from Actor a where a.spammer = true and a.userAccount.authorities.size > 0")
+	@Query("select a from Actor a join a.userAccount.authorities auth where a.spammer = true and auth.authority != 'ANONYMOUS'")
 	Collection<Actor> findSpamActors();
 }

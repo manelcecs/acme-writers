@@ -286,16 +286,20 @@ public class MessageServiceTest extends AbstractTest {
 		message.setBody("sexo"); //Spam Word
 		message.setMoment(this.dateNow());
 		message.setPriority("HIGH");
+		final Collection<String> tags = new ArrayList<>();
+		message.setTags(tags);
 		final Collection<Actor> recipients = new ArrayList<>();
 		recipients.add(this.actorService.getActor(idRecipient));
-		message.setTags(null);
 		message.setRecipients(recipients);
 		message.setSubject("Subject");
 
 		final Message messageSaved = this.messageService.save(message);
 		this.messageService.flush();
 
-		final Collection<MessageBox> boxes = messageSaved.getMessageBoxes();
+		final Message messageSpam = this.messageService.spamMessageDetector(messageSaved);
+		this.messageService.flush();
+
+		final Collection<MessageBox> boxes = messageSpam.getMessageBoxes();
 
 		final MessageBox spamBoxRecipient = this.messageBoxService.findOriginalBox(idRecipient, "Spam Box");
 
@@ -453,7 +457,7 @@ public class MessageServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * a)#6 Test for Case use: Los patrocinadores deben recibir una notificaci�n cuando se cancelen sus patrocinios
+	 * a)#6 Test for Case use: Los patrocinadores deben recibir una notificación cuando se cancelen sus patrocinios
 	 * b)
 	 * c)Sequence coverage: 100%
 	 * d)Data coverage:
