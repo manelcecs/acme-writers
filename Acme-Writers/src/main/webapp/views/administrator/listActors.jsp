@@ -10,5 +10,5 @@
 
 <display:table name="actors" id="actor" requestURI="${requestURI}" pagesize="5">
 	<display:column titleKey="administrator.listActors.users" ><jstl:out value="${actor.userAccount.username}" /></display:column>
-	<display:column><acme:button url="actor/administrator/display.do?idActor=${actor.id}" type="button" code="administrator.listActors.profile"/> </display:column>
+	<display:column><acme:button url="actor/administrator/display.do?idActor=${actor.id}&targetURL=${requestURI}" type="button" code="administrator.listActors.profile"/> </display:column>
 </display:table>

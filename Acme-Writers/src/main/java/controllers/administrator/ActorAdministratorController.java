@@ -51,17 +51,17 @@ public class ActorAdministratorController extends AbstractController {
 
 
 	@RequestMapping(value = "/administrator/display", method = RequestMethod.GET)
-	public ModelAndView display(@RequestParam final int idActor) {
+	public ModelAndView display(@RequestParam final int idActor, @RequestParam final String targetURL) {
 
 		ModelAndView result;
 
-		result = this.createModelAndViewDisplayByAdmin(idActor);
+		result = this.createModelAndViewDisplayByAdmin(idActor, targetURL);
 
 		return result;
 
 	}
 
-	protected ModelAndView createModelAndViewDisplayByAdmin(final int idActor) {
+	protected ModelAndView createModelAndViewDisplayByAdmin(final int idActor, final String targetURL) {
 
 		ModelAndView result = new ModelAndView("actor/display");
 
@@ -70,7 +70,11 @@ public class ActorAdministratorController extends AbstractController {
 
 		final Authority authority = this.actorService.getActor(idActor).getUserAccount().getAuthorities().iterator().next();
 
+		if (authority.getAuthority().equals("BAN"))
+			authority.setAuthority(this.actorService.checkAuthorityIsBanned(this.actorService.getActor(idActor).getUserAccount()));
+
 		result.addObject("authority", authority.getAuthority());
+
 		switch (authority.getAuthority()) {
 		case "ADMINISTRATOR":
 			final Administrator administrator = this.administratorService.findOne(idActor);
@@ -97,10 +101,11 @@ public class ActorAdministratorController extends AbstractController {
 			result.addObject("sponsor", sponsor);
 			break;
 		default:
-			result = new ModelAndView("display.do");
+			result = new ModelAndView("actor/display.do");
 			break;
 		}
 
+		result.addObject("targetURL", targetURL);
 		this.configValues(result);
 		return result;
 	}

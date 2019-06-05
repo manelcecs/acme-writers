@@ -322,31 +322,31 @@ public class ActorService {
 			case "ADMINISTRATOR":
 
 				final Administrator anonymousAdmin = this.anonymizeAdmin(this.administratorService.findByPrincipal(principal));
-				this.administratorService.save(anonymousAdmin);
+				this.administratorService.saveAnonymize(anonymousAdmin);
 
 				break;
 
 			case "WRITER":
 
 				final Writer anonymousWriter = this.anonymizeWriter(this.writerService.findByPrincipal(principal));
-				this.writerService.save(anonymousWriter);
+				this.writerService.saveAnonymize(anonymousWriter);
 
 				break;
 
 			case "READER":
 
 				final Reader anonymousReader = this.anonymizeReader(this.readerService.findByPrincipal(principal));
-				this.readerService.save(anonymousReader);
+				this.readerService.saveAnonymize(anonymousReader);
 
 				break;
 			case "SPONSOR":
 				final Sponsor anonymousSponsor = this.anonymizeSponsor(this.sponsorService.findByPrincipal(principal));
-				this.sponsorService.save(anonymousSponsor);
+				this.sponsorService.saveAnonymize(anonymousSponsor);
 				break;
 
 			case "PUBLISHER":
 				final Publisher anonymousPublisher = this.anonymizePublisher(this.publisherService.findByPrincipal(principal));
-				this.publisherService.save(anonymousPublisher);
+				this.publisherService.saveAnonymize(anonymousPublisher);
 				break;
 			}
 		} catch (final Exception e) {
@@ -492,7 +492,7 @@ public class ActorService {
 		final Collection<Opinion> opinions = this.opinionService.findOpinionsByReader(actor.getId());
 		for (final Opinion o : opinions) {
 			o.setReview("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.");
-			this.opinionService.save(o);
+			this.opinionService.saveAnonymize(o);
 		}
 
 		final UserAccount antique = actor.getUserAccount();

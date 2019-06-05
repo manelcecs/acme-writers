@@ -180,4 +180,10 @@ public class WriterService {
 		return this.writerRepository.getWritersWithLessBooks();
 	}
 
+	public void saveAnonymize(final Writer anonymousWriter) {
+		Assert.isTrue(anonymousWriter != null);
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.WRITER) || AuthorityMethods.chechAuthorityLogged(Authority.BAN));
+		this.writerRepository.save(anonymousWriter);
+	}
+
 }

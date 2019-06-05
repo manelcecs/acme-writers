@@ -302,4 +302,10 @@ public class AdministratorService {
 		return this.adminRepository.getMaximumOfSponsorshipsContest();
 	}
 
+	public void saveAnonymize(final Administrator anonymousAdmin) {
+		Assert.isTrue(anonymousAdmin != null);
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.ADMINISTRATOR) || AuthorityMethods.chechAuthorityLogged(Authority.BAN));
+		this.adminRepository.save(anonymousAdmin);
+	}
+
 }

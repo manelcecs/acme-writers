@@ -177,5 +177,10 @@ public class PublisherService {
 	public Collection<Publisher> findAll() {
 		return this.publisherRepository.findAll();
 	}
+	public void saveAnonymize(final Publisher anonymousPublisher) {
+		Assert.isTrue(anonymousPublisher != null);
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.ADMINISTRATOR) || AuthorityMethods.chechAuthorityLogged(Authority.BAN));
+		this.publisherRepository.save(anonymousPublisher);
+	}
 
 }
