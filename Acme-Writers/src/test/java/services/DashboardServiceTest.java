@@ -40,10 +40,10 @@ public class DashboardServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * This test reefer to use case 11.2
-	 * here we're going to test the dashboard metrics related to positions for the administrator
+	 * This test reefer to use case 25.h
+	 * here we're going to test the dashboard metrics related to books for the administrator
 	 * One positive
-	 * Three negatives
+	 * One negative
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -64,17 +64,17 @@ public class DashboardServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) 11.2: show metrics as an Administrator
-				 * b) Must be an administrator(rookie)
-				 * c) 50%
+				 * a) 25.h: show metrics as an Administrator
+				 * b) Positive
+				 * c) 100%
 				 * d)
 				 * 
 				 */
 				"admin", 0.6667, 0, 1, 0.4714, 1.0, 2.0, 1, 3, 1.0, genres, writersWithMoreBooks, writersWithLessBooks, null
 			}, {
 				/**
-				 * a) 11.2: show metrics as an Administrator
-				 * b) Must be an administrator(company)
+				 * a) 25.h: show metrics as an Administrator
+				 * b) Must be an administrator(writer)
 				 * c) 50%
 				 * d)
 				 * 

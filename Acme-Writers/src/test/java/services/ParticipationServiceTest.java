@@ -38,8 +38,8 @@ public class ParticipationServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * This test reefer to use case 10.1(Acme-Writers)
-	 * here we're going to test the create/edit of contests
+	 * This test reefer to use case 21.b and 22.b(Acme-Writers)
+	 * here we're going to test the create/edit of participations
 	 * One positive
 	 * One negative
 	 * 
@@ -52,20 +52,20 @@ public class ParticipationServiceTest extends AbstractTest {
 			//Correct create
 			{
 				/**
-				 * a) 10.1(Acme-Writers): Publishers can manage their contests, which includes listing, showing, creating, updating, and deleting them
+				 * a) 21.b and 22.b(Acme-Writers): writers can participate in a contest
 				 * b) Positive
 				 * c) 100%
-				 * d)
+				 * d) 45%
 				 * 
 				 */
 				"writer0", new Participation(), this.getEntityId("contest2"), "comment0", this.bookService.findOne(this.getEntityId("book0")), "comment0", null, null, null
 			}, //Incorrect create
 			{
 				/**
-				 * a) 10.1(Acme-Rookie): Publishers can manage his or her catalogue of items, which includes listing, showing, creating, updating, and deleting them
-				 * b) Must be a publisher(administrator)
-				 * c) 33.33%
-				 * d)
+				 * a) 21.b and 22.b(Acme-Writers): writers can participate in a contest
+				 * b) a writer cannot participate in a contest several times with the same book
+				 * c) 50%
+				 * d) 45%
 				 * 
 				 */
 				"writer0", new Participation(), this.getEntityId("contest0"), "comment0", this.bookService.findOne(this.getEntityId("book0")), null, null, IllegalArgumentException.class
@@ -73,20 +73,20 @@ public class ParticipationServiceTest extends AbstractTest {
 			//Correct edit
 			{
 				/**
-				 * a) 10.1(Acme-Writers): Publishers can manage their contests, which includes listing, showing, creating, updating, and deleting them
+				 * a) 21.b and 22.b(Acme-Writers): Publishers can manage their participations
 				 * b) Positive
 				 * c) 100%
-				 * d)
+				 * d) 45%
 				 * 
 				 */
 				"publisher0", this.participationService.findOne(this.getEntityId("participation0")), null, null, null, "REJECTED", null, null
 			}, //Incorrect edit
 			{
 				/**
-				 * a) 10.1(Acme-Rookie): Publishers can manage his or her catalogue of items, which includes listing, showing, creating, updating, and deleting them
-				 * b) Must be a publisher(administrator)
-				 * c) 33.33%
-				 * d)
+				 * a) 21.b and 22.b(Acme-Writers): Publishers can manage their participations
+				 * b) A publisher cannot manage the participations in a contest that is not its own
+				 * c) 50%
+				 * d) 45%
 				 * 
 				 */
 				"publisher1", this.participationService.findOne(this.getEntityId("participation0")), null, null, null, "REJECTED", null, IllegalArgumentException.class
@@ -125,8 +125,8 @@ public class ParticipationServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 	/**
-	 * This test reefer to use case 10.1(Acme-Writers)
-	 * here we're going to test the delete of contests
+	 * This test reefer to use case 21.b(Acme-Writers)
+	 * here we're going to test the delete of participations
 	 * One positive
 	 * One negative
 	 * 
@@ -139,7 +139,7 @@ public class ParticipationServiceTest extends AbstractTest {
 			//Correct delete
 			{
 				/**
-				 * a) 10.1(Acme-Writers): Publishers can manage their contests, which includes listing, showing, creating, updating, and deleting them
+				 * a) 21.b(Acme-Writers): Writers can manage their participations
 				 * b) Positive
 				 * c) 100%
 				 * d)
@@ -148,8 +148,8 @@ public class ParticipationServiceTest extends AbstractTest {
 				"writer0", this.participationService.findOne(this.getEntityId("participation0")), null
 			}, {
 				/**
-				 * a) 10.1(Acme-Rookie): Publishers can manage his or her catalogue of items, which includes listing, showing, creating, updating, and deleting them
-				 * b) Must be a publisher(administrator)
+				 * a) 21.b(Acme-Writers): Writers can manage their participations
+				 * b) A writer cannot eliminate the participation of another.
 				 * c) 33.33%
 				 * d)
 				 * 
