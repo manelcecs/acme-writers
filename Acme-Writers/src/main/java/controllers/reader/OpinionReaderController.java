@@ -74,9 +74,13 @@ public class OpinionReaderController extends AbstractController {
 	public ModelAndView create(@RequestParam(required = true) final int idBook, @RequestParam(required = true) final String urlBack) {
 		ModelAndView result;
 		final Book book = this.bookService.findOne(idBook);
-		final Opinion opinion = this.opinionService.create(book);
-		result = this.createEditModelAndView(opinion);
-		result.addObject("urlBack", urlBack);
+		if (book.getCancelled() || book.getDraft() || !(book.getStatus().equals("ACCEPTED") || book.getStatus().equals("INDEPENDENT")))
+			result = new ModelAndView("redirect:/book/listAll.do");
+		else {
+			final Opinion opinion = this.opinionService.create(book);
+			result = this.createEditModelAndView(opinion);
+			result.addObject("urlBack", urlBack);
+		}
 		return result;
 	}
 
@@ -86,7 +90,8 @@ public class OpinionReaderController extends AbstractController {
 
 		final Opinion opinion = this.opinionService.findOne(idOpinion);
 
-		if (!opinion.getReader().equals(this.readerService.findByPrincipal(LoginService.getPrincipal())))
+		if (opinion.getBook().getCancelled() || opinion.getBook().getDraft() || !(opinion.getBook().getStatus().equals("ACCEPTED") || opinion.getBook().getStatus().equals("INDEPENDENT"))
+			|| !opinion.getReader().equals(this.readerService.findByPrincipal(LoginService.getPrincipal())))
 			result = new ModelAndView("redirect:list.do");
 		else
 			result = this.createEditModelAndView(opinion);

@@ -42,6 +42,7 @@ public class OpinionService {
 	public Opinion save(final Opinion opinion) {
 		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("READER"));
 		Assert.isTrue(opinion.getReader().equals(this.readerService.findByPrincipal(LoginService.getPrincipal())));
+		Assert.isTrue(!opinion.getBook().getCancelled() && !opinion.getBook().getDraft() && (opinion.getBook().getStatus().equals("ACCEPTED") || opinion.getBook().getStatus().equals("INDEPENDENT")));
 		return this.opinionRepository.save(opinion);
 	}
 
