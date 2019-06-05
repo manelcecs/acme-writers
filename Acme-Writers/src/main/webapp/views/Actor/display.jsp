@@ -16,17 +16,9 @@
 	<br />
 
 </jstl:if>
-<jstl:choose>
+<jstl:if test = "${targetURL != null }"><acme:button code="actor.back" url="${targetURL }" type="button" /></jstl:if>
 
-	<jstl:when test="${writer != null }" >
-		<acme:button url="/actor/listWriters.do" type="button" code="actor.back"/>
-	</jstl:when>
-		
-	<jstl:when test="${writer == null}" >
-		<acme:button url="/actor/listPublishers.do" type="button" code="actor.back"/>
-	</jstl:when>
-</jstl:choose>
-
+<jstl:if test = "${targetURL == null }"><acme:button code="actor.back" url="/" type="button" /></jstl:if>
 <br/>
 
 <jstl:choose>

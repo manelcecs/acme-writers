@@ -80,6 +80,13 @@ public class ReaderService {
 		return this.readerRepository.saveAndFlush(reader);
 	}
 
+	public Reader saveAnonymize(final Reader reader) {
+		Assert.isTrue(reader != null);
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.READER) || AuthorityMethods.chechAuthorityLogged(Authority.BAN));
+
+		return this.readerRepository.saveAndFlush(reader);
+	}
+
 	public void flush() {
 		this.readerRepository.flush();
 	}

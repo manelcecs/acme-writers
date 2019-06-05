@@ -96,8 +96,8 @@ public class WriterWriterController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView displayWriter(final int writerId) {
-		return this.createModelAndViewDisplay(writerId);
+	public ModelAndView displayWriter(final int writerId, final String targetURL) {
+		return this.createModelAndViewDisplay(writerId, targetURL);
 	}
 
 	protected ModelAndView createModelAndViewList() {
@@ -107,12 +107,13 @@ public class WriterWriterController extends AbstractController {
 		System.out.println(writers);
 		res.addObject("writers", writers);
 		res.addObject("requestURI", "writer/list.do");
+		res.addObject("targetURL", "/writer/list.do");
 
 		this.configValues(res);
 
 		return res;
 	}
-	protected ModelAndView createModelAndViewDisplay(final Integer writerId) {
+	protected ModelAndView createModelAndViewDisplay(final Integer writerId, final String targetURL) {
 
 		final Writer actor = this.writerService.findOne(writerId);
 
@@ -146,6 +147,7 @@ public class WriterWriterController extends AbstractController {
 					result.addObject("followed", followed);
 				}
 
+			result.addObject("targetURL", targetURL);
 			this.configValues(result);
 			return result;
 		}

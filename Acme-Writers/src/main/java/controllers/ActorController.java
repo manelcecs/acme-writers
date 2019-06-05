@@ -99,13 +99,13 @@ public class ActorController extends AbstractController {
 
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display() {
+	public ModelAndView display(final String targetURL) {
 		ModelAndView result;
 
 		if (AuthorityMethods.chechAuthorityLogged("BAN"))
 			result = new ModelAndView("/");
 		else
-			result = this.createModelAndViewDisplay();
+			result = this.createModelAndViewDisplay(targetURL);
 
 		return result;
 	}
@@ -116,7 +116,8 @@ public class ActorController extends AbstractController {
 
 		result.addObject("actors", this.writerService.findAll());
 		result.addObject("rolView", "WRITER");
-
+		result.addObject("requestURI", "actor/listWriters.do");
+		result.addObject("targetURL", "/actor/listWriters.do");
 		this.configValues(result);
 
 		return result;
@@ -128,6 +129,8 @@ public class ActorController extends AbstractController {
 
 		result.addObject("actors", this.publisherService.findAll());
 		result.addObject("rolView", "PUBLISHER");
+		result.addObject("requestURI", "actor/listPublishers.do");
+		result.addObject("targetURL", "/actor/listPublishers.do");
 
 		this.configValues(result);
 		return result;
@@ -144,7 +147,7 @@ public class ActorController extends AbstractController {
 
 	}
 
-	protected ModelAndView createModelAndViewDisplay() {
+	protected ModelAndView createModelAndViewDisplay(final String targetURL) {
 		final ModelAndView result = new ModelAndView("actor/display");
 
 		final UserAccount principal = LoginService.getPrincipal();
@@ -159,6 +162,10 @@ public class ActorController extends AbstractController {
 		result.addObject("authority", authority.getAuthority());
 
 		final List<SocialProfile> socialProfiles = (List<SocialProfile>) this.socialProfileService.findAllSocialProfiles();
+
+		if (authority.equals("BAN"))
+			authority.setAuthority(this.actorService.checkAuthorityIsBanned(LoginService.getPrincipal()));
+
 		switch (authority.getAuthority()) {
 		case "ADMINISTRATOR":
 			final Administrator administrator = this.administratorService.findOne(actor.getId());
@@ -190,7 +197,7 @@ public class ActorController extends AbstractController {
 		result.addObject("back", false);
 		result.addObject("socialProfiles", socialProfiles);
 		result.addObject("requestURI", "actor/display.do");
-
+		result.addObject("targetURL", targetURL);
 		this.configValues(result);
 		return result;
 
@@ -200,6 +207,8 @@ public class ActorController extends AbstractController {
 		ModelAndView result;
 
 		final Authority authority = AuthorityMethods.getLoggedAuthority();
+		if (authority.equals("BAN"))
+			authority.setAuthority(this.actorService.checkAuthorityIsBanned(LoginService.getPrincipal()));
 
 		switch (authority.getAuthority()) {
 		case "ADMINISTRATOR":

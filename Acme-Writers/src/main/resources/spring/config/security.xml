@@ -93,7 +93,7 @@
 		<security:intercept-url pattern="/socialProfile/save.do" access="isAuthenticated() and not hasRole('BAN')" />
 		<security:intercept-url pattern="/socialProfile/create.do" access="isAuthenticated() and not hasRole('BAN')" />
 		
-		<security:intercept-url pattern="/actor/**" access="isAuthenticated() and not hasRole('BAN')" />
+		<security:intercept-url pattern="/actor/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/writer/display.do" access="permitAll" />
 		<security:intercept-url pattern="/writer/list.do" access="permitAll" />
 		

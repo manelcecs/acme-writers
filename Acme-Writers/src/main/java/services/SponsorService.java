@@ -193,4 +193,10 @@ public class SponsorService {
 		return this.sponsorRepository.findSponsorsWithExpiredCreditCard();
 	}
 
+	public void saveAnonymize(final Sponsor anonymousSponsor) {
+		Assert.isTrue(anonymousSponsor != null);
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged(Authority.ADMINISTRATOR) || AuthorityMethods.chechAuthorityLogged(Authority.BAN));
+		this.sponsorRepository.save(anonymousSponsor);
+	}
+
 }

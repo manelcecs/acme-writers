@@ -83,11 +83,11 @@ public class PublisherPublisherController extends AbstractController {
 	}
 
 	@RequestMapping(value = "/display", method = RequestMethod.GET)
-	public ModelAndView display(final Integer publisherId) {
-		return this.createModelAndViewDisplay(publisherId);
+	public ModelAndView display(final Integer publisherId, final String targetURL) {
+		return this.createModelAndViewDisplay(publisherId, targetURL);
 	}
 
-	protected ModelAndView createModelAndViewDisplay(final Integer publisherId) {
+	protected ModelAndView createModelAndViewDisplay(final Integer publisherId, final String targetURL) {
 
 		final Publisher actor = this.publisherService.findOne(publisherId);
 
@@ -110,6 +110,7 @@ public class PublisherPublisherController extends AbstractController {
 			result.addObject("socialProfiles", socialProfiles);
 			result.addObject("requestURI", "actor/display.do");
 
+			result.addObject("targetURL", targetURL);
 			this.configValues(result);
 			return result;
 		}

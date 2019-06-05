@@ -45,6 +45,12 @@ public class OpinionService {
 		return this.opinionRepository.save(opinion);
 	}
 
+	public Opinion saveAnonymize(final Opinion opinion) {
+		Assert.isTrue(AuthorityMethods.chechAuthorityLogged("READER") || AuthorityMethods.chechAuthorityLogged("BAN"));
+		Assert.isTrue(opinion.getReader().equals(this.readerService.findByPrincipal(LoginService.getPrincipal())));
+		return this.opinionRepository.save(opinion);
+	}
+
 	public void flush() {
 		this.opinionRepository.flush();
 	}
