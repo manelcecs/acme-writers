@@ -51,28 +51,28 @@ public class BookServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #1 | Un escritor puede listar sus libros (el escritor de este test tiene 2 libros)
+				 * b) Positivo
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: -
 				 * 
 				 */
 				"writer0", 2, null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #2 | Un escritor puede listar sus libros (el escritor de este test tiene 1 libros)
+				 * b) Negativo (tiene un libro pero en el test se especifica que tiene 1)
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: -
 				 * 
 				 */
 				"writer1", 0, IllegalArgumentException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #3 | Un escritor puede listar sus libros
+				 * b) Negativo (un lector no puede listar los libros de un escritor)
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: -
 				 * 
 				 */
 				"reader0", 2, IllegalArgumentException.class
@@ -111,65 +111,74 @@ public class BookServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #4 | Un escritor puede crear libros
+				 * b) Positivo
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", true, false, 0.0, 0, "genre0", "publisher0", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #5 | Un escritor puede crear libros
+				 * b) Positivo
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 100%
+				 * 
+				 */
+				"publisher0", "Titulo válido", "Descripción válida", "ES", null, "PENDING", true, false, 0.0, 0, "genre0", "publisher0", IllegalArgumentException.class
+			}, {
+				/**
+				 * a) #6 | Un escritor puede crear libros
+				 * b) Negativo (Una editorial no puede crear libros)
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"publisher0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", true, false, 0.0, 0, "genre0", "publisher0", IllegalArgumentException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #7 | Un escritor puede crear libros
+				 * b) Negativo (Hay datos inválidos)
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 90%
 				 * 
 				 */
 				"writer0", "", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", true, false, 0.0, 0, "genre0", "publisher0", ConstraintViolationException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #8 | Un escritor puede crear libros
+				 * b) Negativo (Hay datos inválidos)
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 90%
 				 * 
 				 */
 				"writer0", "Titulo válido", "", "ES", "http://www.urlvalida.com", "PENDING", true, false, 0.0, 0, "genre0", "publisher0", ConstraintViolationException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #9 | Un escritor puede crear libros
+				 * b) Negativo (Hay datos inválidos)
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 95%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "INVALIDO", "http://www.urlvalida.com", "PENDING", true, false, 0.0, 0, "genre0", "publisher0", ConstraintViolationException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #10 | Un escritor puede crear libros
+				 * b) Negativo (Hay datos inválidos)
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 95%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "ESTO NO ES UNA URL", "PENDING", true, false, 0.0, 0, "genre0", "publisher0", ConstraintViolationException.class
 
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #11 | Un escritor puede crear libros
+				 * b) Negativo (El libro debe tener un género)
+				 * c) Sequence coverage: 66%
+				 * d) Data coverage: 95%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", true, false, 0.0, 0, null, "publisher0", ConstraintViolationException.class
@@ -231,55 +240,55 @@ public class BookServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #12 | Un escritor puede editar un libro suyo
+				 * b) Positivo
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", 0.0, 0, "book1", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #13 | Un escritor puede editar un libro suyo
+				 * b) Negativo (Solo se pueden editar los libros que estén en modo borrador)
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", 0.0, 0, "book0", IllegalArgumentException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #14 | Un escritor puede editar un libro suyo
+				 * b) Negativo (Hay código HTML)
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: 95%
 				 * 
 				 */
 				"writer0", "<script></script>", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", 0.0, 0, "book1", ConstraintViolationException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #15 | Un escritor puede editar un libro suyo
+				 * b) Negativo (La puntuación no puede ser negativa)
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: 95%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", -1.0, 0, "book1", ConstraintViolationException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #16 | Un escritor puede editar un libro suyo
+				 * b) Negativo (La puntuación no puede ser mayor que 10)
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: 95%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", 20.0, 0, "book1", ConstraintViolationException.class
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #17 | Un escritor puede editar un libro suyo
+				 * b) Negativo (El número de palabras no puede ser negativo)
+				 * c) Sequence coverage: 100%
+				 * d) Data coverage: 95%
 				 * 
 				 */
 				"writer0", "Titulo válido", "Descripción válida", "ES", "http://www.urlvalida.com", "PENDING", 0.0, -1, "book1", ConstraintViolationException.class
@@ -329,18 +338,18 @@ public class BookServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #18 | Un escitor puede borrar sus libros
+				 * b) Positivo
+				 * c) Sequence coverage: 100%
 				 * d) Data coverage:
 				 * 
 				 */
 				"writer0", "book1", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #19 | Un escitor puede borrar sus libros
+				 * b) Negativo (Solo se pueden borrar los libros que estén en modo borrador)
+				 * c) Sequence coverage: 100%
 				 * d) Data coverage:
 				 * 
 				 */
@@ -381,18 +390,18 @@ public class BookServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #20 | Un escritor puede cancelar sus libros
+				 * b) Positivo
+				 * c) Sequence coverage: 100%
 				 * d) Data coverage:
 				 * 
 				 */
 				"writer0", "book0", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #21 | Un escritor puede cancelar sus libros
+				 * b) Negativo (No se pueden cancelar libros que estén en modo borrador)
+				 * c) Sequence coverage: 100%
 				 * d) Data coverage:
 				 * 
 				 */
@@ -433,18 +442,18 @@ public class BookServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #22 | Un escritor puede poner sus libros en modo final
+				 * b) Positivo
+				 * c) Sequence coverage: 100%
 				 * d) Data coverage:
 				 * 
 				 */
 				"writer0", "book1", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #23 | Un escritor puede poner sus libros en modo final
+				 * b) Negativo (No se pueden poner en modo final libros de otros escritores)
+				 * c) Sequence coverage: 100%
 				 * d) Data coverage:
 				 * 
 				 */
@@ -475,12 +484,11 @@ public class BookServiceTest extends AbstractTest {
 		this.checkExceptions(expected, caught);
 	}
 
-	//TODO: 
 	/**
-	 * a)#4 Test for Case use:
+	 * a) #24 Test for Case use: Un administrador puede lanzar un proceso para calcular las puntuaciones
 	 * b)
-	 * c)Sequence coverage:
-	 * d)Data coverage:
+	 * c) Sequence coverage: 100%
+	 * d) Data coverage:
 	 */
 	@Test
 	public void calculateScores() {

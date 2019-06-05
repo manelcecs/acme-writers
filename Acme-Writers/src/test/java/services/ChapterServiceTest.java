@@ -36,19 +36,19 @@ public class ChapterServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #1 | Un escritor puede crear capítulos
+				 * b) Positivo
+				 * c) Sequence coverage: 73%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"writer0", "book1", "Titulo de prueba", 4, "Texto de prueba", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #2 | Un escritor puede crear capítulos
+				 * b) Negativo (No se pueden añadir capítulos a libros en modo final)
+				 * c) Sequence coverage: 73%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"writer0", "book0", "Titulo de prueba", 4, "Texto de prueba", IllegalArgumentException.class
@@ -93,19 +93,19 @@ public class ChapterServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #3 | Un escritor puede editar sus capítulos
+				 * b) Positivo
+				 * c) Sequence coverage: 93%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"writer0", "chapter3", "Titulo editado", 6, "Texto editado", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
-				 * d) Data coverage:
+				 * a) #4 | Un escritor puede editar sus capítulos
+				 * b) Negativo (Un escritor no puede editar los capítulos de libros que no son suyos)
+				 * c) Sequence coverage: 93%
+				 * d) Data coverage: 100%
 				 * 
 				 */
 				"writer1", "chapter3", "Titulo editado", 6, "Texto editado", IllegalArgumentException.class
@@ -150,18 +150,18 @@ public class ChapterServiceTest extends AbstractTest {
 		final Object testingData[][] = {
 			{
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #5 | Un escritor puede borrar sus datos
+				 * b) Positivo
+				 * c) Sequence coverage: 93%
 				 * d) Data coverage:
 				 * 
 				 */
 				"writer0", "chapter3", null
 			}, {
 				/**
-				 * a) #1 |
-				 * b)
-				 * c) Sequence coverage:
+				 * a) #6 | Un escritor puede borrar
+				 * b) Negativo (No se pueden borrar capítulos de libros que estén en modo final)
+				 * c) Sequence coverage: 93%
 				 * d) Data coverage:
 				 * 
 				 */

@@ -1,6 +1,7 @@
 
 package services;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Contest;
@@ -422,5 +424,27 @@ public class SponsorshipServiceTest extends AbstractTest {
 		contests.add(contest);
 		sponsorship.setContests(contests);
 		return sponsorship;
+	}
+
+	/**
+	 * a) #1 Test for Case use: Un administrador puede lanzar un proceso para cancelar los patrocinios de los patrocinadores que tengan la tarjeta de crédito caducada
+	 * b)
+	 * c) Sequence coverage: 100%
+	 * d) Data coverage:
+	 * 
+	 * @throws ParseException
+	 */
+	@Test
+	public void cancelSponsorships() throws ParseException {
+		super.authenticate("admin");
+
+		this.sponsorshipService.cancelSponsorshipCaducate();
+		super.unauthenticate();
+		super.authenticate("sponsor2");
+		final Sponsorship sponsorship = this.sponsorshipService.findOne(this.getEntityId("sponsorship2"));
+		this.sponsorshipService.flush();
+		Assert.isTrue(sponsorship.getCancelled());
+
+		super.unauthenticate();
 	}
 }
