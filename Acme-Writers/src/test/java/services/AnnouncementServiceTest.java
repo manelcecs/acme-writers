@@ -52,7 +52,7 @@ public class AnnouncementServiceTest extends AbstractTest {
 				 * c)10/11
 				 * d)100%
 				 */
-				"writer0", false, ConstraintViolationException.class
+				"writer1", false, ConstraintViolationException.class
 			}
 		};
 
