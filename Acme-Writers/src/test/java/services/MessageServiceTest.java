@@ -21,6 +21,7 @@ import org.springframework.util.Assert;
 
 import utilities.AbstractTest;
 import domain.Actor;
+import domain.Book;
 import domain.Message;
 import domain.MessageBox;
 
@@ -39,6 +40,15 @@ public class MessageServiceTest extends AbstractTest {
 
 	@Autowired
 	private ActorService			actorService;
+
+	@Autowired
+	private BookService				bookService;
+
+	@Autowired
+	private WriterService			writerService;
+
+	@Autowired
+	private SponsorshipService		sponsorshipService;
 
 	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
@@ -407,5 +417,57 @@ public class MessageServiceTest extends AbstractTest {
 		final LocalDateTime DateTimeNow = LocalDateTime.now();
 		final Date moment = this.FORMAT.parse(DateTimeNow.getYear() + "/" + DateTimeNow.getMonthOfYear() + "/" + DateTimeNow.getDayOfMonth() + " " + DateTimeNow.getHourOfDay() + ":" + DateTimeNow.getMinuteOfHour() + ":" + DateTimeNow.getSecondOfMinute());
 		return moment;
+	}
+
+	/**
+	 * a)#5 Test for Case use: Cuando una editorial cambie el estado de un libro, el escritor debe recibir una notificacion informativa
+	 * b)
+	 * c)Sequence coverage: 100%
+	 * d)Data coverage:
+	 * 
+	 * @throws ParseException
+	 */
+	@Test
+	public void notificationWhenStatusOfBookIsChanged() throws ParseException {
+
+		super.authenticate("writer0");
+		final Book book = this.bookService.changeDraft(this.getEntityId("book1"));
+		this.bookService.flush();
+		super.unauthenticate();
+
+		super.authenticate("publisher0");
+		final Book bookCS = this.bookService.changeStatus(this.getEntityId("book1"), "ACCEPTED");
+		this.bookService.flush();
+		super.unauthenticate();
+
+		super.authenticate("writer0");
+		final MessageBox messageBox = this.messageBoxService.findOne(this.getEntityId("messageBox39"));
+		this.messageBoxService.flush();
+		Assert.isTrue(messageBox.getMessages().size() != 0);
+		super.unauthenticate();
+
+	}
+
+	/**
+	 * a)#6 Test for Case use: Los patrocinadores deben recibir una notificación cuando se cancelen sus patrocinios
+	 * b)
+	 * c)Sequence coverage: 100%
+	 * d)Data coverage:
+	 * 
+	 * @throws ParseException
+	 */
+	@Test
+	public void notificationWhenSponsorpshipIsCancelled() throws ParseException {
+
+		super.authenticate("admin");
+		this.sponsorshipService.cancelSponsorshipCaducate();
+		this.sponsorshipService.flush();
+		super.unauthenticate();
+
+		super.authenticate("sponsor2");
+		final MessageBox messageBox = this.messageBoxService.findOne(this.getEntityId("messageBox19"));
+		this.messageBoxService.flush();
+		Assert.isTrue(messageBox.getMessages().size() != 0);
+		super.unauthenticate();
 	}
 }

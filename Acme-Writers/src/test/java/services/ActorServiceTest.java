@@ -28,11 +28,10 @@ public class ActorServiceTest extends AbstractTest {
 	ReaderService	readerService;
 
 
-	//TODO: 
 	/**
-	 * a)#4 Test for Case use:
+	 * a)#1 Test for Case use: Un administrador puede lanzar un proceso para calcular a los usuarios spammers
 	 * b)
-	 * c)Sequence coverage:
+	 * c)Sequence coverage: 100%
 	 * d)Data coverage:
 	 */
 	@Test
