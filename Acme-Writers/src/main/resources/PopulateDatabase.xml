@@ -47,6 +47,19 @@
             <property name="spammerPercentage" value="10.0" />
     </bean>
     
+    <!-- User accounts (Anonymous) -->
+    <bean id="userAccount99" class="security.UserAccount">
+        <property name="username" value="anonymous" />
+        <property name="password" value="12ad2f12a5a90d338d8f1f428a9b47f1" />
+        <property name="authorities">
+            <list>
+                <bean class="security.Authority">
+                    <property name="authority" value="ANONYMOUS" />
+                </bean>
+            </list>
+        </property>
+    </bean>
+    
     <!-- User accounts (admin) -->
     <bean id="userAccount0" class="security.UserAccount">
         <property name="username" value="admin" />
