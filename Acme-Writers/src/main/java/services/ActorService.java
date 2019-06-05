@@ -317,36 +317,40 @@ public class ActorService {
 		if (authority.equals("BAN"))
 			authority = this.checkAuthorityIsBanned(principal);
 
-		switch (authority) {
-		case "ADMINISTRATOR":
+		try {
+			switch (authority) {
+			case "ADMINISTRATOR":
 
-			final Administrator anonymousAdmin = this.anonymizeAdmin(this.administratorService.findByPrincipal(principal));
-			this.administratorService.save(anonymousAdmin);
+				final Administrator anonymousAdmin = this.anonymizeAdmin(this.administratorService.findByPrincipal(principal));
+				this.administratorService.save(anonymousAdmin);
 
-			break;
+				break;
 
-		case "WRITER":
+			case "WRITER":
 
-			final Writer anonymousWriter = this.anonymizeWriter(this.writerService.findByPrincipal(principal));
-			this.writerService.save(anonymousWriter);
+				final Writer anonymousWriter = this.anonymizeWriter(this.writerService.findByPrincipal(principal));
+				this.writerService.save(anonymousWriter);
 
-			break;
+				break;
 
-		case "READER":
+			case "READER":
 
-			final Reader anonymousReader = this.anonymizeReader(this.readerService.findByPrincipal(principal));
-			this.readerService.save(anonymousReader);
+				final Reader anonymousReader = this.anonymizeReader(this.readerService.findByPrincipal(principal));
+				this.readerService.save(anonymousReader);
 
-			break;
-		case "SPONSOR":
-			final Sponsor anonymousSponsor = this.anonymizeSponsor(this.sponsorService.findByPrincipal(principal));
-			this.sponsorService.save(anonymousSponsor);
-			break;
+				break;
+			case "SPONSOR":
+				final Sponsor anonymousSponsor = this.anonymizeSponsor(this.sponsorService.findByPrincipal(principal));
+				this.sponsorService.save(anonymousSponsor);
+				break;
 
-		case "PUBLISHER":
-			final Publisher anonymousPublisher = this.anonymizePublisher(this.publisherService.findByPrincipal(principal));
-			this.publisherService.save(anonymousPublisher);
-			break;
+			case "PUBLISHER":
+				final Publisher anonymousPublisher = this.anonymizePublisher(this.publisherService.findByPrincipal(principal));
+				this.publisherService.save(anonymousPublisher);
+				break;
+			}
+		} catch (final Exception e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -391,6 +395,7 @@ public class ActorService {
 	}
 
 	private Administrator anonymizeAdmin(final Administrator actor) {
+
 		actor.setName("anonymous");
 		actor.setPhotoURL(null);
 		actor.setEmail("---");
@@ -405,11 +410,15 @@ public class ActorService {
 		final Collection<SocialProfile> socialProfiles = this.socialProfileService.findAllSocialProfiles(actor.getId());
 		this.socialProfileService.delete(socialProfiles);
 
+		final UserAccount antique = actor.getUserAccount();
+		final UserAccount ua = this.userAccountRepository.findByUsername("anonymous");
+
+		actor.setUserAccount(ua);
+		this.userAccountRepository.delete(antique);
+
 		return actor;
 	}
-
 	private Writer anonymizeWriter(final Writer actor) throws ParseException {
-		//TODO: a�adir los objetos que falten
 
 		actor.setName("anonymous");
 		actor.setPhotoURL(null);
@@ -456,10 +465,15 @@ public class ActorService {
 		for (final Announcement ann : announcements)
 			this.announcementService.delete(ann);
 
+		final UserAccount antique = actor.getUserAccount();
+		final UserAccount ua = this.userAccountRepository.findByUsername("anonymous");
+
+		actor.setUserAccount(ua);
+		this.userAccountRepository.delete(antique);
+
 		return actor;
 	}
 	private Reader anonymizeReader(final Reader actor) {
-		//TODO: a�adir los objetos que falten
 
 		actor.setName("anonymous");
 		actor.setPhotoURL(null);
@@ -481,11 +495,16 @@ public class ActorService {
 			this.opinionService.save(o);
 		}
 
+		final UserAccount antique = actor.getUserAccount();
+		final UserAccount ua = this.userAccountRepository.findByUsername("anonymous");
+
+		actor.setUserAccount(ua);
+		this.userAccountRepository.delete(antique);
+
 		return actor;
 	}
 
 	private Sponsor anonymizeSponsor(final Sponsor actor) {
-		//TODO: a�adir los objetos que falten
 
 		actor.setName("anonymous");
 		actor.setPhotoURL(null);
@@ -511,11 +530,16 @@ public class ActorService {
 			this.socialProfileService.flush();
 		}
 
+		final UserAccount antique = actor.getUserAccount();
+		final UserAccount ua = this.userAccountRepository.findByUsername("anonymous");
+
+		actor.setUserAccount(ua);
+		this.userAccountRepository.delete(antique);
+
 		return actor;
 	}
 
 	private Publisher anonymizePublisher(final Publisher actor) throws ParseException {
-		//TODO: a�adir los objetos que falten
 
 		actor.setName("anonymous");
 		actor.setPhotoURL(null);
@@ -543,6 +567,12 @@ public class ActorService {
 			this.contestService.saveAnonymize(c);
 			this.contestService.flush();
 		}
+
+		final UserAccount antique = actor.getUserAccount();
+		final UserAccount ua = this.userAccountRepository.findByUsername("anonymous");
+
+		actor.setUserAccount(ua);
+		this.userAccountRepository.delete(antique);
 
 		return actor;
 	}
