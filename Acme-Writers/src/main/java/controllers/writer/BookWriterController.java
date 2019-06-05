@@ -213,6 +213,7 @@ public class BookWriterController extends AbstractController {
 		result.addObject("requestURI", "book/writer/list.do");
 		result.addObject("title", "book.title.myBooks");
 
+		result.addObject("targetURL", "/book/writer/list.do");
 		this.configValues(result);
 
 		return result;

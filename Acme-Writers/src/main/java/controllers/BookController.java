@@ -118,6 +118,7 @@ public class BookController extends AbstractController {
 			final Collection<Book> favouritesBooks = reader.getBooks();
 			result.addObject("favouritesBooks", favouritesBooks);
 			result.addObject("favourites", favourites);
+			result.addObject("targetURL", "/book/listAll.do");
 
 		} catch (final Throwable socorro) {
 

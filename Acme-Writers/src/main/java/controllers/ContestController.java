@@ -39,6 +39,7 @@ public class ContestController extends AbstractController {
 		result.addObject("viewAll", true);
 		result.addObject("requestURI", "contest/list.do");
 		result.addObject("actual", actual);
+		result.addObject("targetURL", "/contest/list.do");
 		if (AuthorityMethods.checkIsSomeoneLogged())
 			if (utiles.AuthorityMethods.chechAuthorityLogged("WRITER"))
 				result.addObject("canParticipate", this.contestService.getContestCanParticipate());

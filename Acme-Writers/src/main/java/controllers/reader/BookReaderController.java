@@ -42,7 +42,7 @@ public class BookReaderController extends AbstractController {
 		result.addObject("favouritesBooks", reader.getBooks());
 		result.addObject("requestURI", "book/reader/listFavourites.do");
 		result.addObject("title", "book.title.favourites");
-
+		result.addObject("targetURL", "/book/reader/listFavourites.do");
 		this.configValues(result);
 
 		return result;

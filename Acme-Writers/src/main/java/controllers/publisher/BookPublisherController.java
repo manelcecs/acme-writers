@@ -93,7 +93,7 @@ public class BookPublisherController extends AbstractController {
 		result.addObject("message", message);
 		result.addObject("publisher", true);
 		result.addObject("title", "book.title.myBooks");
-
+		result.addObject("targetURL", "/book/publisher/list.do");
 		this.configValues(result);
 
 		return result;
