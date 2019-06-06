@@ -53,6 +53,14 @@ public class AnnouncementServiceTest extends AbstractTest {
 				 * d)100%
 				 */
 				"writer1", false, ConstraintViolationException.class
+			}, {/*
+				 * Create an announcement, logged as a publisher, invalid data
+				 * a)
+				 * b)Negativo
+				 * c)8/11
+				 * d)100%
+				 */
+				"publisher0", false, IllegalArgumentException.class
 			}
 		};
 
