@@ -28,7 +28,6 @@ public class ChapterController extends AbstractController {
 		if (!chapter.getBook().getDraft() && !chapter.getBook().getCancelled() && (chapter.getBook().getStatus().equals("INDEPENDENT") || chapter.getBook().getStatus().equals("ACCEPTED")))
 			result.addObject("chapter", chapter);
 		else
-			//FIXME: PROBAR ESTE REDIRECT
 			result = new ModelAndView("redirect:/book/listAll.do");
 
 		this.configValues(result);

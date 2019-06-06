@@ -34,7 +34,6 @@ public class ChapterPublisherController extends AbstractController {
 		final Publisher publiserLogged = this.publisherService.findByPrincipal(LoginService.getPrincipal());
 
 		if (!chapter.getBook().getPublisher().equals(publiserLogged) || chapter.getBook().getCancelled() || chapter.getBook().getDraft())
-			//FIXME: PROBAR ESTE REDIRECT
 			result = new ModelAndView("redirect:/book/publisher/list.do");
 		else {
 			result.addObject("chapter", chapter);

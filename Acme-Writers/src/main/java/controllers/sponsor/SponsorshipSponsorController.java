@@ -93,7 +93,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		try {
 			Assert.notNull(sponsorship);
 			this.sponsorshipService.delete(sponsorship);
-			result = this.listModelAndView();
+			result = new ModelAndView("redirect:list.do");
 		} catch (final Exception e) {
 			result = this.listModelAndView("sponsorship.commit.error");
 		}
@@ -124,7 +124,7 @@ public class SponsorshipSponsorController extends AbstractController {
 		try {
 			final Sponsorship sponsorshipRect = this.sponsorshipService.reconstruct(sponsorshipForm, binding);
 			this.sponsorshipService.save(sponsorshipRect);
-			result = this.listModelAndView();
+			result = new ModelAndView("redirect:list.do");
 		} catch (final ValidationException oops) {
 			result = this.createEditModelAndView(sponsorshipForm);
 			oops.printStackTrace();
@@ -163,7 +163,7 @@ public class SponsorshipSponsorController extends AbstractController {
 
 		result = new ModelAndView("sponsorship/edit");
 
-		final Collection<Contest> posibleContests = this.contestService.getAllContestMinusAnonymous(); //TODO Alguna restriccion?
+		final Collection<Contest> posibleContests = this.contestService.getAllContestMinusAnonymous();
 
 		final AdminConfig adminConfig = this.adminConfigService.getAdminConfig();
 

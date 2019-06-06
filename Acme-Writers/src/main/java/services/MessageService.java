@@ -212,7 +212,7 @@ public class MessageService {
 
 	public Message notifySponsorshipCancelled(final Collection<Actor> recipients) throws ParseException {
 		final Actor sender = this.administratorService.getOne();
-		final String body = "Le informamos que todos sus patrocinios han sido cancelados ya que su tarjeta de crï¿½dito se encuentra caducada. " + "Cuando usted actualice su tarjeta de crï¿½dito estos volverï¿½n a estar disponibles. Muchas gracias. | "
+		final String body = "Le informamos que todos sus patrocinios han sido cancelados ya que su tarjeta de crédito se encuentra caducada. " + "Cuando usted actualice su tarjeta de crédito estos volverán a estar disponibles. Muchas gracias. | "
 			+ "We inform you that all your sponsorships have been cancelled as your credit card has expired. " + "When you update your credit card they will be available again. Thank you very much.";
 
 		final Message message = this.initializeNotification(sender, recipients, body);

@@ -30,7 +30,6 @@ public class ChapterService {
 	@Autowired
 	private WriterService		writerService;
 
-	//FIXME: Add en las palabras de spam
 	public static final String	REGEXP	= "([\\W\\s]+)";
 
 
@@ -58,9 +57,11 @@ public class ChapterService {
 
 		Assert.isTrue(book.getDraft());
 
-		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getId());
+		if (chapter.getId() == 0) {
+			final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(book.getId());
 
-		Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
+			Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
+		}
 
 		Integer numPalabras;
 		if (chapter.getId() != 0) {
@@ -89,10 +90,6 @@ public class ChapterService {
 		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
 
 		Assert.isTrue(book.getWriter().equals(writerLogged));
-
-		final Collection<Integer> numbersOfBook = this.getNumbersOfChaptersOfABook(chapter.getId());
-
-		Assert.isTrue(!numbersOfBook.contains(chapter.getNumber()));
 
 		Integer numPalabras;
 		if (chapter.getId() != 0) {

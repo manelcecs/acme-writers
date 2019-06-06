@@ -69,7 +69,6 @@ public class BookController extends AbstractController {
 			result.addObject("book", book);
 			result.addObject("chapters", this.chapterService.getChaptersOfABook(book.getId()));
 
-			//FIXME: ADD THE OPINIONS
 			result.addObject("opinions", this.opinionService.getOpinionsOfBook(idBook));
 			result.addObject("requestURIChapters", "book/display.do?idBook=" + idBook);
 			result.addObject("requestURIOpinions", "book/display.do?idBook=" + idBook);
@@ -151,7 +150,6 @@ public class BookController extends AbstractController {
 					final Image image = Image.getInstance(url);
 
 				} catch (final Throwable oops) {
-					System.out.println("No ha pasado nada ejj");
 					existCover = false;
 				}
 			response.setContentType("application/pdf");
@@ -163,12 +161,11 @@ public class BookController extends AbstractController {
 			final Collection<Chapter> chapters = this.chapterService.getChaptersOfABook(idBook);
 			final BaseFont helvetica = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.EMBEDDED);
 
-			//		Portada
+			//Portada
 			if (existCover) {
 				final Image image = Image.getInstance(new URL(book.getCover()));
 				image.setAlignment(Element.ALIGN_MIDDLE | Image.TEXTWRAP);
 				//Revisar el tamaño de la portada
-				//image.scaleAbsolute(5f, 10f);
 				doc.add(image);
 				doc.add(Chunk.NEWLINE);
 				doc.add(Chunk.NEWLINE);

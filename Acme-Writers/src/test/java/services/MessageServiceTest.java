@@ -45,9 +45,6 @@ public class MessageServiceTest extends AbstractTest {
 	private BookService				bookService;
 
 	@Autowired
-	private WriterService			writerService;
-
-	@Autowired
 	private SponsorshipService		sponsorshipService;
 
 	private final SimpleDateFormat	FORMAT	= new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");

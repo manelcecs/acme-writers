@@ -65,8 +65,7 @@ public class Opinion extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = true)
-	//@ManyToOne(optional = false) Creo que es asi. Preguntar a los compis
+	@ManyToOne(optional = false)
 	public Book getBook() {
 		return this.book;
 	}

@@ -20,7 +20,7 @@
 
     <bean id="adminConfig" class="domain.AdminConfig">
         <property name="systemName" value="Acme Writer" />
-        <property name="bannerURL" value="https://i.imgur.com/JzlW7mn.jpg" />
+        <property name="bannerURL" value="https://i.imgur.com/a0M044s.png" />
         <property name="countryCode" value="+34" />
         <property name="finderResults" value="10" />
         <property name="finderCacheTime" value="1" />
@@ -51,6 +51,19 @@
             <property name="flatRate" value="0.5" />
             <property name="VAT" value="21.0" />
             <property name="spammerPercentage" value="10.0" />
+    </bean>
+    
+    <!-- User accounts (Anonymous) -->
+    <bean id="userAccount99" class="security.UserAccount">
+        <property name="username" value="anonymous" />
+        <property name="password" value="12ad2f12a5a90d338d8f1f428a9b47f1" />
+        <property name="authorities">
+            <list>
+                <bean class="security.Authority">
+                    <property name="authority" value="ANONYMOUS" />
+                </bean>
+            </list>
+        </property>
     </bean>
     
     <!-- User accounts (admin) -->
@@ -130,5 +143,48 @@
         </property>
         <property name="userAccount" ref="userAccount0" />
     </bean>
+    
+    
+    <bean class="domain.Genre" id="genre0">
+        <property value="GENRE" name="nameEN" />
+        <property value="GÉNERO" name="nameES" />        
+    </bean>
+    
+    <bean class="domain.Genre" id="genre1">
+        <property value="Lejano Oeste" name="nameES" />
+        <property value="Westerns" name="nameEN" />    
+        <property name="parent" ref="genre0" />        
+    </bean>
+    
+    <bean class="domain.Genre" id="genre2">
+        <property value="Romance" name="nameES" />
+        <property value="Romance" name="nameEN" />    
+        <property name="parent" ref="genre0" />        
+    </bean>
+    
+    <bean class="domain.Genre" id="genre3">
+        <property value="Suspense" name="nameES" />
+        <property value="Threaller" name="nameEN" />
+        <property name="parent" ref="genre0" />            
+    </bean>
+    
+    <bean class="domain.Genre" id="genre4">
+        <property value="Fantasia" name="nameES" />
+        <property value="Fantasy" name="nameEN" />    
+        <property name="parent" ref="genre3" />        
+    </bean>
+    
+	<bean class="domain.Genre" id="genre5">
+        <property value="Ciencia Ficción" name="nameES" />
+        <property value="Science Fiction" name="nameEN" />
+        <property name="parent" ref="genre0" />            
+    </bean>
+    
+    <bean class="domain.Genre" id="genre6">
+        <property value="Misterio" name="nameES" />
+        <property value="Mystery" name="nameEN" />
+        <property name="parent" ref="genre5" />            
+    </bean>
+    
     
 </beans>

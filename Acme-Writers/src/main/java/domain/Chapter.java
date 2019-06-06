@@ -61,8 +61,7 @@ public class Chapter extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = true)
-	//@ManyToOne(optional = false) //FIXME creo que es optional false. Esperar a ver que dicen los compis
+	@ManyToOne(optional = false)
 	public Book getBook() {
 		return this.book;
 	}

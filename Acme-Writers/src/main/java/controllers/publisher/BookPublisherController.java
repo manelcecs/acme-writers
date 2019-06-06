@@ -55,8 +55,6 @@ public class BookPublisherController extends AbstractController {
 			result.addObject("publisher", true);
 			result.addObject("chapters", this.chapterService.getChaptersOfABook(book.getId()));
 
-			//FIXME: ADD THE OPINIONS
-
 			result.addObject("opinions", this.opinionService.getOpinionsOfBook(idBook));
 			result.addObject("requestURIChapters", "book/publisher/display.do?idBook=" + idBook);
 			result.addObject("requestURIOpinions", "book/publisher/display.do?idBook=" + idBook);

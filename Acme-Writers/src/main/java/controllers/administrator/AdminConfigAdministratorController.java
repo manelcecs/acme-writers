@@ -85,7 +85,7 @@ public class AdminConfigAdministratorController extends AbstractController {
 		return result;
 	}
 	@RequestMapping(value = "/addCreditCardMake", method = RequestMethod.POST, params = "save")
-	public ModelAndView addCreditCardMake(final CreditCardMakeForm creditCardMakeForm, final BindingResult binding) {
+	public ModelAndView addCreditCardMake(@Valid final CreditCardMakeForm creditCardMakeForm, final BindingResult binding) {
 		ModelAndView result;
 		result = new ModelAndView("adminConfig/edit");
 

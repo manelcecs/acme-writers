@@ -41,7 +41,7 @@
 		<jstl:out value="${writer.surname }" />
 		<br />
 		<b><spring:message code="actor.photoURL" /></b>:
-		<jstl:out value="${writer.photoURL }" />
+		<img style="width: 200px;" src="${writer.photoURL }" alt="${writer.photoURL }"/>
 		<br />
 		<b><spring:message code="actor.email" /></b>:
 		<jstl:out value="${writer.email }" />
@@ -77,7 +77,7 @@
 			<jstl:out value="${administrator.surname }" />
 		<br />
 		<b><spring:message code="actor.photoURL" /></b>:
-		<jstl:out value="${administrator.photoURL }" />
+		<img style="width: 200px;" src="${administrator.photoURL }" alt="${administrator.photoURL }"/>
 		<br />
 		<b><spring:message code="actor.email" /></b>:
 		<jstl:out value="${administrator.email }" />
@@ -112,7 +112,7 @@
 			<jstl:out value="${reader.surname }" />
 		<br />
 		<b><spring:message code="actor.photoURL" /></b>:
-		<jstl:out value="${reader.photoURL }" />
+			<img style="width: 200px;" src="${reader.photoURL }" alt="${reader.photoURL }"/>
 		<br />
 		<b><spring:message code="actor.email" /></b>:
 		<jstl:out value="${reader.email }" />
@@ -149,7 +149,7 @@
 		<jstl:out value="${publisher.commercialName }" />
 		<br />
 		<b><spring:message code="actor.photoURL" /></b>:
-		<jstl:out value="${publisher.photoURL }" />
+			<img style="width: 200px;" src="${publisher.photoURL }" alt="${publisher.photoURL }"/>
 		<br />
 		<b><spring:message code="actor.email" /></b>:
 		<jstl:out value="${publisher.email }" />
@@ -182,7 +182,7 @@
 			<jstl:out value="${sponsor.surname }" />
 		<br />
 		<b><spring:message code="actor.photoURL" /></b>:
-		<jstl:out value="${sponsor.photoURL }" />
+			<img style="width: 200px;" src="${sponsor.photoURL }" alt="${sponsor.photoURL }"/>
 		<br />
 		<b><spring:message code="actor.email" /></b>:
 		<jstl:out value="${sponsor.email }" />

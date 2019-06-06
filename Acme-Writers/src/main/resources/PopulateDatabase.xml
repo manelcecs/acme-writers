@@ -14,7 +14,7 @@
 
     <bean id="adminConfig" class="domain.AdminConfig">
         <property name="systemName" value="Acme Writer" />
-        <property name="bannerURL" value="https://i.imgur.com/JzlW7mn.jpg" />
+        <property name="bannerURL" value="https://i.imgur.com/a0M044s.png" />
         <property name="countryCode" value="+34" />
         <property name="finderResults" value="10" />
         <property name="finderCacheTime" value="1" />

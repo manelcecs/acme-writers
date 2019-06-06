@@ -49,8 +49,6 @@ public class ReaderService {
 	private FinderService			finderService;
 
 
-	//TODO: messageBoxesService
-
 	public Reader create() throws ParseException {
 		final Reader reader = new Reader();
 
