@@ -161,14 +161,14 @@ public class GenreServiceTest extends AbstractTest {
 	 * Manage his or her genres, which includes listing,
 	 * creating, updating and DELETING them.
 	 * 1 positive
-	 * 1 negative
+	 * 2 negative
 	 */
 	@Test
 	public void deletingDriver() {
 		final Object testingData[][] = {
 			{
 				/*
-				 * a)A sponsor delete his or her sponsorship
+				 * a)Admin delete a genre
 				 * b)Positive
 				 * c)Sequence coverage: 100%
 				 * d)Data coverage: -
@@ -176,12 +176,20 @@ public class GenreServiceTest extends AbstractTest {
 				"admin", "genre1", null
 			}, {
 				/*
-				 * a) One sponsor delete the sponsorship of another sponsor
+				 * a) Admin delete a genre father 
 				 * b) Negative
 				 * c) Sequence coverage: 17%
 				 * d) Data coverage: -
 				 */
 				"admin", "genre0", IllegalArgumentException.class
+			}, {
+				/*
+				 * a) Reader delete a genre
+				 * b) Negative
+				 * c) Sequence coverage: 15%
+				 * d) Data coverage: -
+				 */
+				"reader0", "genre1", IllegalArgumentException.class
 			}
 		};
 

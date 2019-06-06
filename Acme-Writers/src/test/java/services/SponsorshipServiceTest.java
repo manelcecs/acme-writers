@@ -63,6 +63,14 @@ public class SponsorshipServiceTest extends AbstractTest {
 				 * d)Data coverage: -
 				 */
 				"sponsor0", "sponsor1", IllegalArgumentException.class
+			}, {
+				/*
+				 * a) One reader lists the sponsorships of another sponsor
+				 * b) Negative
+				 * c)Sequence coverage: 50%
+				 * d)Data coverage: -
+				 */
+				"reader0", "sponsor1", IllegalArgumentException.class
 			}
 		};
 
@@ -96,7 +104,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	 * Manage his or her sponsorships, which includes listing, SHOWING,
 	 * creating, updating and deleting them.
 	 * 1 positive
-	 * 1 negative
+	 * 2 negative
 	 */
 	@Test
 	public void showingDriver() {
@@ -117,6 +125,14 @@ public class SponsorshipServiceTest extends AbstractTest {
 				 * d)Data coverage: -
 				 */
 				"sponsor0", super.getEntityId("sponsorship1"), IllegalArgumentException.class
+			}, {
+				/*
+				 * a) One reader display the sponsorship of another sponsor
+				 * b) Negative
+				 * c)Sequence coverage: 66%
+				 * d)Data coverage: -
+				 */
+				"reader0", super.getEntityId("sponsorship1"), IllegalArgumentException.class
 			}
 		};
 
@@ -364,7 +380,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	 * Manage his or her sponsorships, which includes listing, showing,
 	 * creating, updating and DELETING them.
 	 * 1 positive
-	 * 1 negative
+	 * 2 negative
 	 */
 	@Test
 	public void deletingDriver() {
@@ -385,6 +401,14 @@ public class SponsorshipServiceTest extends AbstractTest {
 				 * d)Data coverage: -
 				 */
 				"sponsor0", "sponsorship1", IllegalArgumentException.class
+			}, {
+				/*
+				 * a) One reader delete the sponsorship of another sponsor
+				 * b) Negative
+				 * c)Sequence coverage: 40%
+				 * d)Data coverage: -
+				 */
+				"reader0", "sponsorship1", IllegalArgumentException.class
 			}
 		};
 
@@ -427,7 +451,7 @@ public class SponsorshipServiceTest extends AbstractTest {
 	}
 
 	/**
-	 * a) #1 Test for Case use: Un administrador puede lanzar un proceso para cancelar los patrocinios de los patrocinadores que tengan la tarjeta de crédito caducada
+	 * a) #1 Test for Case use: Un administrador puede lanzar un proceso para cancelar los patrocinios de los patrocinadores que tengan la tarjeta de crï¿½dito caducada
 	 * b)
 	 * c) Sequence coverage: 100%
 	 * d) Data coverage:
