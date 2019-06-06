@@ -40,8 +40,8 @@ public class ParticipationServiceTest extends AbstractTest {
 	/**
 	 * This test reefer to use case 21.b and 22.b(Acme-Writers)
 	 * here we're going to test the create/edit of participations
-	 * One positive
-	 * One negative
+	 * Two positives
+	 * Two negatives
 	 * 
 	 * @throws ParseException
 	 */

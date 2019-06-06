@@ -43,7 +43,7 @@ public class DashboardServiceTest extends AbstractTest {
 	 * This test reefer to use case 25.h
 	 * here we're going to test the dashboard metrics related to books for the administrator
 	 * One positive
-	 * One negative
+	 * Two negatives
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -80,6 +80,15 @@ public class DashboardServiceTest extends AbstractTest {
 				 * 
 				 */
 				"writer0", 0.6667, 0, 1, 0.4714, 1.0, 2.0, 1, 3, 1.0, genres, writersWithMoreBooks, writersWithLessBooks, IllegalArgumentException.class
+			}, {
+				/**
+				 * a) 25.h: show metrics as an Administrator
+				 * b) Must be an administrator(publisher)
+				 * c) 50%
+				 * d)
+				 * 
+				 */
+				"publisher0", 0.6667, 0, 1, 0.4714, 1.0, 2.0, 1, 3, 1.0, genres, writersWithMoreBooks, writersWithLessBooks, IllegalArgumentException.class
 			}
 		};
 

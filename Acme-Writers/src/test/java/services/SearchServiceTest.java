@@ -29,7 +29,8 @@ public class SearchServiceTest extends AbstractTest {
 	/**
 	 * This test reefer to requirement 19.f of Acme-Writers
 	 * here we're going to test the search of books by keyword
-	 * Two positives
+	 * One positive
+	 * Two negatives
 	 */
 	@SuppressWarnings("unchecked")
 	@Test
@@ -53,12 +54,21 @@ public class SearchServiceTest extends AbstractTest {
 			}, {
 				/**
 				 * a) 19.f: search books by keyword
-				 * b) Positive
+				 * b) Negative: search results do not match
 				 * c) 100%
 				 * d)
 				 * 
 				 */
-				null, "sirena", books2, null
+				null, "sirena", books1, IllegalArgumentException.class
+			}, {
+				/**
+				 * a) 19.f: search books by keyword
+				 * b) Negative: cannot search for HTML code
+				 * c) 100%
+				 * d)
+				 * 
+				 */
+				null, "qwertyu", books2, IllegalArgumentException.class
 			}
 		};
 
