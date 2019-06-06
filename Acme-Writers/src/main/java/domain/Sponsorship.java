@@ -6,8 +6,11 @@ import java.util.Collection;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,8 +18,13 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.URL;
 
+import forms.SponsorshipForm;
+
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "sponsor"), @Index(columnList = "cancelled")
+})
 public class Sponsorship extends DomainEntity {
 
 	private Boolean				cancelled;
@@ -40,6 +48,7 @@ public class Sponsorship extends DomainEntity {
 
 	@URL
 	@NotBlank
+	@Lob
 	public String getBannerURL() {
 		return this.bannerURL;
 	}
@@ -50,6 +59,7 @@ public class Sponsorship extends DomainEntity {
 
 	@URL
 	@NotBlank
+	@Lob
 	public String getTargetPageURL() {
 		return this.targetPageURL;
 	}
@@ -80,7 +90,6 @@ public class Sponsorship extends DomainEntity {
 
 	@Valid
 	@ManyToMany
-	@NotNull
 	public Collection<Contest> getContests() {
 		return this.contests;
 	}
@@ -99,16 +108,15 @@ public class Sponsorship extends DomainEntity {
 		this.views = views;
 	}
 
-	//	public SponsorshipForm castToForm() {
-	//		final SponsorshipForm sponsorshipForm = new SponsorshipForm();
-	//
-	//		sponsorshipForm.setId(this.getId());
-	//		sponsorshipForm.setBannerURL(this.getBannerURL());
-	//		sponsorshipForm.setPositions(this.getPositions());
-	//		sponsorshipForm.setTargetPageURL(this.getTargetPageURL());
-	//		sponsorshipForm.setCreditCard(this.getCreditCard());
-	//
-	//		return sponsorshipForm;
-	//
-	//	}
+	public SponsorshipForm castToForm() {
+		final SponsorshipForm sponsorshipForm = new SponsorshipForm();
+
+		sponsorshipForm.setId(this.getId());
+		sponsorshipForm.setBannerURL(this.getBannerURL());
+		sponsorshipForm.setContests(this.getContests());
+		sponsorshipForm.setTargetPageURL(this.getTargetPageURL());
+
+		return sponsorshipForm;
+
+	}
 }

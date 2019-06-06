@@ -33,9 +33,9 @@
 <%-- Definition --%>
 
 <div class="form-group">
-	<form:label path="${path}">
+	<form:label class="textAreaLabel" path="${path}">
 		<spring:message code="${code}" />
 	</form:label>
-	<form:textarea path="${path}" readonly="${readonly}" />
+	<form:textarea class="textArea" path="${path}" readonly="${readonly}" />
 	<form:errors path="${path}" cssClass="error" />
 </div>

@@ -16,6 +16,8 @@ import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
+import forms.AdminConfigForm;
+
 @Entity
 @Access(AccessType.PROPERTY)
 public class AdminConfig extends DomainEntity {
@@ -28,7 +30,7 @@ public class AdminConfig extends DomainEntity {
 	private Collection<String>	spamWords;
 	private Integer				finderResults;
 	private Integer				finderCacheTime;
-	private Double				ratioDislikes;
+	private Double				spammerPercentage;
 	private Double				VAT;
 	private Collection<String>	creditCardMakes;
 	private Double				flatRate;
@@ -115,13 +117,14 @@ public class AdminConfig extends DomainEntity {
 		this.finderCacheTime = finderCacheTime;
 	}
 
-	@Min(0)
-	public Double getRatioDislikes() {
-		return this.ratioDislikes;
+	@Range(min = 0, max = 100)
+	@NotNull
+	public Double getSpammerPercentage() {
+		return this.spammerPercentage;
 	}
 
-	public void setRatioDislikes(final Double ratioDislikes) {
-		this.ratioDislikes = ratioDislikes;
+	public void setSpammerPercentage(final Double spammerPercentage) {
+		this.spammerPercentage = spammerPercentage;
 	}
 
 	@Range(min = 0, max = 100)
@@ -153,19 +156,20 @@ public class AdminConfig extends DomainEntity {
 		this.flatRate = flatRate;
 	}
 
-	//	public AdminConfigForm castToForm() {
-	//		final AdminConfigForm adminConfigForm = new AdminConfigForm();
-	//		adminConfigForm.setBannerURL(this.getBannerURL());
-	//		adminConfigForm.setCountryCode(this.getCountryCode());
-	//		adminConfigForm.setCacheFinder(this.getCacheFinder());
-	//		adminConfigForm.setfinderResults(this.getfinderResults());
-	//		adminConfigForm.setSystemName(this.getSystemName());
-	//		adminConfigForm.setWelcomeMessageEN(this.getWelcomeMessageEN());
-	//		adminConfigForm.setWelcomeMessageES(this.getWelcomeMessageES());
-	//		adminConfigForm.setFlatRate(this.getFlatRate());
-	//		adminConfigForm.setVAT(this.getVAT());
-	//
-	//		return adminConfigForm;
-	//
-	//	}
+	public AdminConfigForm castToForm() {
+		final AdminConfigForm adminConfigForm = new AdminConfigForm();
+		adminConfigForm.setBannerURL(this.getBannerURL());
+		adminConfigForm.setCountryCode(this.getCountryCode());
+		adminConfigForm.setFinderCacheTime(this.getFinderCacheTime());
+		adminConfigForm.setFinderResults(this.getFinderResults());
+		adminConfigForm.setSystemName(this.getSystemName());
+		adminConfigForm.setWelcomeMessageEN(this.getWelcomeMessageEN());
+		adminConfigForm.setWelcomeMessageES(this.getWelcomeMessageES());
+		adminConfigForm.setFlatRate(this.getFlatRate());
+		adminConfigForm.setVAT(this.getVAT());
+		adminConfigForm.setSpammerPercentage(this.getSpammerPercentage());
+
+		return adminConfigForm;
+
+	}
 }

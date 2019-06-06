@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!-- 
+ * tiles_es.xml
+ *
+ * Copyright (C) 2019 Universidad de Sevilla
+ * 
+ * The use of this project is hereby constrained to the conditions of the 
+ * TDG Licence, a copy of which you may download from 
+ * http://www.tdg-seville.info/License.html
+ -->
+
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      
+<tiles-definitions>
+
+	<definition name="book/edit" extends="master.page">	
+		<put-attribute name="title" value="Editar libro" />
+		<put-attribute name="body" value="/views/book/edit.jsp" />
+	</definition>
+	
+	<definition name="book/list" extends="master.page">	
+		<put-attribute name="title" value="Lista de libros" />
+		<put-attribute name="body" value="/views/book/list.jsp" />
+	</definition>
+	
+	<definition name="book/display" extends="master.page">	
+		<put-attribute name="title" value="Ver libro" />
+		<put-attribute name="body" value="/views/book/display.jsp" />
+	</definition>
+		
+	<definition name="book/download" extends="master.page">	
+		<put-attribute name="title" value="Descargar libro" />
+		<put-attribute name="body" value="/views/book/download.jsp" />
+	</definition>
+	
+	
+	
+</tiles-definitions>

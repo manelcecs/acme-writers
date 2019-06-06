@@ -6,7 +6,9 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -19,6 +21,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "reader"), @Index(columnList = "book, positiveOpinion"), @Index(columnList = "book")
+})
 public class Opinion extends DomainEntity {
 
 	private Boolean	positiveOpinion;
@@ -60,8 +65,7 @@ public class Opinion extends DomainEntity {
 	}
 
 	@Valid
-	@ManyToOne(optional = true)
-	//@ManyToOne(optional = false) Creo que es asi. Preguntar a los compis
+	@ManyToOne(optional = false)
 	public Book getBook() {
 		return this.book;
 	}

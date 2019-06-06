@@ -1,0 +1,139 @@
+
+package controllers.writer;
+
+import java.util.Collection;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import security.LoginService;
+import services.BookService;
+import services.ChapterService;
+import services.WriterService;
+import controllers.AbstractController;
+import domain.Book;
+import domain.Chapter;
+import domain.Writer;
+
+@Controller
+@RequestMapping("/chapter/writer")
+public class ChapterWriterController extends AbstractController {
+
+	@Autowired
+	private BookService		bookService;
+
+	@Autowired
+	private ChapterService	chapterService;
+
+	@Autowired
+	private WriterService	writerService;
+
+
+	@RequestMapping(value = "/display", method = RequestMethod.GET)
+	public ModelAndView display(@RequestParam(required = true) final int idChapter) {
+		ModelAndView result = new ModelAndView("chapter/display");
+
+		final Chapter chapter = this.chapterService.findOne(idChapter);
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		if (!chapter.getBook().getWriter().equals(writerLogged))
+			result = new ModelAndView("redirect:/book/writer/list.do");
+		else {
+			result.addObject("chapter", chapter);
+			result.addObject("myChapter", true);
+			this.configValues(result);
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/create", method = RequestMethod.GET)
+	public ModelAndView create(@RequestParam(required = true) final int idBook) {
+		ModelAndView result;
+
+		final Book book = this.bookService.findOne(idBook);
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		if (!book.getWriter().equals(writerLogged) || !book.getDraft())
+			result = new ModelAndView("redirect:/book/writer/list.do");
+		else {
+			final Chapter chapter = this.chapterService.create(book);
+			result = this.createEditModelAndView(chapter);
+		}
+		return result;
+	}
+
+	@RequestMapping(value = "/edit", method = RequestMethod.GET)
+	public ModelAndView edit(@RequestParam(required = true) final int idChapter) {
+		ModelAndView result;
+
+		final Chapter chapter = this.chapterService.findOne(idChapter);
+		final Writer writerLogged = this.writerService.findByPrincipal(LoginService.getPrincipal().getId());
+
+		if (!chapter.getBook().getWriter().equals(writerLogged) || !chapter.getBook().getDraft())
+			result = new ModelAndView("redirect:/book/writer/list.do");
+		else
+			result = this.createEditModelAndView(chapter);
+		return result;
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public ModelAndView save(@Valid final Chapter chapter, final BindingResult bindingResult) {
+		ModelAndView result;
+
+		final Collection<Integer> numbersOfBook = this.chapterService.getNumbersOfChaptersOfABook(chapter.getBook().getId());
+
+		if (chapter.getId() != 0 && chapter.getNumber() != this.chapterService.findOne(chapter.getId()).getNumber())
+			if (numbersOfBook.contains(chapter.getNumber()))
+				bindingResult.rejectValue("number", "chapter.constraint.numberChapter");
+
+		if (bindingResult.hasErrors())
+			result = this.createEditModelAndView(chapter);
+		else
+			try {
+				this.chapterService.save(chapter);
+				result = new ModelAndView("redirect:/book/writer/display.do?idBook=" + chapter.getBook().getId());
+			} catch (final Throwable oops) {
+				oops.printStackTrace();
+				result = this.createEditModelAndView(chapter, "cannot.save.chapter");
+			}
+		return result;
+	}
+
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public ModelAndView delete(@RequestParam(required = true) final int idChapter) {
+		ModelAndView result;
+		final Chapter chapter = this.chapterService.findOne(idChapter);
+
+		try {
+			this.chapterService.delete(idChapter);
+			result = new ModelAndView("redirect:/book/writer/display.do?idBook=" + chapter.getBook().getId());
+		} catch (final Throwable oops) {
+			result = new ModelAndView("redirect:/book/writer/display.do?idBook=" + chapter.getBook().getId());
+		}
+		return result;
+	}
+
+	protected ModelAndView createEditModelAndView(final Chapter chapter) {
+		return this.createEditModelAndView(chapter, null);
+	}
+
+	protected ModelAndView createEditModelAndView(final Chapter chapter, final String message) {
+		final ModelAndView result = new ModelAndView("chapter/edit");
+
+		result.addObject("chapter", chapter);
+		result.addObject("message", message);
+		result.addObject("idBook", chapter.getBook().getId());
+		result.addObject("numbersOfChapters", this.chapterService.getNumbersOfChaptersOfABook(chapter.getBook().getId()));
+		this.configValues(result);
+
+		return result;
+	}
+
+}

@@ -1,14 +1,15 @@
 
 package domain;
 
-import java.util.Collection;
-
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
+import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -18,25 +19,30 @@ import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.URL;
 
+import forms.BookForm;
+
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "draft, writer"), @Index(columnList = "status, draft"), @Index(columnList = "status"), @Index(columnList = "draft"), @Index(columnList = "status, draft, cancelled"), @Index(columnList = "genre"),
+	@Index(columnList = "publisher, draft, cancelled"), @Index(columnList = "publisher"), @Index(columnList = "writer")
+})
 public class Book extends DomainEntity {
 
-	private String						title;
-	private String						description;
-	private String						language;
-	private String						cover;
-	private boolean						cancellled;
-	private String						status;
-	private boolean						draft;
-	private Double						score;
-	private Integer						numWords;
+	private String		title;
+	private String		description;
+	private String		lang;
+	private String		cover;
+	private boolean		cancelled;
+	private String		status;
+	private boolean		draft;
+	private Double		score;
+	private Integer		numWords;
 
-	private Ticker						ticker;
-	private Genre						genre;
-	private Collection<Participation>	participations;
-	private Publisher					publisher;
-	private Writer						writer;
+	private Ticker		ticker;
+	private Genre		genre;
+	private Publisher	publisher;
+	private Writer		writer;
 
 
 	@SafeHtml
@@ -51,6 +57,7 @@ public class Book extends DomainEntity {
 
 	@SafeHtml
 	@NotBlank
+	@Lob
 	public String getDescription() {
 		return this.description;
 	}
@@ -62,16 +69,16 @@ public class Book extends DomainEntity {
 	@SafeHtml
 	@NotBlank
 	@Pattern(regexp = "^EN|ES|IT|FR|DE|OTHER$")
-	public String getLanguage() {
-		return this.language;
+	public String getLang() {
+		return this.lang;
 	}
 
-	public void setLanguage(final String language) {
-		this.language = language;
+	public void setLang(final String lang) {
+		this.lang = lang;
 	}
 
 	@Valid
-	@OneToOne(optional = false)
+	@OneToOne(fetch = FetchType.LAZY, optional = false)
 	public Ticker getTicker() {
 		return this.ticker;
 	}
@@ -91,11 +98,11 @@ public class Book extends DomainEntity {
 	}
 
 	public boolean getCancelled() {
-		return this.cancellled;
+		return this.cancelled;
 	}
 
-	public void setCancelled(final boolean cancellled) {
-		this.cancellled = cancellled;
+	public void setCancelled(final boolean cancelled) {
+		this.cancelled = cancelled;
 	}
 
 	@NotBlank
@@ -126,7 +133,7 @@ public class Book extends DomainEntity {
 		this.score = score;
 	}
 
-	@Min(1)
+	@Min(0)
 	@NotNull
 	public Integer getNumWords() {
 		return this.numWords;
@@ -136,24 +143,15 @@ public class Book extends DomainEntity {
 		this.numWords = numWords;
 	}
 
-	@ManyToOne(optional = true)
+	@ManyToOne(optional = false)
 	@Valid
+	@NotNull
 	public Genre getGenre() {
 		return this.genre;
 	}
 
 	public void setGenre(final Genre genre) {
 		this.genre = genre;
-	}
-
-	@ManyToMany
-	@Valid
-	public Collection<Participation> getParticipations() {
-		return this.participations;
-	}
-
-	public void setParticipations(final Collection<Participation> participations) {
-		this.participations = participations;
 	}
 
 	@ManyToOne(optional = true)
@@ -174,5 +172,20 @@ public class Book extends DomainEntity {
 
 	public void setWriter(final Writer writer) {
 		this.writer = writer;
+	}
+
+	public BookForm castToForm() {
+		final BookForm bookForm = new BookForm();
+
+		bookForm.setCover(this.getCover());
+		bookForm.setDescription(this.getDescription());
+		bookForm.setGenre(this.getGenre());
+		bookForm.setId(this.getId());
+		bookForm.setLang(this.getLang());
+		bookForm.setPublisher(this.getPublisher());
+		bookForm.setTitle(this.getTitle());
+		bookForm.setVersion(this.getVersion());
+
+		return bookForm;
 	}
 }

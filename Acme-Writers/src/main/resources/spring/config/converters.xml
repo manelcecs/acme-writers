@@ -18,10 +18,39 @@
 	">
 
 	<util:list id="converters">
-		<!-- 
-			Add your own converters using entries of the following form: 
-			<bean class="converters.Class1ToClass2" /> 
-		-->
+		
+		<bean class="converters.BookToStringConverter"/>
+		<bean class="converters.StringToBookConverter"/>
+		
+		<bean class="converters.GenreToStringConverter"/>
+		<bean class="converters.StringToGenreConverter"/>
+		
+		<bean class="converters.ContestToStringConverter"/>
+		<bean class="converters.StringToContestConverter"/>		
+		
+		<bean class="converters.MessageToStringConverter"/>
+		<bean class="converters.StringToMessageConverter"/>
+		
+		<bean class="converters.MessageBoxToStringConverter"/>
+		<bean class="converters.StringToMessageBoxConverter"/>
+		
+		<bean class="converters.ActorToStringConverter"/>
+		<bean class="converters.StringToActorConverter"/>
+		
+		<bean class="converters.WriterToStringConverter"/>
+		<bean class="converters.StringToWriterConverter"/>
+		
+		<bean class="converters.PublisherToStringConverter"/>
+		<bean class="converters.StringToPublisherConverter"/>
+		
+		<bean class="converters.BookToStringConverter"/>
+		<bean class="converters.StringToBookConverter"/>
+		
+		<bean class="converters.OpinionToStringConverter"/>
+		<bean class="converters.StringToOpinionConverter"/>
+		
+		<bean class="converters.ParticipationToStringConverter"/>
+		<bean class="converters.StringToParticipationConverter"/>
 	</util:list>
 	
 </beans>

@@ -20,6 +20,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Version;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Access(AccessType.PROPERTY)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
@@ -34,7 +36,9 @@ public abstract class DomainEntity {
 
 	// Identification ---------------------------------------------------------
 
+	@JsonIgnore
 	private int	id;
+	@JsonIgnore
 	private int	version;
 
 

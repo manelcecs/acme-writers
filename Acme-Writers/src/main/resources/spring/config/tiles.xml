@@ -22,8 +22,30 @@
 		<value>/views/misc/tiles.xml</value>		
 		<value>/views/security/tiles.xml</value>
 		<value>/views/welcome/tiles.xml</value>
+		<value>/views/search/tiles.xml</value>
+		<value>/views/finder/tiles.xml</value>
+		<value>/views/message/tiles.xml</value>
+		<value>/views/messageBox/tiles.xml</value>
+		<value>/views/contest/tiles.xml</value>
+		<value>/views/adminConfig/tiles.xml</value>
+		<value>/views/genre/tiles.xml</value>
 		
+		<value>/views/actor/tiles.xml</value>
+		<value>/views/administrator/tiles.xml</value>
+		<value>/views/publisher/tiles.xml</value>
+		<value>/views/reader/tiles.xml</value>
+		<value>/views/sponsor/tiles.xml</value>
+		<value>/views/writer/tiles.xml</value>
+		<value>/views/sponsorship/tiles.xml</value>
+		
+		<value>/views/socialProfile/tiles.xml</value>
+		<value>/views/announcement/tiles.xml</value>
+		<value>/views/participation/tiles.xml</value>
 
+		<value>/views/book/tiles.xml</value>
+		<value>/views/chapter/tiles.xml</value>
+		<value>/views/opinion/tiles.xml</value>
+		
 	</util:list>
 
 </beans>

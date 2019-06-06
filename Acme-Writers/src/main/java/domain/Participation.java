@@ -6,13 +6,14 @@ import java.util.Date;
 import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.NotBlank;
@@ -21,6 +22,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "contest")
+})
 public class Participation extends DomainEntity {
 
 	private String	comment;
@@ -29,6 +33,7 @@ public class Participation extends DomainEntity {
 	private Integer	position;
 
 	private Contest	contest;
+	private Book	book;
 
 
 	@NotBlank
@@ -41,7 +46,6 @@ public class Participation extends DomainEntity {
 		this.comment = comment;
 	}
 
-	@Past
 	@Temporal(TemporalType.TIMESTAMP)
 	@DateTimeFormat(pattern = "yyyy/MM/dd HH:mm:ss")
 	@NotNull
@@ -53,7 +57,7 @@ public class Participation extends DomainEntity {
 		this.moment = moment;
 	}
 
-	@Pattern(regexp = "^REJECTED|ACCEPTED$")
+	@Pattern(regexp = "^REJECTED|ACCEPTED|PENDING$")
 	@NotBlank
 	@SafeHtml
 	public String getStatus() {
@@ -64,8 +68,7 @@ public class Participation extends DomainEntity {
 		this.status = status;
 	}
 
-	@Min(0)
-	@NotNull
+	@Min(1)
 	public Integer getPosition() {
 		return this.position;
 	}
@@ -82,6 +85,17 @@ public class Participation extends DomainEntity {
 
 	public void setContest(final Contest contest) {
 		this.contest = contest;
+	}
+
+	@ManyToOne(optional = false)
+	@Valid
+	@NotNull
+	public Book getBook() {
+		return this.book;
+	}
+
+	public void setBook(final Book book) {
+		this.book = book;
 	}
 
 }

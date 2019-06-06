@@ -8,8 +8,11 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.Index;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
@@ -23,9 +26,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Access(AccessType.PROPERTY)
-//@Table(indexes = {
-//	@Index(columnList = "sender")
-//})
+@Table(indexes = {
+	@Index(columnList = "sender")
+})
 public class Message extends DomainEntity {
 
 	private Date					moment;
@@ -84,6 +87,7 @@ public class Message extends DomainEntity {
 	}
 
 	@NotBlank
+	@Lob
 	@SafeHtml
 	public String getBody() {
 		return this.body;
@@ -112,7 +116,7 @@ public class Message extends DomainEntity {
 		this.messageBoxes = messageBoxes;
 	}
 
-	@Pattern(regexp = "^(HIGH|MEDIUM|LOW)$")
+	@Pattern(regexp = "^(HIGH|NEUTRAL|LOW)$")
 	@NotBlank
 	@SafeHtml
 	public String getPriority() {
